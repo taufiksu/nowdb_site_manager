@@ -14,13 +14,13 @@
     </div>
 </div>
 <script>
-    var settings_menu_top = {
+    var settings_menu_bottom = {
         "async": true,
         "crossDomain": true,
         "url": "http://io.nowdb.net/v2/select_where" +
         "/token/" + token +
         "/project/" + project +
-        "/collection/menu_top" +
+        "/collection/menu_bottom" +
         "/appid/" + appid +
         "/where_field/parent_id" +
         "/where_value/0",
@@ -30,8 +30,8 @@
         }
     }
 
-    $.ajax(settings_menu_top).done(function (response_menu_top) {
-        $.each(response_menu_top, function (key, value) {
+    $.ajax(settings_menu_bottom).done(function (response_menu_bottom) {
+        $.each(response_menu_bottom, function (key, value) {
             $("#menu-bottom-list").append('<a class="list-group-item pjax">' +
                 '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
                 '</a>');
