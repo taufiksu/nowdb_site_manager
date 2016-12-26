@@ -70,10 +70,10 @@
         "url": "http://io.nowdb.net/v2/select_where" +
         "/token/" + token +
         "/project/" + project +
-        "/collection/menu_right" +
+        "/collection/menu" +
         "/appid/" + appid +
-        "/where_field/parent_id" +
-        "/where_value/0",
+        "/where_field/parent_idANDposition" +
+        "/where_value/0AND3",
         "method": "GET",
         "headers": {
             "cache-control": "no-cache"
@@ -91,7 +91,7 @@
         var form_menu_right = new FormData();
         form_menu_right.append("token", token);
         form_menu_right.append("project", project);
-        form_menu_right.append("collection", "menu_right");
+        form_menu_right.append("collection", "menu");
         form_menu_right.append("appid", appid);
         form_menu_right.append("user_id", getUserInfo().user_id);
         form_menu_right.append("parent_id", $('#parent_id').val());
@@ -100,6 +100,7 @@
         form_menu_right.append("clickable", $('#clickable').val());
         form_menu_right.append("hardlink", $('#hardlink').val());
         form_menu_right.append("lang", $('#lang').val());
+        form_menu_right.append("position", '3');
 
         var settings_menu_right = {
             "async": true,
