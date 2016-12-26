@@ -2,7 +2,7 @@
     <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">Menu Kiri</h3>
         <div class="btn-group pull-right">
-            <a class="btn btn-primary" href="javascript:void(0)">
+            <a class="btn btn-primary" href="javascript:void(0)" id="btn-menu-left-add">
                 <i class="fa fa-plus"></i>
                 <span>Tambah</span>
             </a>
@@ -36,5 +36,39 @@
                 '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
                 '</a>');
         })
+    });
+
+    $('#btn-menu-left-add').click(function () {
+        $("#content-right").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-right").append(response_home_weather);
+
+            var menu_left_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_left_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_left_form_add).done(function (response_menu_left_form_add) {
+                $("#content-right").append(response_menu_left_form_add);
+            });
+        });
+
+        return false;
     });
 </script>
