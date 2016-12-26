@@ -41,4 +41,38 @@
                 '</a>');
         });
     });
+
+    $('#btn-menu-bottom-add').click(function () {
+        $("#content-right").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-right").append(response_home_weather);
+
+            var menu_bottom_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_bottom_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_bottom_form_add).done(function (response_menu_bottom_form_add) {
+                $("#content-right").append(response_menu_bottom_form_add);
+            });
+        });
+
+        return false;
+    });
 </script>
