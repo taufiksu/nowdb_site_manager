@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Site Manager</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="google" value="notranslate">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="img/favicon.ico"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/bootcards-desktop.min.css" type="text/css"/>
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootcards.js"></script>
+        <script src="js/fastclick.min.js"></script>
+        <script src="js/raphael-min.js"></script>
+        <script src="js/morris.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/helper.js"></script>
+    </head>
+
+    <body>
+        <!--Menu Top-->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="menu-top"></div>
+
+        <!--Content-->
+        <div class="container bootcards-container push-right">
+            <div class="row">
+                <div class="col-sm-6 bootcards-cards" id="content-left"></div>
+                <div class="col-sm-6 bootcards-cards" id="content-right"></div>
+            </div>
+        </div>
+
+        <!--Footer & Navigation Bottom(Mobile)-->
+        <div class="navbar navbar-default navbar-fixed-bottom" id="menu-bottom"></div>
+
+        <script type="text/javascript">
+            loginCheck();
+
+            bootcards.init({
+                offCanvasBackdrop: true,
+                offCanvasHideOnMainClick: true,
+                enableTabletPortraitMode: true,
+                disableRubberBanding: true,
+                disableBreakoutSelector: 'a.no-break-out'
+            });
+
+            isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            $('#menu-top').load("home_menu_top.html", function () {
+                if (isMobile) {
+                    $('#navbar-top').css("padding-right", "50px");
+                } else {
+                    $('#navbar-top').css("padding-right", "0px");
+                }
+                $('#menu-bottom').load("home_menu_bottom.html");
+            });
+
+            window.addEventListener('load', function () {
+                FastClick.attach(document.body);
+            }, false);
+
+            var home_welcome = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_welcome.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_welcome).done(function (response_home_welcome) {
+                $("#content-left").append(response_home_welcome);
+            });
+
+            var home_weather = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_weather.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_weather).done(function (response_home_weather) {
+                $("#content-right").append(response_home_weather);
+            });
+        </script>
+    </body>
+</html>

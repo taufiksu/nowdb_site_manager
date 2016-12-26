@@ -1,0 +1,180 @@
+<style type="text/css">
+    .color-active {
+        color: #2e6da4;
+    }
+</style>
+<div class="container">
+    <!--Menu Icon(Desktop)-->
+    <div class="navbar-header pull-right">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Menu</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+
+    <!--Title(Desktop)-->
+
+    <img src="img/favicon.ico" style="height: 45px;width: 41px; float: left;padding: 10px 5px 5px 5px;">
+    <a class="navbar-brand" title="Electrionic Lettter">Site Manager</a>
+
+    <!--Menu Top(Desktop)-->
+    <div class="navbar-collapse collapse pull-right" id="navbar-top" style="text-align: left">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-home" class="menu-top">
+                    <i class="fa fa-home"></i> Beranda
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-article" class="menu-top">
+                    <i class="fa fa-newspaper-o"></i> Artikel
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-menu" class="menu-top">
+                    <i class="fa fa-sitemap"></i> Menu
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-gallery" class="menu-top">
+                    <i class="fa fa-image"></i> Galeri
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-slideshow" class="menu-top">
+                    <i class="fa fa-clone"></i> Slide Show
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-link" class="menu-top">
+                    <i class="fa fa-link"></i> Tautan
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-settings" class="menu-top">
+                    <i class="fa fa-cogs"></i> Pengaturan
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    $('#menu-top-gallery').click(function () {
+        $(".menu-top").css("color", "#777777");
+        $("#menu-top-gallery").css("color", "#337AB7");
+
+        $("#content-right").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-right").append(response_home_weather);
+
+            var gallery_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "gallery_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(gallery_form_add).done(function (response_gallery_form_add) {
+                $("#content-right").append(response_gallery_form_add);
+            });
+        });
+
+        return false;
+    });
+
+    $('#menu-top-menu').click(function () {
+        $(".menu-top").css("color", "#777777");
+        $("#menu-top-menu").css("color", "#337AB7");
+
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-right").append(response_home_weather);
+
+            var menu_top_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_top_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_top_form_add).done(function (response_menu_top_form_add) {
+                $("#content-right").append(response_menu_top_form_add);
+            });
+
+            var menu_top_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_top_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_top_list).done(function (response_menu_top_list) {
+                $("#content-left").append(response_menu_top_list);
+            });
+
+            var menu_bottom_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_bottom_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
+                $("#content-left").append(response_menu_bottom_list);
+            });
+
+            var menu_right_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_right_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_right_list).done(function (response_menu_right_list) {
+                $("#content-left").append(response_menu_right_list);
+            });
+        });
+
+        return false;
+    });
+</script>

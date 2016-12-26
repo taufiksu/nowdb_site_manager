@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Menu Kanan</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-primary" href="javascript:void(0)">
+                <i class="fa fa-plus"></i>
+                <span>Tambah</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group" id="menu-right-list"></div>
+    <div class="panel-footer">
+        <small class="pull-left">Klik menu utama untuk menampilkan sub menu</small>
+    </div>
+</div>
+<script>
+    var settings_menu_right = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://io.nowdb.net/v2/select_where" +
+        "/token/" + token +
+        "/project/" + project +
+        "/collection/menu_top" +
+        "/appid/" + appid +
+        "/where_field/parent_id" +
+        "/where_value/0",
+        "method": "GET",
+        "headers": {
+            "cache-control": "no-cache"
+        }
+    }
+
+    $.ajax(settings_menu_right).done(function (response_menu_right) {
+        $.each(response_menu_right, function (key, value) {
+            $("#menu-right-list").append('<a class="list-group-item pjax">' +
+                '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
+                '</a>');
+        })
+    });
+</script>
