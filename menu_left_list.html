@@ -32,7 +32,7 @@
 
     $.ajax(settings_menu_left).done(function (response_menu_left) {
         $.each(response_menu_left, function (key, value) {
-            $("#menu-left-list").append('<a class="list-group-item pjax">' +
+            $("#menu-left-list").append('<a class="list-group-item" id="btn-list-left" data-id="' + value.id + '" data-title="' + value.title + '">' +
                 '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
                 '</a>');
         })
@@ -67,6 +67,30 @@
             $.ajax(menu_left_form_add).done(function (response_menu_left_form_add) {
                 $("#content-right").append(response_menu_left_form_add);
             });
+        });
+
+        return false;
+    });
+
+    $(document).off('click', '#btn-list-left').on('click', '#btn-list-left', function () {
+        var id = $(this).attr('data-id');
+        var title = $(this).attr('data-title');
+
+        $('#content-left').empty();
+
+        var menu_left_list_sub = {
+            "async": true,
+            "crossDomain": true,
+            "url": "menu_left_list_sub.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(menu_left_list_sub).done(function (response_menu_left_list_sub) {
+            $("#content-left").append('<div class="panel panel-default" id="menu-left-sub-container" data-id="' + id + '" data-title="' + title + '"></div>');
+            $("#menu-left-sub-container").append(response_menu_left_list_sub);
         });
 
         return false;

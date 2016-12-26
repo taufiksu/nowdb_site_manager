@@ -1,6 +1,12 @@
 <div class="panel panel-default" style="margin-top: 10px;">
     <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">Input Menu Atas</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitMenuTop">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
     </div>
     <div class="list-group">
         <div class="list-group-item">
@@ -56,11 +62,6 @@
             </div>
         </div>
     </div>
-    <div class="panel-footer">
-        <button class="btn btn-primary btn-block" id="doSubmitMenuTop">
-            <i class="fa fa-plus-square"></i> Simpan
-        </button>
-    </div>
 </div>
 <script>
     // Load Main Menu
@@ -82,7 +83,7 @@
 
     $.ajax(settings_menu_top).done(function (response_menu_top) {
         $.each(response_menu_top, function (key, value) {
-            $("#parent_id").append('<option value="value.id">' + value.title + '</option>');
+            $("#parent_id").append('<option value="' + value.id + '">' + value.title + '</option>');
         })
     });
 

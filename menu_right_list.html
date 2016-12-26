@@ -32,7 +32,7 @@
 
     $.ajax(settings_menu_right).done(function (response_menu_right) {
         $.each(response_menu_right, function (key, value) {
-            $("#menu-right-list").append('<a class="list-group-item pjax">' +
+            $("#menu-right-list").append('<a class="list-group-item" id="btn-list-right" data-id="' + value.id + '" data-title="' + value.title + '">' +
                 '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
                 '</a>');
         })
@@ -67,6 +67,30 @@
             $.ajax(menu_right_form_add).done(function (response_menu_right_form_add) {
                 $("#content-right").append(response_menu_right_form_add);
             });
+        });
+
+        return false;
+    });
+
+    $(document).off('click', '#btn-list-right').on('click', '#btn-list-right', function () {
+        var id = $(this).attr('data-id');
+        var title = $(this).attr('data-title');
+
+        $('#content-left').empty();
+
+        var menu_right_list_sub = {
+            "async": true,
+            "crossDomain": true,
+            "url": "menu_right_list_sub.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(menu_right_list_sub).done(function (response_menu_right_list_sub) {
+            $("#content-left").append('<div class="panel panel-default" id="menu-right-sub-container" data-id="' + id + '" data-title="' + title + '"></div>');
+            $("#menu-right-sub-container").append(response_menu_right_list_sub);
         });
 
         return false;

@@ -1,0 +1,44 @@
+<div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left" id="header-title"></h3>
+    <div class="btn-group pull-right">
+        <a class="btn btn-warning" href="javascript:void(0)" id="btn-menu-bottom-edit">
+            <i class="fa fa-pencil"></i>
+            <span>Edit</span>
+        </a>
+        <a class="btn btn-primary" href="javascript:void(0)" id="btn-menu-bottom-add">
+            <i class="fa fa-plus"></i>
+            <span>Tambah</span>
+        </a>
+    </div>
+</div>
+<div class="list-group" id="menu-bottom-list-sub"></div>
+<div class="panel-footer">
+    <small class="pull-left">Klik menu untuk edit</small>
+</div>
+<script>
+    $('#header-title').html($('#menu-bottom-sub-container').attr('data-title'));
+
+    var settings_menu_bottom_sub = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://io.nowdb.net/v2/select_where" +
+        "/token/" + token +
+        "/project/" + project +
+        "/collection/menu" +
+        "/appid/" + appid +
+        "/where_field/parent_id" +
+        "/where_value/" + $('#menu-bottom-sub-container').attr('data-id'),
+        "method": "GET",
+        "headers": {
+            "cache-control": "no-cache"
+        }
+    }
+
+    $.ajax(settings_menu_bottom_sub).done(function (response_menu_bottom_sub) {
+        $.each(response_menu_bottom_sub, function (key, value) {
+            $("#menu-bottom-list-sub").append('<a class="list-group-item">' +
+                '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
+                '</a>');
+        });
+    });
+</script>
