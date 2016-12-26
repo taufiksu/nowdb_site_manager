@@ -1,6 +1,6 @@
-var token = '5833065a1f6d046969601eb0';
-var appid = '585e04861f6d046c0cb28a97';
-var project = 'dss_site';
+var token = '';
+var appid = '';
+var project = '';
 
 // var signature = res.responseJSON[0].tkn;
 // var domain = res.responseJSON[0].domain;
