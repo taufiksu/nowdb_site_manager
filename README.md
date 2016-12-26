@@ -26,7 +26,7 @@ menu
     - parent_id
     - title
     - active
-    - clieckable
+    - clickable
     - hardlink
     - lang
     - position
