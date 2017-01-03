@@ -22,37 +22,44 @@
     <div class="navbar-collapse collapse pull-right" id="navbar-top" style="text-align: left">
         <ul class="nav navbar-nav">
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-home" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-home"
+                   class="menu-top">
                     <i class="fa fa-home"></i> Beranda
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-article" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-article"
+                   class="menu-top">
                     <i class="fa fa-newspaper-o"></i> Artikel
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-menu" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-menu"
+                   class="menu-top">
                     <i class="fa fa-sitemap"></i> Menu
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-gallery" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-gallery"
+                   class="menu-top">
                     <i class="fa fa-image"></i> Galeri
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-slideshow" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-slideshow"
+                   class="menu-top">
                     <i class="fa fa-clone"></i> Slide Show
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-link" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-link"
+                   class="menu-top">
                     <i class="fa fa-link"></i> Tautan
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-settings" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-settings"
+                   class="menu-top">
                     <i class="fa fa-cogs"></i> Pengaturan
                 </a>
             </li>
@@ -191,6 +198,46 @@
 
             $.ajax(gallery_form_add).done(function (response_gallery_form_add) {
                 $("#content-right").append(response_gallery_form_add);
+            });
+        });
+
+        return false;
+    });
+
+    /*
+     * Access Article Manager
+     */
+    $('#menu-top-article').click(function () {
+        $(".menu-top").css('color', '#777777');
+        $("#menu-top-article").css('color', '#337AB7');
+
+        $("#content-right").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-right").append(response_home_weather);
+
+            var article_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "article_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(article_form_add).done(function (response_article_form_add) {
+                $("#content-right").append(response_article_form_add);
             });
         });
 
