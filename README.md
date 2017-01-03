@@ -30,6 +30,21 @@ menu
     - hardlink
     - lang
     - position
+article
+    - user_id
+    - user_name
+    - title
+    - description
+    - status
+    - comment
+    - lang
+    - date
+article_image
+    - article_id
+    - user_id
+    - title
+    - file
+    - date
 ```
 
 ### API
