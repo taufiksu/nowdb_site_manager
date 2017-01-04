@@ -2,11 +2,115 @@
     <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">Input Artikel</h3>
         <div class="btn-group pull-right">
-            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitMenuBottom">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitArticle">
                 <i class="fa fa-floppy-o"></i>
-                <span>Simpan</span>
+                <span>Siapkan</span>
             </a>
         </div>
     </div>
-
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title" id="title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Bahasa</label>
+            <div class="list-group-item-heading">
+                <select name="lang" id="lang" class="form-control">
+                    <option value="id">Indonesia</option>
+                    <option value="en">English</option>
+                    <option value="de">German</option>
+                    <option value="ja">Japan</option>
+                    <option value="zh">Chinese</option>
+                    <option value="zh-Hans">Chinese (Simplified)</option>
+                    <option value="zh-Hant">Chinese (Traditional)</option>
+                </select>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    $('#doSubmitArticle').click(function () {
+        var date = new Date();
+        var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+        var form_article = new FormData();
+        form_article.append("token", token);
+        form_article.append("project", project);
+        form_article.append("collection", "article");
+        form_article.append("appid", appid);
+        form_article.append("user_id", getUserInfo().user_id);
+        form_article.append("user_name", getUserInfo().name);
+        form_article.append("title", $('#title').val());
+        form_article.append("description", '');
+        form_article.append("status", 0);
+        form_article.append("comment", 0);
+        form_article.append("lang", $('#lang').val());
+        form_article.append("cover", 0);
+        form_article.append("date", today);
+
+        var settings_article = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/insert",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_article
+        }
+
+        $.ajax(settings_article).done(function (response_article) {
+            $("#content-right").empty();
+            $("#content-left").empty();
+
+            var home_weather = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_weather.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_weather).done(function (response_home_weather) {
+                $("#content-right").append(response_home_weather);
+
+                var article_form_add = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "article_form_add.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(article_form_add).done(function (response_article_form_add) {
+                    $("#content-right").append(response_article_form_add);
+                });
+
+                var article_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "article_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(article_list).done(function (response_article_list) {
+                    $("#content-left").append(response_article_list);
+                });
+            });
+        });
+        return false;
+    });
+</script>

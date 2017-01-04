@@ -38,6 +38,7 @@ article
     - status
     - comment
     - lang
+    - cover
     - date
 article_image
     - article_id

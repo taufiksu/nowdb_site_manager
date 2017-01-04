@@ -212,6 +212,7 @@
         $("#menu-top-article").css('color', '#337AB7');
 
         $("#content-right").empty();
+        $("#content-left").empty();
 
         var home_weather = {
             "async": true,
@@ -238,6 +239,20 @@
 
             $.ajax(article_form_add).done(function (response_article_form_add) {
                 $("#content-right").append(response_article_form_add);
+            });
+
+            var article_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "article_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(article_list).done(function (response_article_list) {
+                $("#content-left").append(response_article_list);
             });
         });
 
