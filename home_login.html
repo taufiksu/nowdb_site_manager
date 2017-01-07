@@ -29,8 +29,9 @@
         <!--Content-->
         <div class="container bootcards-container push-right">
             <div class="row">
-                <div class="col-sm-6 bootcards-cards" id="content-left"></div>
-                <div class="col-sm-6 bootcards-cards" id="content-right"></div>
+                <div class="col-sm-4 bootcards-cards"></div>
+                <div class="col-sm-4 bootcards-cards" id="content-right"></div>
+                <div class="col-sm-4 bootcards-cards"></div>
             </div>
         </div>
 
@@ -60,34 +61,6 @@
             window.addEventListener('load', function () {
                 FastClick.attach(document.body);
             }, false);
-
-            var home_welcome = {
-                "async": true,
-                "crossDomain": true,
-                "url": "home_welcome.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(home_welcome).done(function (response_home_welcome) {
-                $("#content-left").append(response_home_welcome);
-            });
-
-            var home_weather = {
-                "async": true,
-                "crossDomain": true,
-                "url": "home_weather.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(home_weather).done(function (response_home_weather) {
-                $("#content-right").append(response_home_weather);
-            });
 
             var home_login_form = {
                 "async": true,

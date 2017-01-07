@@ -30,6 +30,15 @@ menu
     - hardlink
     - lang
     - position
+menu_page
+    - user_id
+    - menu_id
+    - menu_name
+    - menu_position
+    - content_id
+    - content_title
+    - content_type
+    - date
 article
     - user_id
     - user_name
@@ -46,6 +55,9 @@ article_image
     - title
     - file
     - date
+article_label
+    - article_id
+    - label
 ```
 
 ### API

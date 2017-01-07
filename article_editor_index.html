@@ -1,10 +1,647 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Site Manager</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="google" value="notranslate">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="img/favicon.ico"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/bootcards-desktop.min.css" type="text/css"/>
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootcards.js"></script>
+        <script src="js/fastclick.min.js"></script>
+        <script src="js/raphael-min.js"></script>
+        <script src="js/morris.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/helper.js"></script>
+    </head>
 
-</body>
+    <body>
+        <!--Menu Top-->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="menu-top">
+            <div class="container">
+                <!--Title(Desktop)-->
+                <img src="img/favicon.ico" style="height: 45px;width: 41px; float: left;padding: 10px 5px 5px 5px;">
+                <a class="navbar-brand" title="Electrionic Lettter">Site Manager</a>
+            </div>
+        </div>
+
+        <!--Content-->
+        <div class="container bootcards-container push-right">
+            <div class="row">
+                <div class="col-sm-8 bootcards-cards" id="content-left">
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">Edit Artikel</h3>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-success" href="javascript:void(0)" id="doUpdateArticle">
+                                    <i class="fa fa-floppy-o"></i>
+                                    <span>Simpan</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <label class="list-group-item-text">Judul</label>
+                                <div class="list-group-item-heading">
+                                    <input type="text" name="title" id="title" class="form-control">
+                                </div>
+                            </div>
+                            <div class="list-group-item" style="border: 0px;">
+                                <label class="list-group-item-text">Deskripsi</label>
+                                <div class="list-group-item-heading">
+                                    <textarea class="ckeditor" id="description" name="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">Daftar Gambar</h3>
+                            <div class="btn-group pull-right"></div>
+                        </div>
+                        <div class="row" style="padding: 10px;">
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="http://file.nowdb.net/5833065a1f6d046969601eb0_585e02ef1f6d046a0cb28a96_9a7YgPQZH86LqQR5KRn2LTuH.png" style="padding: 10px;">
+                                    <div class="caption">
+                                        <p>Title</p>
+                                        <p>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-xs" role="button" style="width: 100%;"><i class="fa fa-trash"></i> Hapus</a>
+                                            <a href="javascript:void(0)" class="btn btn-primary btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-image"></i> Set Cover</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 bootcards-cards" id="content-right">
+                    <!--Label-->
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">Input Label</h3>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-success" href="javascript:void(0)" id="doSubmitArticleLabel">
+                                    <i class="fa fa-floppy-o"></i>
+                                    <span>Simpan</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <label class="list-group-item-text">Label</label>
+                                <div class="list-group-item-heading">
+                                    <input type="text" name="label" id="label" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="article-label-list" style="margin: 0px 15px 15px 15px;"></div>
+                    </div>
+
+                    <!--Menu-->
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">Input Menu</h3>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-success" href="javascript:void(0)" id="doSubmitArticleMenu">
+                                    <i class="fa fa-floppy-o"></i>
+                                    <span>Simpan</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <label class="list-group-item-text">Posisi</label>
+                                <div class="list-group-item-heading">
+                                    <select class="form-control" id="position">
+                                        <option value="0">-- Pilih Posisi --</option>
+                                        <option value="1">Atas</option>
+                                        <option value="2">Bawah</option>
+                                        <option value="3">Kanan</option>
+                                        <option value="4">Kiri</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="list-group-item" style="border: 0px;">
+                                <label class="list-group-item-text">Menu</label>
+                                <div class="list-group-item-heading">
+                                    <select class="form-control" id="menu-id"></select>
+                                </div>
+                            </div>
+                            <input type="hidden" id="menu-name">
+                        </div>
+                        <div id="article-menu-list" style="margin: 0px 15px 15px 15px;"></div>
+                    </div>
+
+                    <!--Upload Picture-->
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">Unggah Gambar</h3>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-success" href="javascript:void(0)" id="doUploadPicture">
+                                    <i class="fa fa-upload"></i>
+                                    <span>Unggah</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <label class="list-group-item-text">Judul</label>
+                                <div class="list-group-item-heading">
+                                    <input type="text" name="pic_title" id="pic_title" class="form-control">
+                                </div>
+                            </div>
+                            <div class="list-group-item" style="border: 0px;">
+                                <label class="list-group-item-text">Berkas PNG/JPG</label>
+                                <div class="list-group-item-heading">
+                                    <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+                                </div>
+                            </div>
+                            <span id="span-info" style="margin: 10px 10px 20px 15px;padding-bottom: 10px;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer & Navigation Bottom(Mobile)-->
+        <div class="navbar navbar-default navbar-fixed-bottom" id="menu-bottom">
+            <div class="container">
+                <div class="bootcards-desktop-footer clearfix">
+                    <p class="pull-left">2016 &copy; Site Manager Powered by NowDB</p>
+                </div>
+                <div class="btn-group">
+                    <a href="javascript:void(0)" class="btn btn-default">
+                        <i class="fa fa-2x fa-bars"></i>Menu 1
+                    </a>
+                    <a href="javascript:void(0)" class="btn btn-default active">
+                        <i class="fa fa-2x fa-bars"></i>Menu 2
+                    </a>
+                    <a href="javascript:void(0)" class="btn btn-default">
+                        <i class="fa fa-2x fa-bars"></i>Menu 3
+                    </a>
+                    <a href="javascript:void(0)" class="btn btn-default">
+                        <i class="fa fa-2x fa-bars"></i>Menu 4
+                    </a>
+                    <a href="javascript:void(0)" class="btn btn-default">
+                        <i class="fa fa-2x fa-bars"></i>Menu 5
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script src="plugin/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript">
+            loginCheck();
+
+            bootcards.init({
+                offCanvasBackdrop: true,
+                offCanvasHideOnMainClick: true,
+                enableTabletPortraitMode: true,
+                disableRubberBanding: true,
+                disableBreakoutSelector: 'a.no-break-out'
+            });
+
+            isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            window.addEventListener('load', function () {
+                FastClick.attach(document.body);
+            }, false);
+
+            CKEDITOR.replace('description', {
+                height: 400,
+                language: 'id',
+                toolbarGroups: [
+                    {"name": "basicstyles", "groups": ["basicstyles"]},
+                    {"name": "links", "groups": ["links"]},
+                    {"name": "paragraph", "groups": ["list", "blocks"]},
+                    {"name": "insert", "groups": ["insert"]},
+                    {"name": "styles", "groups": ["styles"]}
+                ]
+            });
+
+            CKEDITOR.on("instanceReady", function (event) {
+                article_detail();
+            });
+
+            function article_detail() {
+                var settings_article = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_id" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/article" +
+                    "/appid/" + appid +
+                    "/id/" + getParamValue('id'),
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_article).done(function (article) {
+                    $('#title').val(article[0].title);
+                    CKEDITOR.instances.description.setData(article[0].description);
+                });
+            }
+
+            article_detail();
+
+            $('#doUpdateArticle').click(function () {
+                for (instance in CKEDITOR.instances) {
+                    CKEDITOR.instances[instance].updateElement();
+                }
+
+                var form_article_update = new FormData();
+                form_article_update.append("token", token);
+                form_article_update.append("project", project);
+                form_article_update.append("collection", "article");
+                form_article_update.append("appid", appid);
+                form_article_update.append("title", $('#title').val());
+                form_article_update.append("description", $('#description').val());
+                form_article_update.append("id", getParamValue('id'));
+
+                var settings_article_update = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/update_id",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form_article_update
+                }
+
+                $.ajax(settings_article_update).done(function (article_update) {
+
+                });
+                return false;
+            });
+
+            /*
+             * Article Label
+             */
+
+            $('#doSubmitArticleLabel').click(function () {
+                var form_article_label = new FormData();
+                form_article_label.append("token", token);
+                form_article_label.append("project", project);
+                form_article_label.append("collection", "article_label");
+                form_article_label.append("appid", appid);
+                form_article_label.append("article_id", getParamValue('id'));
+                form_article_label.append("label", $('#label').val());
+
+                var settings_article_label = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/insert",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form_article_label
+                }
+
+                $.ajax(settings_article_label).done(function (article_label) {
+                    article_label_list();
+                });
+                return false;
+            });
+
+            function article_label_list() {
+                var settings_article_label = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_where" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/article_label" +
+                    "/appid/" + appid +
+                    "/where_field/article_id" +
+                    "/where_value/" + getParamValue('id'),
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_article_label).done(function (response_article_label) {
+                    $('#article-label-list').empty();
+                    $.each(response_article_label, function (key, value) {
+                        $('#article-label-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                            '<a class="btn btn-primary btn-xs"><i class="fa fa-tag"></i>' + value.label + '</a>' +
+                            '<a class="btn btn-danger btn-xs" id="btn-remove-article-label" data-id="' + value.id + '">X</a>' +
+                            '</div>');
+                    });
+                });
+            }
+
+            article_label_list();
+
+            $(document).off('click', '#btn-remove-article-label').on('click', '#btn-remove-article-label', function () {
+                var id = $(this).attr('data-id');
+
+                var settings_article_label_remove = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/remove_id" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/article_label" +
+                    "/appid/" + appid +
+                    "/id/" + id,
+                    "method": "DELETE",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+                $.ajax(settings_article_label_remove).done(function (response_article_label_remove) {
+                    article_label_list();
+                });
+
+                return false;
+            });
+
+            /*
+             * Article Menu
+             */
+            $('#position').change(function () {
+                var position = $(this).val();
+
+                var settings_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_where" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/menu" +
+                    "/appid/" + appid +
+                    "/where_field/position" +
+                    "/where_value/" + position,
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_menu).done(function (response_menu) {
+                    $('#menu-id').empty();
+                    $('#menu-id').append('<option value="0">-- Pilih Menu --</option>');
+                    $.each(response_menu, function (key, value) {
+                        $('#menu-id').append('<option value="' + value.id + '" data-name="' + value.title + '">' + value.title + '</option>');
+                    })
+                });
+                return false;
+            });
+
+            $(document).off('change', '#menu-id').on('change', '#menu-id', function () {
+                var menu_name = $(this).find(':selected').attr('data-name');
+                $('#menu-name').val(menu_name);
+                return false;
+            });
+
+            $('#doSubmitArticleMenu').click(function () {
+                var date = new Date();
+                var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+                var form_article_menu = new FormData();
+                form_article_menu.append("token", token);
+                form_article_menu.append("project", project);
+                form_article_menu.append("collection", "menu_page");
+                form_article_menu.append("appid", appid);
+                form_article_menu.append("user_id", getUserInfo().user_id);
+                form_article_menu.append("menu_id", $('#menu-id').val());
+                form_article_menu.append("menu_name", $('#menu-name').val());
+                form_article_menu.append("menu_position", $('#position').val());
+                form_article_menu.append("content_id", getParamValue('id'));
+                form_article_menu.append("content_title", $('#title').val());
+                form_article_menu.append("content_type", 1);//1=article
+                form_article_menu.append("date", today);
+
+
+                var settings_article_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/insert",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form_article_menu
+                }
+
+                $.ajax(settings_article_menu).done(function (response_article_menu) {
+                    article_menu_list();
+                });
+                return false;
+            });
+
+            function article_menu_list() {
+                var settings_article_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_where" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/menu_page" +
+                    "/appid/" + appid +
+                    "/where_field/content_id" +
+                    "/where_value/" + getParamValue('id'),
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_article_menu).done(function (response_article_menu) {
+                    $('#article-menu-list').empty();
+                    $.each(response_article_menu, function (key, value) {
+                        if (value.menu_position == 1) {
+                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                '<a class="btn btn-primary btn-xs">Atas : ' + value.menu_name + '</a>' +
+                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                '</div>');
+                        } else if (value.menu_position == 2) {
+                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                '<a class="btn btn-primary btn-xs">Bawah : ' + value.menu_name + '</a>' +
+                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                '</div>');
+                        } else if (value.menu_position == 3) {
+                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                '<a class="btn btn-primary btn-xs">Kanan : ' + value.menu_name + '</a>' +
+                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                '</div>');
+                        } else if (value.menu_position == 4) {
+                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                '<a class="btn btn-primary btn-xs">Kiri : ' + value.menu_name + '</a>' +
+                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                '</div>');
+                        }
+                    });
+                });
+            }
+
+            article_menu_list();
+
+            $(document).off('click', '#btn-remove-article-menu').on('click', '#btn-remove-article-menu', function () {
+                var id = $(this).attr('data-id');
+
+                var settings_article_menu_remove = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/remove_id" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/menu_page" +
+                    "/appid/" + appid +
+                    "/id/" + id,
+                    "method": "DELETE",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+                $.ajax(settings_article_menu_remove).done(function (response_article_menu_remove) {
+                    article_menu_list();
+                });
+
+                return false;
+            });
+
+            /*
+             * Gambar
+             */
+
+            $('#doUploadPicture').attr('disabled');
+
+            function supportAjaxUploadWithProgress() {
+                return supportFileAPI() && supportAjaxUploadProgressEvents() && supportFormData();
+                // Is the File API supported?
+                function supportFileAPI() {
+                    var fi = document.createElement('INPUT');
+                    fi.type = 'file';
+                    return 'files' in fi;
+                }
+
+                // Are progress events supported?
+                function supportAjaxUploadProgressEvents() {
+                    var xhr = new XMLHttpRequest();
+                    return !!(xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+                }
+
+                // Is FormData supported?
+                function supportFormData() {
+                    return !!window.FormData;
+                }
+            }
+
+            if (supportAjaxUploadWithProgress()) {
+                $('#doUploadPicture').removeAttr('disabled');
+                initFullFormAjaxUpload();
+            }
+
+            function initFullFormAjaxUpload() {
+                $('#doUploadPicture').click(function () {
+                    var formData = new (FormData);
+                    formData.append("token", token);
+                    formData.append("project", project);
+                    // formData.append("fileToUpload", $('input[type=file]')[0].files[0]);
+                    formData.append("fileToUpload", $('#fileToUpload')[0].files[0]);
+
+                    var action = 'http://io.nowdb.net/files/uploader';
+
+                    sendXHRequest(formData, action);
+                    return false;
+                });
+            }
+
+            function sendXHRequest(formData, uri) {
+                $('#doUploadPicture').hide();
+                $('#span-info').show();
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener('loadstart', onloadstartHandler, false);
+                xhr.upload.addEventListener('progress', onprogressHandler, false);
+                xhr.upload.addEventListener('load', onloadHandler, false);
+                xhr.addEventListener('readystatechange', onreadystatechangeHandler, false);// Set up request
+                xhr.open('POST', uri, true);
+                xhr.send(formData);
+            }
+
+            function onloadstartHandler() {
+                var spaninfo = document.getElementById('span-info');
+                spaninfo.innerHTML = "Starting Process";
+            }
+
+            function onloadHandler() {
+                var spaninfo = document.getElementById('span-info');
+                spaninfo.innerHTML = "Finishing Process";
+            }
+
+            function onprogressHandler(callback) {
+                var spaninfo = document.getElementById('span-info');
+                var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
+                spaninfo.innerHTML = percent + " % Process";
+            }
+
+            function onreadystatechangeHandler(callback) {
+                $('#doUploadPicture').show();
+                if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
+                    var spaninfo = document.getElementById('span-info');
+                    spaninfo.innerHTML = "Processing Database";
+
+                    var obj = $.parseJSON(callback.target.responseText);
+                    var file = obj['filename'];
+
+                    var date = new Date();
+                    var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+                    var form_article_image = new FormData();
+                    form_article_image.append("token", token);
+                    form_article_image.append("project", project);
+                    form_article_image.append("collection", "article_image");
+                    form_article_image.append("appid", appid);
+                    form_article_image.append("user_id", getUserInfo().user_id);
+                    form_article_image.append("article_id", getParamValue('id'));
+                    form_article_image.append("title", $("#pic_title").val());
+                    form_article_image.append("file", file);
+                    form_article_image.append("date", today);
+
+                    var settings_article_image = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/insert",
+                        "method": "POST",
+                        "headers": {
+                            "cache-control": "no-cache",
+                        },
+                        "processData": false,
+                        "contentType": false,
+                        "mimeType": "multipart/form-data",
+                        "data": form_article_image
+                    }
+
+                    $.ajax(settings_article_image).done(function (response_article_image) {
+                        $('#span-info').html('');
+                    });
+                }
+            }
+        </script>
+    </body>
 </html>
