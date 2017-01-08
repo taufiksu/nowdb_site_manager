@@ -58,6 +58,15 @@ article_image
 article_label
     - article_id
     - label
+link
+    - user_id
+    - title
+    - uri
+    - target
+    - date
+service
+category
+
 ```
 
 ### API
