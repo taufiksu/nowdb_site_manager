@@ -659,8 +659,8 @@
                             '<span id="msg' + value.id + '"></span>' +
                             '<p>' +
                             '<a id="copyBtn' + value.id + '" class="btn btn-warning btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-link"></i> Link Copy</a>' +
-                            '<a class="btn btn-primary btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-image"></i> Set Cover</a>' +
-                            '<a class="btn btn-danger btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-trash"></i> Hapus</a>' +
+                            '<a id="doSetCover" data-url="' + value.file + '" class="btn btn-primary btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-image"></i> Set Cover</a>' +
+                            '<a id="doRemovePicture" data-id="' + value.id + '" class="btn btn-danger btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-trash"></i> Hapus</a>' +
                             '</p>' +
                             '<p>' + value.title + '</p>' +
                             '</div>' +
@@ -677,7 +677,6 @@
             }
 
             article_image_list();
-
 
             function copyToClipboardMsg(elem, msgElem) {
                 var succeed = copyToClipboard(elem);
@@ -745,6 +744,65 @@
                 }
                 return succeed;
             }
+
+            $(document).off('click', '#doRemovePicture').on('click', '#doRemovePicture', function () {
+                var id = $(this).attr('data-id');
+                var status = confirm("Yakin akan menghapus data ini?");
+                if (status == true) {
+                    var settings_article_image_remove = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/remove_id" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/article_image" +
+                        "/appid/" + appid +
+                        "/id/" + id,
+                        "method": "DELETE",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    }
+
+                    $.ajax(settings_article_image_remove).done(function (response_article_image_remove) {
+                        article_image_list();
+                    });
+                }
+                return false;
+            });
+
+            $(document).off('click', '#doSetCover').on('click', '#doSetCover', function () {
+                var file = $(this).attr('data-url');
+                var status = confirm("Jadikan gambar ini sebagai cover artikel?");
+                if (status == true) {
+                    var form_cover_update = new FormData();
+                    form_cover_update.append("token", token);
+                    form_cover_update.append("project", project);
+                    form_cover_update.append("collection", "article");
+                    form_cover_update.append("appid", appid);
+                    form_cover_update.append("id", getParamValue('id'));
+                    form_cover_update.append("cover", file);
+
+                    var settings_cover_update = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/update_id",
+                        "method": "POST",
+                        "headers": {
+                            "cache-control": "no-cache",
+                        },
+                        "processData": false,
+                        "contentType": false,
+                        "mimeType": "multipart/form-data",
+                        "data": form_cover_update
+                    }
+
+                    $.ajax(settings_cover_update).done(function (response_article_image_cover) {
+                        alert('Cover artikel berhasil di perbarui');
+                    });
+                }
+                return false;
+            });
         </script>
     </body>
 </html>
