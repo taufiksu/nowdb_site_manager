@@ -66,20 +66,7 @@
                             <h3 class="panel-title pull-left">Daftar Gambar</h3>
                             <div class="btn-group pull-right"></div>
                         </div>
-                        <div class="row" style="padding: 10px;">
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="http://file.nowdb.net/5833065a1f6d046969601eb0_585e02ef1f6d046a0cb28a96_9a7YgPQZH86LqQR5KRn2LTuH.png" style="padding: 10px;">
-                                    <div class="caption">
-                                        <p>Title</p>
-                                        <p>
-                                            <a href="javascript:void(0)" class="btn btn-danger btn-xs" role="button" style="width: 100%;"><i class="fa fa-trash"></i> Hapus</a>
-                                            <a href="javascript:void(0)" class="btn btn-primary btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-image"></i> Set Cover</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="row" style="padding: 10px;" id="article-image-list"></div>
                     </div>
                 </div>
 
@@ -216,6 +203,10 @@
                 FastClick.attach(document.body);
             }, false);
 
+            /*
+             * Article Label
+             */
+
             CKEDITOR.replace('description', {
                 height: 400,
                 language: 'id',
@@ -289,10 +280,6 @@
                 });
                 return false;
             });
-
-            /*
-             * Article Label
-             */
 
             $('#doSubmitArticleLabel').click(function () {
                 var form_article_label = new FormData();
@@ -380,6 +367,7 @@
             /*
              * Article Menu
              */
+
             $('#position').change(function () {
                 var position = $(this).val();
 
@@ -639,8 +627,123 @@
 
                     $.ajax(settings_article_image).done(function (response_article_image) {
                         $('#span-info').html('');
+                        article_image_list();
                     });
                 }
+            }
+
+            function article_image_list() {
+                var settings_article_image = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_where" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/article_image" +
+                    "/appid/" + appid +
+                    "/where_field/article_id" +
+                    "/where_value/" + getParamValue('id'),
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_article_image).done(function (response_article_image) {
+                    $('#article-image-list').empty();
+                    $.each(response_article_image, function (key, value) {
+                        $('#article-image-list').append('<div class="col-sm-6 col-md-4">' +
+                            '<div class="thumbnail" style="height: 385px;">' +
+                            '<div class="caption" style="padding-bottom: 0px;">' +
+                            '<input id="url' + value.id + '" type="text" value="http://file.nowdb.net/' + value.file + '" class="form-control">' +
+                            '<span id="msg' + value.id + '"></span>' +
+                            '<p>' +
+                            '<a id="copyBtn' + value.id + '" class="btn btn-warning btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-link"></i> Link Copy</a>' +
+                            '<a class="btn btn-primary btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-image"></i> Set Cover</a>' +
+                            '<a class="btn btn-danger btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-trash"></i> Hapus</a>' +
+                            '</p>' +
+                            '<p>' + value.title + '</p>' +
+                            '</div>' +
+                            '<img src="http://file.nowdb.net/' + value.file + '" style="padding: 0px 10px 10px 10px;width: 100%;">' +
+                            '</div>' +
+                            '</div>');
+
+                        $('#copyBtn' + value.id).click(function () {
+                            copyToClipboardMsg(document.getElementById("url" + value.id), "msg" + value.id);
+                            return false;
+                        });
+                    });
+                });
+            }
+
+            article_image_list();
+
+
+            function copyToClipboardMsg(elem, msgElem) {
+                var succeed = copyToClipboard(elem);
+                var msg;
+                if (!succeed) {
+                    msg = "Copy not supported or blocked.  Press Ctrl+c to copy."
+                } else {
+                    msg = "URL Copied"
+                }
+                if (typeof msgElem === "string") {
+                    msgElem = document.getElementById(msgElem);
+                }
+                msgElem.innerHTML = msg;
+                setTimeout(function () {
+                    msgElem.innerHTML = "";
+                }, 1000);
+            }
+
+            function copyToClipboard(elem) {
+                // create hidden text element, if it doesn't already exist
+                var targetId = "_hiddenCopyText_";
+                var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+                var origSelectionStart, origSelectionEnd;
+                if (isInput) {
+                    // can just use the original source element for the selection and copy
+                    target = elem;
+                    origSelectionStart = elem.selectionStart;
+                    origSelectionEnd = elem.selectionEnd;
+                } else {
+                    // must use a temporary form element for the selection and copy
+                    target = document.getElementById(targetId);
+                    if (!target) {
+                        var target = document.createElement("textarea");
+                        target.style.position = "absolute";
+                        target.style.left = "-9999px";
+                        target.style.top = "0";
+                        target.id = targetId;
+                        document.body.appendChild(target);
+                    }
+                    target.textContent = elem.textContent;
+                }
+                // select the content
+                var currentFocus = document.activeElement;
+                target.focus();
+                target.setSelectionRange(0, target.value.length);
+
+                // copy the selection
+                var succeed;
+                try {
+                    succeed = document.execCommand("copy");
+                } catch (e) {
+                    succeed = false;
+                }
+                // restore original focus
+                if (currentFocus && typeof currentFocus.focus === "function") {
+                    currentFocus.focus();
+                }
+
+                if (isInput) {
+                    // restore prior selection
+                    elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+                } else {
+                    // clear temporary content
+                    target.textContent = "";
+                }
+                return succeed;
             }
         </script>
     </body>
