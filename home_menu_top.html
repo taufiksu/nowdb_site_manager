@@ -270,6 +270,20 @@
         $.ajax(category_form).done(function (response_category_form) {
             $("#content-right").append(response_category_form);
         });
+
+        var link_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "link_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(link_form).done(function (response_link_form) {
+            $("#content-right").append(response_link_form);
+        });
         return false;
     });
 </script>

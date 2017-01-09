@@ -1,10 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+<div class="panel panel-default" style="margin-top: 10px;">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Input Tautan</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitLink">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="link_title" id="link_title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Alamat Situs</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="uri" id="uri" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Aksi</label>
+            <div class="list-group-item-heading">
+                <select id="target" name="target" class="form-control">
+                    <option value="_blank">Tab Baru</option>
+                    <option value="_self">Halaman Ini</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="link-list" style="margin: 0px 15px 15px 15px;"></div>
+</div>
+<script>
+    $(document).off('click', '#doSubmitLink').on('click', '#doSubmitLink', function () {
+        var date = new Date();
+        var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+        var form_link = new FormData();
+        form_link.append("token", token);
+        form_link.append("project", project);
+        form_link.append("collection", "link");
+        form_link.append("appid", appid);
+        form_link.append("user_id", getUserInfo().user_id);
+        form_link.append("title", $('#link_title').val());
+        form_link.append("uri", $('#uri').val());
+        form_link.append("target", $('#target').val());
+        form_link.append("date", today);
+
+        var settings_link = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/insert",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_link
+        }
+
+        $.ajax(settings_link).done(function (link) {
+            link_list();
+        });
+        return false;
+    });
+
+    function link_list() {
+        var settings_link = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/link" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(settings_link).done(function (response_link) {
+            $('#link-list').empty();
+            $.each(response_link, function (key, value) {
+                $('#link-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                    '<a class="btn btn-primary btn-xs" href="' + value.uri + '" target="_blank"><i class="fa fa-link"></i>' + value.title + '&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>' + value.uri + '</a>' +
+                    '<a class="btn btn-danger btn-xs" id="btn-remove-link" data-id="' + value.id + '">X</a>' +
+                    '</div>');
+            });
+        });
+    }
+
+    link_list();
+
+    $(document).off('click', '#btn-remove-link').on('click', '#btn-remove-link', function () {
+        var id = $(this).attr('data-id');
+        var settings_link = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/remove_id" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/link" +
+            "/appid/" + appid +
+            "/id/" + id,
+            "method": "DELETE",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(settings_link).done(function (link) {
+            link_list();
+        });
+        return false;
+    });
+</script>
