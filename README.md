@@ -58,6 +58,9 @@ article_image
 article_label
     - article_id
     - label
+article_category
+    - article_id
+    - category_title
 link
     - user_id
     - title
@@ -65,8 +68,15 @@ link
     - target
     - date
 service
+    - user_id
+    - title
+    - description
+    - file
+    - link
+    - status
+    - date
 category
-
+    - title
 ```
 
 ### API

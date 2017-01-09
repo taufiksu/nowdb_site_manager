@@ -1,10 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+<div class="panel panel-default" style="margin-top: 10px;">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Input Kategori</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitCategory">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Category</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title" id="title" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div id="category-list" style="margin: 0px 15px 15px 15px;"></div>
+</div>
+<script>
+    $(document).off('click', '#doSubmitCategory').on('click', '#doSubmitCategory', function () {
+        var form_category = new FormData();
+        form_category.append("token", token);
+        form_category.append("project", project);
+        form_category.append("collection", "category");
+        form_category.append("appid", appid);
+        form_category.append("title", $('#title').val());
+
+        var settings_category = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/insert",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_category
+        }
+
+        $.ajax(settings_category).done(function (category) {
+            category_list();
+        });
+        return false;
+    });
+
+    function category_list() {
+        var settings_category = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/category" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(settings_category).done(function (response_category) {
+            $('#category-list').empty();
+            $.each(response_category, function (key, value) {
+                $('#category-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                    '<a class="btn btn-primary btn-xs"><i class="fa fa-tag"></i>' + value.title + '</a>' +
+                    '<a class="btn btn-danger btn-xs" id="btn-remove-category" data-id="' + value.id + '">X</a>' +
+                    '</div>');
+            });
+        });
+    }
+
+    category_list();
+
+    $(document).off('click', '#btn-remove-category').on('click', '#btn-remove-category', function () {
+        var id = $(this).attr('data-id');
+        var settings_category = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/remove_id" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/category" +
+            "/appid/" + appid +
+            "/id/" + id,
+            "method": "DELETE",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(settings_category).done(function (category) {
+            category_list();
+        });
+        return false;
+    });
+</script>

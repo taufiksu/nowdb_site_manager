@@ -246,4 +246,30 @@
 
         return false;
     });
+
+    /*
+     * Access Config
+     */
+    $('#menu-top-settings').click(function () {
+        $(".menu-top").css('color', '#777777');
+        $("#menu-top-settings").css('color', '#337AB7');
+
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var category_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "category_form.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(category_form).done(function (response_category_form) {
+            $("#content-right").append(response_category_form);
+        });
+        return false;
+    });
 </script>
