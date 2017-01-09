@@ -1,10 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+<div class="panel panel-default" style="margin-top: 10px;">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Input Slideshow</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doUploadSlideshow">
+                <i class="fa fa-upload"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="slideshow_title" id="slideshow_title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item" style="border: 0px;">
+            <label class="list-group-item-text">Deskripsi</label>
+            <div class="list-group-item-heading">
+                <textarea name="slideshow_description" id="slideshow_description" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="list-group-item" style="border: 0px;">
+            <label class="list-group-item-text">Berkas PNG/JPG</label>
+            <div class="list-group-item-heading">
+                <input type="file" name="slideshow_file" id="slideshow_file" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item" style="border: 0px;">
+            <label class="list-group-item-text">Tautan</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="slideshow_link" id="slideshow_link" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item" style="border: 0px;">
+            <label class="list-group-item-text">Status</label>
+            <div class="list-group-item-heading">
+                <select name="slideshow_status" id="slideshow_status" class="form-control">
+                    <option value="0">Sembunyikan</option>
+                    <option value="1">Tampilkan</option>
+                </select>
+            </div>
+        </div>
+        <span id="sl-span-info" style="margin: 10px 10px 20px 15px;padding-bottom: 10px;"></span>
+    </div>
+</div>
+<script>
+    $('#doUploadSlideshow').attr('disabled');
+
+    function SLsupportAjaxUploadWithProgress() {
+        return SLsupportFileAPI() && SLsupportAjaxUploadProgressEvents() && SLsupportFormData();
+        // Is the File API supported?
+        function SLsupportFileAPI() {
+            var fi = document.createElement('INPUT');
+            fi.type = 'file';
+            return 'files' in fi;
+        }
+
+        // Are progress events supported?
+        function SLsupportAjaxUploadProgressEvents() {
+            var xhr = new XMLHttpRequest();
+            return !!(xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+        }
+
+        // Is FormData supported?
+        function SLsupportFormData() {
+            return !!window.FormData;
+        }
+    }
+
+    if (SLsupportAjaxUploadWithProgress()) {
+        $('#doUploadSlideshow').removeAttr('disabled');
+        SLinitFullFormAjaxUpload();
+    }
+
+    function SLinitFullFormAjaxUpload() {
+        $('#doUploadSlideshow').click(function () {
+            var formData = new (FormData);
+            formData.append("token", token);
+            formData.append("project", project);
+            formData.append("fileToUpload", $('#slideshow_file')[0].files[0]);
+
+            var action = 'http://io.nowdb.net/files/uploader';
+
+            SLsendXHRequest(formData, action);
+            return false;
+        });
+    }
+
+    function SLsendXHRequest(formData, uri) {
+        $('#doUploadSlideshow').hide();
+        $('#sl-span-info').show();
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('loadstart', SLonloadstartHandler, false);
+        xhr.upload.addEventListener('progress', SLonprogressHandler, false);
+        xhr.upload.addEventListener('load', SLonloadHandler, false);
+        xhr.addEventListener('readystatechange', SLonreadystatechangeHandler, false);// Set up request
+        xhr.open('POST', uri, true);
+        xhr.send(formData);
+    }
+
+    function SLonloadstartHandler() {
+        var spaninfo = document.getElementById('sl-span-info');
+        spaninfo.innerHTML = "Starting Process";
+    }
+
+    function SLonloadHandler() {
+        var spaninfo = document.getElementById('sl-span-info');
+        spaninfo.innerHTML = "Finishing Process";
+    }
+
+    function SLonprogressHandler(callback) {
+        var spaninfo = document.getElementById('sl-span-info');
+        var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
+        spaninfo.innerHTML = percent + " % Process";
+    }
+
+    function SLonreadystatechangeHandler(callback) {
+        $('#doUploadSlideshow').show();
+        if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
+            var spaninfo = document.getElementById('sl-span-info');
+            spaninfo.innerHTML = "Processing Database";
+
+            var obj = $.parseJSON(callback.target.responseText);
+            var file = obj['filename'];
+
+            var date = new Date();
+            var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+            var form_service = new FormData();
+            form_service.append("token", token);
+            form_service.append("project", project);
+            form_service.append("collection", "slideshow");
+            form_service.append("appid", appid);
+            form_service.append("user_id", getUserInfo().user_id);
+            form_service.append("article_id", getParamValue('id'));
+            form_service.append("title", $("#slideshow_title").val());
+            form_service.append("description", $("#slideshow_description").val());
+            form_service.append("file", file);
+            form_service.append("link", $("#slideshow_link").val());
+            form_service.append("status", $("#slideshow_status").val());
+            form_service.append("date", today);
+
+            var settings_service = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://io.nowdb.net/v2/insert",
+                "method": "POST",
+                "headers": {
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": form_service
+            }
+
+            $.ajax(settings_service).done(function (response_service) {
+                $('#sl-span-info').html('');
+            });
+        }
+    }
+</script>

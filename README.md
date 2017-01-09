@@ -77,6 +77,14 @@ service
     - date
 category
     - title
+slideshow
+    - user_id
+    - title
+    - description
+    - file
+    - link
+    - status
+    - date
 ```
 
 ### API

@@ -268,7 +268,7 @@
         };
 
         $.ajax(category_form).done(function (response_category_form) {
-            $("#content-right").append(response_category_form);
+            $("#content-left").append(response_category_form);
         });
 
         var link_form = {
@@ -284,6 +284,35 @@
         $.ajax(link_form).done(function (response_link_form) {
             $("#content-right").append(response_link_form);
         });
+
+        var service_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "service_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(service_form).done(function (response_service_form) {
+            $("#content-right").append(response_service_form);
+        });
+
+        var slideshow_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "slideshow_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(slideshow_form).done(function (response_slideshow_form) {
+            $("#content-left").append(response_slideshow_form);
+        });
+
         return false;
     });
 </script>
