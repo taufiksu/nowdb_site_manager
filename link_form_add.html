@@ -1,6 +1,6 @@
-<div class="panel panel-default" style="margin-top: 10px;">
+<div class="panel panel-default">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Input Tautan</h3>
+        <h3 class="panel-title pull-left" id="title-link-info">Input Tautan</h3>
         <div class="btn-group pull-right">
             <a class="btn btn-success" href="javascript:void(0)" id="doSubmitLink">
                 <i class="fa fa-floppy-o"></i>
@@ -35,6 +35,7 @@
 </div>
 <script>
     $(document).off('click', '#doSubmitLink').on('click', '#doSubmitLink', function () {
+        $('#title-link-info').html('Loading...');
         var date = new Date();
         var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
@@ -64,6 +65,7 @@
         }
 
         $.ajax(settings_link).done(function (link) {
+            $('#title-link-info').html('Input Tautan');
             link_list();
         });
         return false;

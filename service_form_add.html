@@ -1,6 +1,6 @@
-<div class="panel panel-default" style="margin-top: 10px;">
+<div class="panel panel-default">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Input Layanan</h3>
+        <h3 class="panel-title pull-left" id="title-service-info">Input Layanan</h3>
         <div class="btn-group pull-right">
             <a class="btn btn-success" href="javascript:void(0)" id="doUploadService">
                 <i class="fa fa-upload"></i>
@@ -42,7 +42,6 @@
                 </select>
             </div>
         </div>
-        <span id="span-info" style="margin: 10px 10px 20px 15px;padding-bottom: 10px;"></span>
     </div>
 </div>
 <script>
@@ -76,6 +75,7 @@
 
     function initFullFormAjaxUpload() {
         $('#doUploadService').click(function () {
+            $('#title-service-info').html('Loading...');
             var formData = new (FormData);
             formData.append("token", token);
             formData.append("project", project);
@@ -90,7 +90,6 @@
 
     function sendXHRequest(formData, uri) {
         $('#doUploadService').hide();
-        $('#span-info').show();
         var xhr = new XMLHttpRequest();
         xhr.upload.addEventListener('loadstart', onloadstartHandler, false);
         xhr.upload.addEventListener('progress', onprogressHandler, false);
@@ -101,17 +100,17 @@
     }
 
     function onloadstartHandler() {
-        var spaninfo = document.getElementById('span-info');
+        var spaninfo = document.getElementById('title-service-info');
         spaninfo.innerHTML = "Starting Process";
     }
 
     function onloadHandler() {
-        var spaninfo = document.getElementById('span-info');
+        var spaninfo = document.getElementById('title-service-info');
         spaninfo.innerHTML = "Finishing Process";
     }
 
     function onprogressHandler(callback) {
-        var spaninfo = document.getElementById('span-info');
+        var spaninfo = document.getElementById('title-service-info');
         var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
         spaninfo.innerHTML = percent + " % Process";
     }
@@ -119,7 +118,7 @@
     function onreadystatechangeHandler(callback) {
         $('#doUploadService').show();
         if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
-            var spaninfo = document.getElementById('span-info');
+            var spaninfo = document.getElementById('title-service-info');
             spaninfo.innerHTML = "Processing Database";
 
             var obj = $.parseJSON(callback.target.responseText);
@@ -157,7 +156,11 @@
             }
 
             $.ajax(settings_service).done(function (response_service) {
-                $('#span-info').html('');
+                $('#title-service-info').html('Input Layanan');
+                $('#service_title').val('');
+                $('#service_description').val('');
+                $('#service_file').val('');
+                $('#service_link').val('');
             });
         }
     }

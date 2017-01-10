@@ -15,39 +15,44 @@
     </div>
 
     <!--Title(Desktop)-->
-    <img src="img/favicon.ico" style="height: 45px;width: 41px; float: left;padding: 10px 5px 5px 5px;">
-    <a class="navbar-brand" title="Electrionic Lettter">Site Manager</a>
+    <!--<img src="img/favicon.ico" style="height: 45px;width: 41px; float: left;padding: 10px 5px 5px 5px;">-->
+    <a class="navbar-brand" title="Electrionic Lettter">N-Portal</a>
 
     <!--Menu Top(Desktop)-->
     <div class="navbar-collapse collapse pull-right" id="navbar-top" style="text-align: left">
         <ul class="nav navbar-nav">
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-home"
-                   class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-home" class="menu-top">
                     <i class="fa fa-home"></i> Beranda
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-menu"
-                   class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-menu" class="menu-top">
                     <i class="fa fa-sitemap"></i> Menu
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-article"
-                   class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-article" class="menu-top">
                     <i class="fa fa-newspaper-o"></i> Artikel
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-gallery"
-                   class="menu-top">
-                    <i class="fa fa-image"></i> Galeri
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-agenda" class="menu-top">
+                    <i class="fa fa-clock-o"></i> Agenda
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-settings"
-                   class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-document" class="menu-top">
+                    <i class="fa fa-files-o"></i> Berkas
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-product" class="menu-top">
+                    <i class="fa fa-cubes"></i> Produk
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-settings" class="menu-top">
                     <i class="fa fa-cogs"></i> Pengaturan
                 </a>
             </li>
@@ -257,60 +262,46 @@
         $("#content-right").empty();
         $("#content-left").empty();
 
-        var category_form = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "category_form.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(category_form).done(function (response_category_form) {
-            $("#content-left").append(response_category_form);
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+
+            var setting_menu = {
+                "async": true,
+                "crossDomain": true,
+                "url": "setting_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(setting_menu).done(function (response_setting_menu) {
+                $("#content-left").append(response_setting_menu);
+            });
         });
 
-        var link_form = {
+        var portal_form = {
             "async": true,
             "crossDomain": true,
-            "url": "link_form_add.html",
+            "url": "portal_form.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(link_form).done(function (response_link_form) {
-            $("#content-right").append(response_link_form);
-        });
-
-        var service_form = {
-            "async": true,
-            "crossDomain": true,
-            "url": "service_form_add.html",
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        };
-
-        $.ajax(service_form).done(function (response_service_form) {
-            $("#content-right").append(response_service_form);
-        });
-
-        var slideshow_form = {
-            "async": true,
-            "crossDomain": true,
-            "url": "slideshow_form_add.html",
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        };
-
-        $.ajax(slideshow_form).done(function (response_slideshow_form) {
-            $("#content-left").append(response_slideshow_form);
+        $.ajax(portal_form).done(function (response_portal_form) {
+            $("#content-right").append(response_portal_form);
         });
 
         return false;

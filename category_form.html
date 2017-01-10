@@ -1,6 +1,6 @@
-<div class="panel panel-default" style="margin-top: 10px;">
+<div class="panel panel-default">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Input Kategori</h3>
+        <h3 class="panel-title pull-left" id="title-category-info">Input Kategori</h3>
         <div class="btn-group pull-right">
             <a class="btn btn-success" href="javascript:void(0)" id="doSubmitCategory">
                 <i class="fa fa-floppy-o"></i>
@@ -20,6 +20,7 @@
 </div>
 <script>
     $(document).off('click', '#doSubmitCategory').on('click', '#doSubmitCategory', function () {
+        $('#title-category-info').html('Loading...');
         var form_category = new FormData();
         form_category.append("token", token);
         form_category.append("project", project);
@@ -42,6 +43,7 @@
         }
 
         $.ajax(settings_category).done(function (category) {
+            $('#title-category-info').html('Input Kategori');
             category_list();
         });
         return false;

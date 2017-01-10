@@ -1,0 +1,150 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" id="title-partner-info">Input Partner</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doUploadPartner">
+                <i class="fa fa-upload"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="partner_title" id="partner_title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item" style="border: 0px;">
+            <label class="list-group-item-text">Berkas PNG/JPG</label>
+            <div class="list-group-item-heading">
+                <input type="file" name="partner_file" id="partner_file" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item" style="border: 0px;">
+            <label class="list-group-item-text">Tautan</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="partner_link" id="partner_link" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#doUploadPartner').attr('disabled');
+
+    function PsupportAjaxUploadWithProgress() {
+        return PsupportFileAPI() && PsupportAjaxUploadProgressEvents() && PsupportFormData();
+        // Is the File API supported?
+        function PsupportFileAPI() {
+            var fi = document.createElement('INPUT');
+            fi.type = 'file';
+            return 'files' in fi;
+        }
+
+        // Are progress events supported?
+        function PsupportAjaxUploadProgressEvents() {
+            var xhr = new XMLHttpRequest();
+            return !!(xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+        }
+
+        // Is FormData supported?
+        function PsupportFormData() {
+            return !!window.FormData;
+        }
+    }
+
+    if (PsupportAjaxUploadWithProgress()) {
+        $('#doUploadPartner').removeAttr('disabled');
+        PinitFullFormAjaxUpload();
+    }
+
+    function PinitFullFormAjaxUpload() {
+        $('#doUploadPartner').click(function () {
+            $('#title-partner-info').html('Loading...');
+            var formData = new (FormData);
+            formData.append("token", token);
+            formData.append("project", project);
+            formData.append("fileToUpload", $('#partner_file')[0].files[0]);
+
+            var action = 'http://io.nowdb.net/files/uploader';
+
+            PsendXHRequest(formData, action);
+            return false;
+        });
+    }
+
+    function PsendXHRequest(formData, uri) {
+        $('#doUploadPartner').hide();
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('loadstart', PonloadstartHandler, false);
+        xhr.upload.addEventListener('progress', PonprogressHandler, false);
+        xhr.upload.addEventListener('load', PonloadHandler, false);
+        xhr.addEventListener('readystatechange', PonreadystatechangeHandler, false);// Set up request
+        xhr.open('POST', uri, true);
+        xhr.send(formData);
+    }
+
+    function PonloadstartHandler() {
+        var spaninfo = document.getElementById('title-partner-info');
+        spaninfo.innerHTML = "Starting Process";
+    }
+
+    function PonloadHandler() {
+        var spaninfo = document.getElementById('title-partner-info');
+        spaninfo.innerHTML = "Finishing Process";
+    }
+
+    function PonprogressHandler(callback) {
+        var spaninfo = document.getElementById('title-partner-info');
+        var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
+        spaninfo.innerHTML = percent + " % Process";
+    }
+
+    function PonreadystatechangeHandler(callback) {
+        $('#doUploadPartner').show();
+        if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
+            var spaninfo = document.getElementById('title-partner-info');
+            spaninfo.innerHTML = "Processing Database";
+
+            var obj = $.parseJSON(callback.target.responseText);
+            var file = obj['filename'];
+
+            var date = new Date();
+            var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+            var form_partner = new FormData();
+            form_partner.append("token", token);
+            form_partner.append("project", project);
+            form_partner.append("collection", "partner");
+            form_partner.append("appid", appid);
+            form_partner.append("user_id", getUserInfo().user_id);
+            form_partner.append("article_id", getParamValue('id'));
+            form_partner.append("title", $("#partner_title").val());
+            form_partner.append("file", file);
+            form_partner.append("link", $("#partner_link").val());
+            form_partner.append("status", $("#partner_status").val());
+            form_partner.append("date", today);
+
+            var settings_partner = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://io.nowdb.net/v2/insert",
+                "method": "POST",
+                "headers": {
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": form_partner
+            }
+
+            $.ajax(settings_partner).done(function (response_partner) {
+                $('#title-partner-info').html('Input Partner');
+                $('#partner_title').val('');
+                $('#partner_file').val('');
+                $('#partner_link').val('');
+            });
+        }
+    }
+</script>

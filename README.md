@@ -85,6 +85,12 @@ slideshow
     - link
     - status
     - date
+partner
+    - user_id
+    - title
+    - link
+    - file
+    - date
 ```
 
 ### API

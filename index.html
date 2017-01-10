@@ -89,6 +89,20 @@
 
             $.ajax(home_weather).done(function (response_home_weather) {
                 $("#content-right").append(response_home_weather);
+
+                var home_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "home_menu.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(home_menu).done(function (response_home_menu) {
+                    $("#content-right").append(response_home_menu);
+                });
             });
         </script>
     </body>

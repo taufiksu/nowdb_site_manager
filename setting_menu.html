@@ -1,0 +1,195 @@
+<div class="panel panel-default bootcards-summary" style="margin-top: 10px;">
+    <div class="panel-heading">
+        <h3 class="panel-title" id="title-setting">Portal</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-portal" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-globe"></i>
+                    <h4>
+                        Situs
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-category" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-tags"></i>
+                    <h4>
+                        Kategori
+                        <span class="label label-info">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-link" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-link"></i>
+                    <h4>
+                        Tautan
+                        <span class="label label-info">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-slideshow" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-picture-o"></i>
+                    <h4>
+                        Slideshow
+                        <span class="label label-info">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-service" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-check-circle"></i>
+                    <h4>
+                        Layanan
+                        <span class="label label-info">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-partner" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-building-o"></i>
+                    <h4>
+                        Partner
+                        <span class="label label-info">0</span>
+                    </h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#setting-portal').click(function () {
+        $('#content-right').empty();
+        $('#title-setting').html('Loading...');
+
+        var portal_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "portal_form.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(portal_form).done(function (response_portal_form) {
+            $("#content-right").append(response_portal_form);
+            $('#title-setting').html('Portal');
+        });
+
+        return false;
+    });
+
+    $('#setting-category').click(function () {
+        $('#content-right').empty();
+        $('#title-setting').html('Loading...');
+
+        var category_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "category_form.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(category_form).done(function (response_category_form) {
+            $("#content-right").append(response_category_form);
+            $('#title-setting').html('Portal');
+        });
+
+        return false;
+    });
+
+    $('#setting-link').click(function () {
+        $('#content-right').empty();
+        $('#title-setting').html('Loading...');
+
+        var link_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "link_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(link_form).done(function (response_link_form) {
+            $("#content-right").append(response_link_form);
+            $('#title-setting').html('Portal');
+        });
+
+        return false;
+    });
+
+    $('#setting-slideshow').click(function () {
+        $('#content-right').empty();
+        $('#title-setting').html('Loading...');
+
+        var slideshow_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "slideshow_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(slideshow_form).done(function (response_slideshow_form) {
+            $("#content-right").append(response_slideshow_form);
+            $('#title-setting').html('Portal');
+        });
+
+        return false;
+    });
+
+    $('#setting-service').click(function () {
+        $('#content-right').empty();
+        $('#title-setting').html('Loading...');
+
+        var service_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "service_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(service_form).done(function (response_service_form) {
+            $("#content-right").append(response_service_form);
+            $('#title-setting').html('Portal');
+        });
+
+        return false;
+    });
+
+    $('#setting-partner').click(function () {
+        $('#content-right').empty();
+        $('#title-setting').html('Loading...');
+
+        var partner_form = {
+            "async": true,
+            "crossDomain": true,
+            "url": "partner_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(partner_form).done(function (response_partner_form) {
+            $("#content-right").append(response_partner_form);
+            $('#title-setting').html('Portal');
+        });
+
+        return false;
+    });
+</script>
