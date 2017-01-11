@@ -128,22 +128,66 @@
     });
 
     $('#setting-slideshow').click(function () {
+        $('#content-left').empty();
         $('#content-right').empty();
+
         $('#title-setting').html('Loading...');
 
-        var slideshow_form = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "slideshow_form_add.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(slideshow_form).done(function (response_slideshow_form) {
-            $("#content-right").append(response_slideshow_form);
-            $('#title-setting').html('Portal');
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var slideshow_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "slideshow_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(slideshow_form).done(function (response_slideshow_form) {
+                $("#content-right").append(response_slideshow_form);
+                $('#title-setting').html('Portal');
+            });
+
+            var slideshow_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "slideshow_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(slideshow_list).done(function (response_slideshow_list) {
+                $("#content-left").append(response_slideshow_list);
+            });
         });
 
         return false;
