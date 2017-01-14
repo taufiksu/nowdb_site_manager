@@ -45,6 +45,7 @@
         $.ajax(settings_category).done(function (category) {
             $('#title-category-info').html('Input Kategori');
             category_list();
+            total_category();
         });
         return false;
     });
@@ -96,6 +97,7 @@
 
         $.ajax(settings_category).done(function (category) {
             category_list();
+            total_category();
         });
         return false;
     });

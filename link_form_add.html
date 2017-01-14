@@ -67,6 +67,7 @@
         $.ajax(settings_link).done(function (link) {
             $('#title-link-info').html('Input Tautan');
             link_list();
+            total_link();
         });
         return false;
     });
@@ -118,6 +119,7 @@
 
         $.ajax(settings_link).done(function (link) {
             link_list();
+            total_link();
         });
         return false;
     });

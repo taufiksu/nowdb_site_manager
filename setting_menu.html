@@ -17,7 +17,7 @@
                     <i class="fa fa-3x fa-tags"></i>
                     <h4>
                         Kategori
-                        <span class="label label-info">0</span>
+                        <span class="label label-info" id="total-category">0</span>
                     </h4>
                 </a>
             </div>
@@ -26,7 +26,7 @@
                     <i class="fa fa-3x fa-link"></i>
                     <h4>
                         Tautan
-                        <span class="label label-info">0</span>
+                        <span class="label label-info" id="total-link">0</span>
                     </h4>
                 </a>
             </div>
@@ -35,7 +35,7 @@
                     <i class="fa fa-3x fa-picture-o"></i>
                     <h4>
                         Slideshow
-                        <span class="label label-info">0</span>
+                        <span class="label label-info" id="total-slideshow">0</span>
                     </h4>
                 </a>
             </div>
@@ -44,7 +44,7 @@
                     <i class="fa fa-3x fa-check-circle"></i>
                     <h4>
                         Layanan
-                        <span class="label label-info">0</span>
+                        <span class="label label-info" id="total-service">0</span>
                     </h4>
                 </a>
             </div>
@@ -53,7 +53,7 @@
                     <i class="fa fa-3x fa-building-o"></i>
                     <h4>
                         Partner
-                        <span class="label label-info">0</span>
+                        <span class="label label-info" id="total-partner">0</span>
                     </h4>
                 </a>
             </div>
@@ -84,44 +84,104 @@
     });
 
     $('#setting-category').click(function () {
+        $('#content-left').empty();
         $('#content-right').empty();
+
         $('#title-setting').html('Loading...');
 
-        var category_form = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "category_form.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(category_form).done(function (response_category_form) {
-            $("#content-right").append(response_category_form);
-            $('#title-setting').html('Portal');
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var category_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "category_form.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(category_form).done(function (response_category_form) {
+                $("#content-right").append(response_category_form);
+                $('#title-setting').html('Portal');
+            });
         });
 
         return false;
     });
 
     $('#setting-link').click(function () {
+        $('#content-left').empty();
         $('#content-right').empty();
+
         $('#title-setting').html('Loading...');
 
-        var link_form = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "link_form_add.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(link_form).done(function (response_link_form) {
-            $("#content-right").append(response_link_form);
-            $('#title-setting').html('Portal');
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var link_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "link_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(link_form).done(function (response_link_form) {
+                $("#content-right").append(response_link_form);
+                $('#title-setting').html('Portal');
+            });
         });
 
         return false;
@@ -260,24 +320,113 @@
     });
 
     $('#setting-partner').click(function () {
+        $('#content-left').empty();
         $('#content-right').empty();
+
         $('#title-setting').html('Loading...');
 
-        var partner_form = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "partner_form_add.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(partner_form).done(function (response_partner_form) {
-            $("#content-right").append(response_partner_form);
-            $('#title-setting').html('Portal');
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var partner_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "partner_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(partner_form).done(function (response_partner_form) {
+                $("#content-right").append(response_partner_form);
+                $('#title-setting').html('Portal');
+            });
+
+            var partner_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "partner_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(partner_list).done(function (response_partner_list) {
+                $("#content-left").append(response_partner_list);
+            });
         });
 
         return false;
     });
+
+    function total_category() {
+        var total_category = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/category" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_category).done(function (response_total_category) {
+            var total = response_total_category.length;
+            $('#total-category').html(total);
+        });
+    }
+
+    function total_link() {
+        var total_link = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/link" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_link).done(function (response_total_link) {
+            var total = response_total_link.length;
+            $('#total-link').html(total);
+        });
+    }
+
+    total_category();
+    total_link();
 </script>

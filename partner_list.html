@@ -1,0 +1,73 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Partner</h3>
+        <div class="btn-group pull-right"></div>
+    </div>
+    <div class="row" style="padding: 10px;" id="partner-list"></div>
+</div>
+<script>
+    function partner_list() {
+        $('#partner-list').empty();
+
+        var setting_partner_list = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/partner" +
+            "/appid/" + appid +
+            "/where_field/user_id" +
+            "/where_value/" + getUserInfo().user_id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(setting_partner_list).done(function (response_partner_list) {
+            $.each(response_partner_list, function (key, value) {
+                $('#partner-list').append('<div class="col-sm-6 col-md-6">' +
+                    '<div class="thumbnail" style="height: 300px;">' +
+                    '<div class="caption" style="padding-bottom: 0px;">' +
+                    '<p>' +
+                    '<a id="doRemovePartner" data-id="' + value.id + '" class="btn btn-danger btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-trash"></i> Hapus</a>' +
+                    '</p>' +
+                    '<p>' + value.title + '<br/>' + value.link + '</p>' +
+                    '</div>' +
+                    '<img src="http://file.nowdb.net/' + value.file + '" style="padding: 0px 10px 10px 10px;width: 100%;max-height: 260px;">' +
+                    '</div>' +
+                    '</div>');
+
+            });
+        });
+    }
+
+    partner_list();
+
+    $(document).off('click', '#doRemovePartner').on('click', '#doRemovePartner', function () {
+        var id = $(this).attr('data-id');
+        var status = confirm("Yakin akan menghapus data ini?");
+        if (status == true) {
+            var partner_remove = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://io.nowdb.net/v2/remove_id" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/partner" +
+                "/appid/" + appid +
+                "/id/" + id,
+                "method": "DELETE",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+
+            $.ajax(partner_remove).done(function (response_partner_remove) {
+                partner_list();
+            });
+        }
+        return false;
+    });
+</script>
