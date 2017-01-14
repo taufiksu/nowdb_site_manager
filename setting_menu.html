@@ -194,22 +194,66 @@
     });
 
     $('#setting-service').click(function () {
+        $('#content-left').empty();
         $('#content-right').empty();
+
         $('#title-setting').html('Loading...');
 
-        var service_form = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "service_form_add.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(service_form).done(function (response_service_form) {
-            $("#content-right").append(response_service_form);
-            $('#title-setting').html('Portal');
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var service_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "service_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(service_form).done(function (response_service_form) {
+                $("#content-right").append(response_service_form);
+                $('#title-setting').html('Portal');
+            });
+
+            var service_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "service_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(service_list).done(function (response_service_list) {
+                $("#content-left").append(response_service_list);
+            });
         });
 
         return false;
