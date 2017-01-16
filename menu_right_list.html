@@ -41,32 +41,18 @@
     $('#btn-menu-right-add').click(function () {
         $("#content-right").empty();
 
-        var home_weather = {
+        var menu_right_form_add = {
             "async": true,
             "crossDomain": true,
-            "url": "home_weather.html",
+            "url": "menu_right_form_add.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-right").append(response_home_weather);
-
-            var menu_right_form_add = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_right_form_add.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(menu_right_form_add).done(function (response_menu_right_form_add) {
-                $("#content-right").append(response_menu_right_form_add);
-            });
+        $.ajax(menu_right_form_add).done(function (response_menu_right_form_add) {
+            $("#content-right").append(response_menu_right_form_add);
         });
 
         return false;
