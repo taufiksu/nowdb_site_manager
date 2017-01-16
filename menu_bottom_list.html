@@ -31,11 +31,15 @@
     }
 
     $.ajax(settings_menu_bottom).done(function (response_menu_bottom) {
-        $.each(response_menu_bottom, function (key, value) {
-            $("#menu-bottom-list").append('<a class="list-group-item" id="btn-list-bottom" data-id="' + value.id + '" data-title="' + value.title + '">' +
-                '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
-                '</a>');
-        })
+        if (response_menu_bottom.Data == '0') {
+            $('#menu-bottom-list').html('');
+        } else {
+            $.each(response_menu_bottom, function (key, value) {
+                $("#menu-bottom-list").append('<a class="list-group-item" id="btn-list-bottom" data-id="' + value.id + '" data-title="' + value.title + '">' +
+                    '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
+                    '</a>');
+            });
+        }
     });
 
     $('#btn-menu-bottom-add').click(function () {
@@ -64,19 +68,47 @@
 
         $('#content-left').empty();
 
-        var menu_bottom_list_sub = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "menu_bottom_list_sub.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(menu_bottom_list_sub).done(function (response_menu_bottom_list_sub) {
-            $("#content-left").append('<div class="panel panel-default" id="menu-bottom-sub-container" data-id="' + id + '" data-title="' + title + '"></div>');
-            $("#menu-bottom-sub-container").append(response_menu_bottom_list_sub);
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+
+            var setting_content = {
+                "async": true,
+                "crossDomain": true,
+                "url": "content_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(setting_content).done(function (response_setting_content) {
+                $("#content-left").append(response_setting_content);
+
+                var menu_bottom_list_sub = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_bottom_list_sub.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(menu_bottom_list_sub).done(function (response_menu_bottom_list_sub) {
+                    $("#content-left").append('<div class="panel panel-default" id="menu-bottom-sub-container" data-id="' + id + '" data-title="' + title + '"></div>');
+                    $("#menu-bottom-sub-container").append(response_menu_bottom_list_sub);
+                });
+            });
         });
 
         return false;

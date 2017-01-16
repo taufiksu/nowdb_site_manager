@@ -51,103 +51,6 @@
 </div>
 <script>
     /*
-     * Access Menu Page Manager
-     */
-    $('#menu-top-menu').click(function () {
-        $(".menu-top").css("color", "#777777");
-        $("#menu-top-menu").css("color", "#337AB7");
-
-        $("#content-right").empty();
-        $("#content-left").empty();
-
-        var home_weather = {
-            "async": true,
-            "crossDomain": true,
-            "url": "home_weather.html",
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        };
-
-        $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-right").append(response_home_weather);
-
-            var menu_top_form_add = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_top_form_add.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(menu_top_form_add).done(function (response_menu_top_form_add) {
-                $("#content-right").append(response_menu_top_form_add);
-            });
-
-            var menu_top_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_top_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(menu_top_list).done(function (response_menu_top_list) {
-                $("#content-left").append(response_menu_top_list);
-            });
-
-            var menu_bottom_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_bottom_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
-                $("#content-left").append(response_menu_bottom_list);
-            });
-
-            var menu_right_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_right_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(menu_right_list).done(function (response_menu_right_list) {
-                $("#content-left").append(response_menu_right_list);
-            });
-
-            var menu_left_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_left_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(menu_left_list).done(function (response_menu_left_list) {
-                $("#content-left").append(response_menu_left_list);
-            });
-        });
-
-        return false;
-    });
-
-    /*
      * Access Gallery Page Manager
      */
     $('#menu-top-gallery').click(function () {
@@ -190,6 +93,7 @@
     /*
      * Access Article Manager
      */
+
     $('#menu-top-article').click(function () {
         $(".menu-top").css('color', '#777777');
         $("#menu-top-article").css('color', '#337AB7');
@@ -278,62 +182,62 @@
 
             $.ajax(setting_content).done(function (response_setting_content) {
                 $("#content-left").append(response_setting_content);
-            });
 
-            var menu_top_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_top_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
+                var menu_top_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_top_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
 
-            $.ajax(menu_top_list).done(function (response_menu_top_list) {
-                $("#content-left").append(response_menu_top_list);
-            });
+                $.ajax(menu_top_list).done(function (response_menu_top_list) {
+                    $("#content-left").append(response_menu_top_list);
+                });
 
-            var menu_bottom_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_bottom_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
+                var menu_bottom_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_bottom_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
 
-            $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
-                $("#content-left").append(response_menu_bottom_list);
-            });
+                $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
+                    $("#content-left").append(response_menu_bottom_list);
+                });
 
-            var menu_right_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_right_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
+                var menu_right_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_right_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
 
-            $.ajax(menu_right_list).done(function (response_menu_right_list) {
-                $("#content-left").append(response_menu_right_list);
-            });
+                $.ajax(menu_right_list).done(function (response_menu_right_list) {
+                    $("#content-left").append(response_menu_right_list);
+                });
 
-            var menu_left_list = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_left_list.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
+                var menu_left_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_left_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
 
-            $.ajax(menu_left_list).done(function (response_menu_left_list) {
-                $("#content-left").append(response_menu_left_list);
+                $.ajax(menu_left_list).done(function (response_menu_left_list) {
+                    $("#content-left").append(response_menu_left_list);
+                });
             });
         });
 

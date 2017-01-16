@@ -37,128 +37,104 @@
     }
 
     $.ajax(settings_menu_right_sub).done(function (response_menu_right_sub) {
-        $.each(response_menu_right_sub, function (key, value) {
-            $("#menu-right-list-sub").append('<a class="list-group-item" id="btn-menu-right-list-edit" data-id="' + value.id + '">' +
-                '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
-                '</a>');
-        });
+        if (response_menu_right_sub.Data == '0') {
+            $('#menu-right-list-sub').html('');
+        } else {
+            $.each(response_menu_right_sub, function (key, value) {
+                $("#menu-right-list-sub").append('<a class="list-group-item" id="btn-menu-right-list-edit" data-id="' + value.id + '">' +
+                    '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
+                    '</a>');
+            });
+        }
     });
 
     $('#btn-menu-right-add').click(function () {
         $("#content-right").empty();
 
-        var home_weather = {
+        var menu_right_form_add = {
             "async": true,
             "crossDomain": true,
-            "url": "home_weather.html",
+            "url": "menu_right_form_add.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-right").append(response_home_weather);
-
-            var menu_right_form_add = {
-                "async": true,
-                "crossDomain": true,
-                "url": "menu_right_form_add.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(menu_right_form_add).done(function (response_menu_right_form_add) {
-                $("#content-right").append(response_menu_right_form_add);
-            });
+        $.ajax(menu_right_form_add).done(function (response_menu_right_form_add) {
+            $("#content-right").append(response_menu_right_form_add);
         });
 
         return false;
     });
 
-
     $('#btn-menu-right-edit').click(function () {
         var id = $(this).attr('data-id');
 
-        var home_weather = {
+        $("#content-right").empty();
+
+        var menu_right_form_edit = {
             "async": true,
             "crossDomain": true,
-            "url": "home_weather.html",
+            "url": "menu_right_form_edit.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-right").empty();
-            $("#content-right").append(response_home_weather);
+        $.ajax(menu_right_form_edit).done(function (response_menu_right_form_edit) {
+            $("#content-right").append(response_menu_right_form_edit);
 
-            var menu_right_form_edit = {
+            var settings_menu_right_edit = {
                 "async": true,
                 "crossDomain": true,
-                "url": "menu_right_form_edit.html",
+                "url": "http://io.nowdb.net/v2/select_id" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/menu" +
+                "/appid/" + appid +
+                "/id/" + id,
                 "method": "GET",
                 "headers": {
                     "cache-control": "no-cache"
                 }
-            };
+            }
 
-            $.ajax(menu_right_form_edit).done(function (response_menu_right_form_edit) {
-                $("#content-right").append(response_menu_right_form_edit);
+            $.ajax(settings_menu_right_edit).done(function (response_menu_right_edit) {
+                $('#title').val(response_menu_right_edit[0].title);
 
-                var settings_menu_right_edit = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "http://io.nowdb.net/v2/select_id" +
-                    "/token/" + token +
-                    "/project/" + project +
-                    "/collection/menu" +
-                    "/appid/" + appid +
-                    "/id/" + id,
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
+                if (response_menu_right_edit[0].active == 1) {
+                    $('#active').prepend('<option value="1">Aktif</option>');
+                } else {
+                    $('#active').prepend('<option value="0">Non Aktif</option>');
                 }
 
-                $.ajax(settings_menu_right_edit).done(function (response_menu_right_edit) {
-                    $('#title').val(response_menu_right_edit[0].title);
+                if (response_menu_right_edit[0].clickable == 1) {
+                    $('#clickable').prepend('<option value="1">Ya</option>');
+                } else {
+                    $('#clickable').prepend('<option value="0">Tidak</option>');
+                }
 
-                    if (response_menu_right_edit[0].active == 1) {
-                        $('#active').prepend('<option value="1">Aktif</option>');
-                    } else {
-                        $('#active').prepend('<option value="0">Non Aktif</option>');
-                    }
+                $('#hardlink').val(response_menu_right_edit[0].hardlink);
 
-                    if (response_menu_right_edit[0].clickable == 1) {
-                        $('#clickable').prepend('<option value="1">Ya</option>');
-                    } else {
-                        $('#clickable').prepend('<option value="0">Tidak</option>');
-                    }
+                if (response_menu_right_edit[0].lang == 'id') {
+                    $('#lang').prepend('<option value="id">Indonesia</option>');
+                } else if (response_menu_right_edit[0].lang == 'en') {
+                    $('#lang').prepend('<option value="en">English</option>');
+                } else if (response_menu_right_edit[0].lang == 'de') {
+                    $('#lang').prepend('<option value="de">German</option>');
+                } else if (response_menu_right_edit[0].lang == 'ja') {
+                    $('#lang').prepend('<option value="ja">Japan</option>');
+                } else if (response_menu_right_edit[0].lang == 'zh') {
+                    $('#lang').prepend('<option value="zh">Chinese</option>');
+                } else if (response_menu_right_edit[0].lang == 'zh-Hans') {
+                    $('#lang').prepend('<option value="zh-Hans">Chinese (Simplified)</option>');
+                } else if (response_menu_right_edit[0].lang == 'zh-Hant') {
+                    $('#lang').prepend('<option value="zh-Hant">Chinese (Traditional)</option>');
+                }
 
-                    $('#hardlink').val(response_menu_right_edit[0].hardlink);
-
-                    if (response_menu_right_edit[0].lang == 'id') {
-                        $('#lang').prepend('<option value="id">Indonesia</option>');
-                    } else if (response_menu_right_edit[0].lang == 'en') {
-                        $('#lang').prepend('<option value="en">English</option>');
-                    } else if (response_menu_right_edit[0].lang == 'de') {
-                        $('#lang').prepend('<option value="de">German</option>');
-                    } else if (response_menu_right_edit[0].lang == 'ja') {
-                        $('#lang').prepend('<option value="ja">Japan</option>');
-                    } else if (response_menu_right_edit[0].lang == 'zh') {
-                        $('#lang').prepend('<option value="zh">Chinese</option>');
-                    } else if (response_menu_right_edit[0].lang == 'zh-Hans') {
-                        $('#lang').prepend('<option value="zh-Hans">Chinese (Simplified)</option>');
-                    } else if (response_menu_right_edit[0].lang == 'zh-Hant') {
-                        $('#lang').prepend('<option value="zh-Hant">Chinese (Traditional)</option>');
-                    }
-
-                    $('#id').val(response_menu_right_edit[0].id);
-                });
+                $('#id').val(response_menu_right_edit[0].id);
             });
         });
     });
@@ -166,106 +142,93 @@
     $(document).off('click', '#btn-menu-right-list-edit').on('click', '#btn-menu-right-list-edit', function () {
         var id = $(this).attr('data-id');
 
-        var home_weather = {
+        $("#content-right").empty();
+
+        var menu_right_form_edit = {
             "async": true,
             "crossDomain": true,
-            "url": "home_weather.html",
+            "url": "menu_right_form_edit.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-right").empty();
-            $("#content-right").append(response_home_weather);
+        $.ajax(menu_right_form_edit).done(function (response_menu_right_form_edit) {
+            $("#content-right").append(response_menu_right_form_edit);
 
-            var menu_right_form_edit = {
+            var settings_menu_right_edit = {
                 "async": true,
                 "crossDomain": true,
-                "url": "menu_right_form_edit.html",
+                "url": "http://io.nowdb.net/v2/select_id" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/menu" +
+                "/appid/" + appid +
+                "/id/" + id,
                 "method": "GET",
                 "headers": {
                     "cache-control": "no-cache"
                 }
-            };
+            }
 
-            $.ajax(menu_right_form_edit).done(function (response_menu_right_form_edit) {
-                $("#content-right").append(response_menu_right_form_edit);
-
-                var settings_menu_right_edit = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "http://io.nowdb.net/v2/select_id" +
-                    "/token/" + token +
-                    "/project/" + project +
-                    "/collection/menu" +
-                    "/appid/" + appid +
-                    "/id/" + id,
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
+            $.ajax(settings_menu_right_edit).done(function (response_menu_right_edit) {
+                if (response_menu_right_edit[0].parent_id == 0) {
+                    //do nothing
+                } else {
+                    var settings_menu_right_id = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/select_id" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/menu" +
+                        "/appid/" + appid +
+                        "/id/" + response_menu_right_edit[0].parent_id,
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
                     }
+
+                    $.ajax(settings_menu_right_id).done(function (response_menu_right_id) {
+                        $('#parent_id').prepend('<option value="' + response_menu_right_id[0].id + '">' + response_menu_right_id[0].title + '</option>');
+                    })
                 }
 
-                $.ajax(settings_menu_right_edit).done(function (response_menu_right_edit) {
-                    if (response_menu_right_edit[0].parent_id == 0) {
-                        //do nothing
-                    } else {
-                        var settings_menu_right_id = {
-                            "async": true,
-                            "crossDomain": true,
-                            "url": "http://io.nowdb.net/v2/select_id" +
-                            "/token/" + token +
-                            "/project/" + project +
-                            "/collection/menu" +
-                            "/appid/" + appid +
-                            "/id/" + response_menu_right_edit[0].parent_id,
-                            "method": "GET",
-                            "headers": {
-                                "cache-control": "no-cache"
-                            }
-                        }
+                $('#title').val(response_menu_right_edit[0].title);
 
-                        $.ajax(settings_menu_right_id).done(function (response_menu_right_id) {
-                            $('#parent_id').prepend('<option value="' + response_menu_right_id[0].id + '">' + response_menu_right_id[0].title + '</option>');
-                        })
-                    }
+                if (response_menu_right_edit[0].active == 1) {
+                    $('#active').prepend('<option value="1">Aktif</option>');
+                } else {
+                    $('#active').prepend('<option value="0">Non Aktif</option>');
+                }
 
-                    $('#title').val(response_menu_right_edit[0].title);
+                if (response_menu_right_edit[0].clickable == 1) {
+                    $('#clickable').prepend('<option value="1">Ya</option>');
+                } else {
+                    $('#clickable').prepend('<option value="0">Tidak</option>');
+                }
 
-                    if (response_menu_right_edit[0].active == 1) {
-                        $('#active').prepend('<option value="1">Aktif</option>');
-                    } else {
-                        $('#active').prepend('<option value="0">Non Aktif</option>');
-                    }
+                $('#hardlink').val(response_menu_right_edit[0].hardlink);
 
-                    if (response_menu_right_edit[0].clickable == 1) {
-                        $('#clickable').prepend('<option value="1">Ya</option>');
-                    } else {
-                        $('#clickable').prepend('<option value="0">Tidak</option>');
-                    }
+                if (response_menu_right_edit[0].lang == 'id') {
+                    $('#lang').prepend('<option value="id">Indonesia</option>');
+                } else if (response_menu_right_edit[0].lang == 'en') {
+                    $('#lang').prepend('<option value="en">English</option>');
+                } else if (response_menu_right_edit[0].lang == 'de') {
+                    $('#lang').prepend('<option value="de">German</option>');
+                } else if (response_menu_right_edit[0].lang == 'ja') {
+                    $('#lang').prepend('<option value="ja">Japan</option>');
+                } else if (response_menu_right_edit[0].lang == 'zh') {
+                    $('#lang').prepend('<option value="zh">Chinese</option>');
+                } else if (response_menu_right_edit[0].lang == 'zh-Hans') {
+                    $('#lang').prepend('<option value="zh-Hans">Chinese (Simplified)</option>');
+                } else if (response_menu_right_edit[0].lang == 'zh-Hant') {
+                    $('#lang').prepend('<option value="zh-Hant">Chinese (Traditional)</option>');
+                }
 
-                    $('#hardlink').val(response_menu_right_edit[0].hardlink);
-
-                    if (response_menu_right_edit[0].lang == 'id') {
-                        $('#lang').prepend('<option value="id">Indonesia</option>');
-                    } else if (response_menu_right_edit[0].lang == 'en') {
-                        $('#lang').prepend('<option value="en">English</option>');
-                    } else if (response_menu_right_edit[0].lang == 'de') {
-                        $('#lang').prepend('<option value="de">German</option>');
-                    } else if (response_menu_right_edit[0].lang == 'ja') {
-                        $('#lang').prepend('<option value="ja">Japan</option>');
-                    } else if (response_menu_right_edit[0].lang == 'zh') {
-                        $('#lang').prepend('<option value="zh">Chinese</option>');
-                    } else if (response_menu_right_edit[0].lang == 'zh-Hans') {
-                        $('#lang').prepend('<option value="zh-Hans">Chinese (Simplified)</option>');
-                    } else if (response_menu_right_edit[0].lang == 'zh-Hant') {
-                        $('#lang').prepend('<option value="zh-Hant">Chinese (Traditional)</option>');
-                    }
-
-                    $('#id').val(response_menu_right_edit[0].id);
-                });
+                $('#id').val(response_menu_right_edit[0].id);
             });
         });
     });
