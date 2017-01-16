@@ -119,6 +119,7 @@
 
         $.ajax(settings_menu_left).done(function (response_menu_left) {
             $("#content-right").empty();
+            $("#content-left").empty();
 
             var home_weather = {
                 "async": true,
@@ -131,79 +132,91 @@
             };
 
             $.ajax(home_weather).done(function (response_home_weather) {
-                $("#content-right").append(response_home_weather);
+                $("#content-left").append(response_home_weather);
 
-                var menu_left_form_add = {
+                var setting_content = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "menu_left_form_add.html",
+                    "url": "content_menu.html",
                     "method": "GET",
                     "headers": {
                         "cache-control": "no-cache"
                     }
                 };
 
-                $.ajax(menu_left_form_add).done(function (response_menu_left_form_add) {
-                    $("#content-right").append(response_menu_left_form_add);
+                $.ajax(setting_content).done(function (response_setting_content) {
+                    $("#content-left").append(response_setting_content);
+
+                    var menu_top_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "menu_top_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(menu_top_list).done(function (response_menu_top_list) {
+                        $("#content-left").append(response_menu_top_list);
+                    });
+
+                    var menu_bottom_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "menu_bottom_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
+                        $("#content-left").append(response_menu_bottom_list);
+                    });
+
+                    var menu_right_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "menu_right_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(menu_right_list).done(function (response_menu_right_list) {
+                        $("#content-left").append(response_menu_right_list);
+                    });
+
+                    var menu_left_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "menu_left_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(menu_left_list).done(function (response_menu_left_list) {
+                        $("#content-left").append(response_menu_left_list);
+                    });
                 });
+            });
 
-                $('#content-left').empty();
+            var menu_left_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_left_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
 
-                var menu_top_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_top_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_top_list).done(function (response_menu_top_list) {
-                    $("#content-left").append(response_menu_top_list);
-                });
-
-                var menu_bottom_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_bottom_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
-                    $("#content-left").append(response_menu_bottom_list);
-                });
-
-                var menu_right_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_right_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_right_list).done(function (response_menu_right_list) {
-                    $("#content-left").append(response_menu_right_list);
-                });
-
-                var menu_left_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_left_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_left_list).done(function (response_menu_left_list) {
-                    $("#content-left").append(response_menu_left_list);
-                });
+            $.ajax(menu_left_form_add).done(function (response_menu_left_form_add) {
+                $("#content-right").append(response_menu_left_form_add);
             });
         });
         return false;
