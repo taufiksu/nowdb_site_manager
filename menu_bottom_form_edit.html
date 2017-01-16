@@ -2,6 +2,10 @@
     <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">Edit Menu Bawah</h3>
         <div class="btn-group pull-right">
+            <a class="btn btn-danger" href="javascript:void(0)" id="doRemoveMenuBottom">
+                <i class="fa fa-trash-o"></i>
+                <span>Hapus</span>
+            </a>
             <a class="btn btn-success" href="javascript:void(0)" id="doUpdateMenuBottom">
                 <i class="fa fa-floppy-o"></i>
                 <span>Simpan</span>
@@ -88,7 +92,7 @@
         })
     });
 
-    //Update
+    // Update
     $('#doUpdateMenuBottom').click(function () {
         var form_menu_bottom = new FormData();
         form_menu_bottom.append("token", token);
@@ -221,6 +225,149 @@
                 $("#content-right").append(response_menu_bottom_form_add);
             });
         });
+        return false;
+    });
+
+    // Remove
+    $('#doRemoveMenuBottom').click(function () {
+        var id = $('#id').val();
+        var status = confirm("Yakin akan menghapus data ini?");
+        if (status == true) {
+            var menu_page_remove = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://io.nowdb.net/v2/remove_where" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/menu" +
+                "/appid/" + appid +
+                "/where_field/menu_id" +
+                "/where_value/" + id,
+                "method": "DELETE",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+
+            $.ajax(menu_page_remove).done(function (response_menu_page_remove) {
+                var menu_bottom_remove = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/remove_id" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/menu" +
+                    "/appid/" + appid +
+                    "/id/" + id,
+                    "method": "DELETE",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+                $.ajax(menu_bottom_remove).done(function (response_menu_page_remove) {
+                    $("#content-right").empty();
+                    $("#content-left").empty();
+
+                    var home_weather = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "home_weather.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(home_weather).done(function (response_home_weather) {
+                        $("#content-left").append(response_home_weather);
+
+                        var setting_content = {
+                            "async": true,
+                            "crossDomain": true,
+                            "url": "content_menu.html",
+                            "method": "GET",
+                            "headers": {
+                                "cache-control": "no-cache"
+                            }
+                        };
+
+                        $.ajax(setting_content).done(function (response_setting_content) {
+                            $("#content-left").append(response_setting_content);
+
+                            var menu_top_list = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "menu_top_list.html",
+                                "method": "GET",
+                                "headers": {
+                                    "cache-control": "no-cache"
+                                }
+                            };
+
+                            $.ajax(menu_top_list).done(function (response_menu_top_list) {
+                                $("#content-left").append(response_menu_top_list);
+                            });
+
+                            var menu_bottom_list = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "menu_bottom_list.html",
+                                "method": "GET",
+                                "headers": {
+                                    "cache-control": "no-cache"
+                                }
+                            };
+
+                            $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
+                                $("#content-left").append(response_menu_bottom_list);
+                            });
+
+                            var menu_right_list = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "menu_right_list.html",
+                                "method": "GET",
+                                "headers": {
+                                    "cache-control": "no-cache"
+                                }
+                            };
+
+                            $.ajax(menu_right_list).done(function (response_menu_right_list) {
+                                $("#content-left").append(response_menu_right_list);
+                            });
+
+                            var menu_left_list = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "menu_left_list.html",
+                                "method": "GET",
+                                "headers": {
+                                    "cache-control": "no-cache"
+                                }
+                            };
+
+                            $.ajax(menu_left_list).done(function (response_menu_left_list) {
+                                $("#content-left").append(response_menu_left_list);
+                            });
+                        });
+                    });
+
+                    var menu_bottom_form_add = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "menu_bottom_form_add.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(menu_bottom_form_add).done(function (response_menu_bottom_form_add) {
+                        $("#content-right").append(response_menu_bottom_form_add);
+                    });
+                });
+            });
+        }
         return false;
     });
 </script>

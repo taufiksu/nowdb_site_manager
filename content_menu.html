@@ -35,5 +35,165 @@
     </div>
 </div>
 <script>
+    $('#btn-menu').click(function () {
+        $(".menu-top").css("color", "#777777");
+        $("#menu-top-content").css("color", "#337AB7");
 
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+
+            var setting_content = {
+                "async": true,
+                "crossDomain": true,
+                "url": "content_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(setting_content).done(function (response_setting_content) {
+                $("#content-left").append(response_setting_content);
+
+                var menu_top_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_top_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(menu_top_list).done(function (response_menu_top_list) {
+                    $("#content-left").append(response_menu_top_list);
+                });
+
+                var menu_bottom_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_bottom_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
+                    $("#content-left").append(response_menu_bottom_list);
+                });
+
+                var menu_right_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_right_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(menu_right_list).done(function (response_menu_right_list) {
+                    $("#content-left").append(response_menu_right_list);
+                });
+
+                var menu_left_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "menu_left_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(menu_left_list).done(function (response_menu_left_list) {
+                    $("#content-left").append(response_menu_left_list);
+                });
+            });
+        });
+
+        var menu_top_form_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": "menu_top_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(menu_top_form_add).done(function (response_menu_top_form_add) {
+            $("#content-right").append(response_menu_top_form_add);
+        });
+
+        return false;
+    });
+
+    function total_menu() {
+        var total_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/menu" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_menu).done(function (response_total_menu) {
+            if (response_total_menu.Data == '0') {
+                $('#total-menu').html('0');
+            } else {
+                var total = response_total_menu.length;
+                $('#total-menu').html(total);
+            }
+        });
+    }
+
+    function total_article() {
+        var total_article = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/article" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_article).done(function (response_total_article) {
+            if (response_total_article.Data == '0') {
+                $('#total-article').html('0');
+            } else {
+                var total = response_total_article.length;
+                $('#total-article').html(total);
+            }
+        });
+    }
+
+    total_menu();
+
+    total_article();
 </script>
