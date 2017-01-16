@@ -82,9 +82,12 @@
     }
 
     $.ajax(settings_menu_right).done(function (response_menu_right) {
-        $.each(response_menu_right, function (key, value) {
-            $("#parent_id").append('<option value="' + value.id + '">' + value.title + '</option>');
-        })
+        if (response_menu_right.Data == '0') {
+        } else {
+            $.each(response_menu_right, function (key, value) {
+                $("#parent_id").append('<option value="' + value.id + '">' + value.title + '</option>');
+            });
+        }
     });
 
     // Input Menu

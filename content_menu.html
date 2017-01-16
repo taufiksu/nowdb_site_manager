@@ -143,6 +143,72 @@
         return false;
     });
 
+    $('#btn-article').click(function () {
+        $(".menu-top").css('color', '#777777');
+        $("#menu-top-content").css('color', '#337AB7');
+
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+
+            var setting_content = {
+                "async": true,
+                "crossDomain": true,
+                "url": "content_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(setting_content).done(function (response_setting_content) {
+                $("#content-left").append(response_setting_content);
+
+                var article_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "article_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(article_list).done(function (response_article_list) {
+                    $("#content-left").append(response_article_list);
+                });
+            });
+        });
+
+        var article_form_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": "article_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(article_form_add).done(function (response_article_form_add) {
+            $("#content-right").append(response_article_form_add);
+        });
+
+        return false;
+    });
+
     function total_menu() {
         var total_menu = {
             "async": true,
