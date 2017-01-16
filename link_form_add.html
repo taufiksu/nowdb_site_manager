@@ -89,12 +89,16 @@
 
         $.ajax(settings_link).done(function (response_link) {
             $('#link-list').empty();
-            $.each(response_link, function (key, value) {
-                $('#link-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
-                    '<a class="btn btn-primary btn-xs" href="' + value.uri + '" target="_blank"><i class="fa fa-link"></i>' + value.title + '&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>' + value.uri + '</a>' +
-                    '<a class="btn btn-danger btn-xs" id="btn-remove-link" data-id="' + value.id + '">X</a>' +
-                    '</div>');
-            });
+            if (response_link.Data == '0') {
+                $('#link-list').html('');
+            } else {
+                $.each(response_link, function (key, value) {
+                    $('#link-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                        '<a class="btn btn-primary btn-xs" href="' + value.uri + '" target="_blank"><i class="fa fa-link"></i>' + value.title + '&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>' + value.uri + '</a>' +
+                        '<a class="btn btn-danger btn-xs" id="btn-remove-link" data-id="' + value.id + '">X</a>' +
+                        '</div>');
+                });
+            }
         });
     }
 

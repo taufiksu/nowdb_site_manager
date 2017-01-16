@@ -1,58 +1,745 @@
 <div class="panel panel-default bootcards-summary">
     <div class="panel-heading">
-        <h3 class="panel-title">Portal</h3>
+        <h3 class="panel-title">Atur Konten</h3>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="contacts.html" data-pjax="#main"
-                   data-title="Contacts" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-edit"></i>
+                <a id="btn-menu" class="bootcards-summary-item" href="javascript:void(0)" data-title="Menu" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-sitemap"></i>
                     <h4>
-                        Situs
-                        <span class="label label-info">40</span>
+                        Menu
+                        <span class="label label-info" id="total-menu">0</span>
                     </h4>
                 </a>
             </div>
-            <div class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="companies.html" data-pjax="#main"
-                   data-title="Companies" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-tags"></i>
+            <div id="btn-article" class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" data-title="Artikel" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-newspaper-o"></i>
                     <h4>
-                        Kategori
-                        <span class="label label-info">40</span>
+                        Artikel
+                        <span class="label label-info" id="total-article">0</span>
                     </h4>
                 </a>
             </div>
-            <div class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="notes.html" data-pjax="#main"
-                   data-title="Notes" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-link"></i>
+            <div id="btn-agenda" class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" data-title="Agenda" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-clock-o"></i>
                     <h4>
-                        Tautan
-                        <span class="label label-info">40</span>
-                    </h4>
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="charts.html" data-pjax="#main"
-                   data-title="Charts" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-picture-o"></i>
-                    <h4>
-                        Slideshow
-                        <span class="label label-info">4</span>
-                    </h4>
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="#" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-building-o"></i>
-                    <h4>
-                        Partner
-                        <span class="label label-info">36</span>
+                        Agenda
+                        <span class="label label-info" id="total-agenda">0</span>
                     </h4>
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+<div class="panel panel-default bootcards-summary">
+    <div class="panel-heading">
+        <h3 class="panel-title" id="title-setting">Atur Website</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-portal" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-globe"></i>
+                    <h4>
+                        Situs
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-category" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-tags"></i>
+                    <h4>
+                        Kategori
+                        <span class="label label-info" id="total-category">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-link" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-link"></i>
+                    <h4>
+                        Tautan
+                        <span class="label label-info" id="total-link">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-slideshow" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-picture-o"></i>
+                    <h4>
+                        Slideshow
+                        <span class="label label-info" id="total-slideshow">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-service" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-check-circle"></i>
+                    <h4>
+                        Layanan
+                        <span class="label label-info" id="total-service">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" href="javascript:void(0)" id="setting-partner" style="padding-top:35px;">
+                    <i class="fa fa-3x fa-building-o"></i>
+                    <h4>
+                        Partner
+                        <span class="label label-info" id="total-partner">0</span>
+                    </h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#btn-menu').click(function () {
+        $(".menu-top").css("color", "#777777");
+        $("#menu-top-menu").css("color", "#337AB7");
+
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-right").append(response_home_weather);
+
+            var menu_top_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_top_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_top_form_add).done(function (response_menu_top_form_add) {
+                $("#content-right").append(response_menu_top_form_add);
+            });
+
+            var menu_top_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_top_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_top_list).done(function (response_menu_top_list) {
+                $("#content-left").append(response_menu_top_list);
+            });
+
+            var menu_bottom_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_bottom_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
+                $("#content-left").append(response_menu_bottom_list);
+            });
+
+            var menu_right_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_right_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_right_list).done(function (response_menu_right_list) {
+                $("#content-left").append(response_menu_right_list);
+            });
+
+            var menu_left_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "menu_left_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(menu_left_list).done(function (response_menu_left_list) {
+                $("#content-left").append(response_menu_left_list);
+            });
+        });
+
+        return false;
+    });
+
+    function total_menu() {
+        var total_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/menu" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_menu).done(function (response_total_menu) {
+            if (response_total_menu.Data == '0') {
+                $('#total-menu').html('0');
+            } else {
+                var total = response_total_menu.length;
+                $('#total-menu').html(total);
+            }
+        });
+    }
+
+    function total_article() {
+        var total_article = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/article" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_article).done(function (response_total_article) {
+            if (response_total_article.Data == '0') {
+                $('#total-article').html('0');
+            } else {
+                var total = response_total_article.length;
+                $('#total-article').html(total);
+            }
+        });
+    }
+
+    total_menu();
+
+    total_article();
+    /*
+     * Atur Website
+     */
+    $('#setting-portal').click(function () {
+        $('#content-left').empty();
+        $('#content-right').empty();
+
+        $('#title-setting').html('Loading...');
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var portal_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "portal_form.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(portal_form).done(function (response_portal_form) {
+                $("#content-right").append(response_portal_form);
+                $('#title-setting').html('Portal');
+            });
+        });
+
+        return false;
+    });
+
+    $('#setting-category').click(function () {
+        $('#content-left').empty();
+        $('#content-right').empty();
+
+        $('#title-setting').html('Loading...');
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var category_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "category_form.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(category_form).done(function (response_category_form) {
+                $("#content-right").append(response_category_form);
+                $('#title-setting').html('Portal');
+            });
+        });
+
+        return false;
+    });
+
+    $('#setting-link').click(function () {
+        $('#content-left').empty();
+        $('#content-right').empty();
+
+        $('#title-setting').html('Loading...');
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var link_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "link_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(link_form).done(function (response_link_form) {
+                $("#content-right").append(response_link_form);
+                $('#title-setting').html('Portal');
+            });
+        });
+
+        return false;
+    });
+
+    $('#setting-slideshow').click(function () {
+        $('#content-left').empty();
+        $('#content-right').empty();
+
+        $('#title-setting').html('Loading...');
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var slideshow_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "slideshow_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(slideshow_form).done(function (response_slideshow_form) {
+                $("#content-right").append(response_slideshow_form);
+                $('#title-setting').html('Portal');
+            });
+
+            var slideshow_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "slideshow_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(slideshow_list).done(function (response_slideshow_list) {
+                $("#content-left").append(response_slideshow_list);
+            });
+        });
+
+        return false;
+    });
+
+    $('#setting-service').click(function () {
+        $('#content-left').empty();
+        $('#content-right').empty();
+
+        $('#title-setting').html('Loading...');
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var service_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "service_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(service_form).done(function (response_service_form) {
+                $("#content-right").append(response_service_form);
+                $('#title-setting').html('Portal');
+            });
+
+            var service_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "service_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(service_list).done(function (response_service_list) {
+                $("#content-left").append(response_service_list);
+            });
+        });
+
+        return false;
+    });
+
+    $('#setting-partner').click(function () {
+        $('#content-left').empty();
+        $('#content-right').empty();
+
+        $('#title-setting').html('Loading...');
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var partner_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "partner_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(partner_form).done(function (response_partner_form) {
+                $("#content-right").append(response_partner_form);
+                $('#title-setting').html('Portal');
+            });
+
+            var partner_list = {
+                "async": true,
+                "crossDomain": true,
+                "url": "partner_list.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(partner_list).done(function (response_partner_list) {
+                $("#content-left").append(response_partner_list);
+            });
+        });
+
+        return false;
+    });
+
+    function total_category() {
+        var total_category = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/category" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_category).done(function (response_total_category) {
+            if (response_total_category.Data == '0') {
+                $('#total-category').html('0');
+            } else {
+                var total = response_total_category.length;
+                $('#total-category').html(total);
+            }
+        });
+    }
+
+    function total_link() {
+        var total_link = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/link" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_link).done(function (response_total_link) {
+            if (response_total_link.Data == '0') {
+                $('#total-link').html('0');
+            } else {
+                var total = response_total_link.length;
+                $('#total-link').html(total);
+            }
+        });
+    }
+
+    function total_slideshow() {
+        var total_slideshow = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/slideshow" +
+            "/appid/" + appid +
+            "/where_field/user_id" +
+            "/where_value/" + getUserInfo().user_id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_slideshow).done(function (response_total_slideshow) {
+            if (response_total_slideshow.Data == '0') {
+                $('#total-slideshow').html('0');
+            } else {
+                var total = response_total_slideshow.length;
+                $('#total-slideshow').html(total);
+            }
+        });
+    }
+
+    function total_service() {
+        var total_service = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/service" +
+            "/appid/" + appid +
+            "/where_field/user_id" +
+            "/where_value/" + getUserInfo().user_id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_service).done(function (response_total_service) {
+            if (response_total_service.Data == '0') {
+                $('#total-service').html('0');
+            } else {
+                var total = response_total_service.length;
+                $('#total-service').html(total);
+            }
+        });
+    }
+
+    function total_partner() {
+        var total_partner = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/partner" +
+            "/appid/" + appid +
+            "/where_field/user_id" +
+            "/where_value/" + getUserInfo().user_id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_partner).done(function (response_total_partner) {
+            if (response_total_partner.Data == '0') {
+                $('#total-partner').html('0');
+            } else {
+                var total = response_total_partner.length;
+                $('#total-partner').html(total);
+            }
+        });
+    }
+
+    total_category();
+
+    total_link();
+
+    total_slideshow();
+
+    total_service();
+
+    total_partner();
+</script>

@@ -63,20 +63,6 @@
                 FastClick.attach(document.body);
             }, false);
 
-            var home_welcome = {
-                "async": true,
-                "crossDomain": true,
-                "url": "home_welcome.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(home_welcome).done(function (response_home_welcome) {
-                $("#content-left").append(response_home_welcome);
-            });
-
             var home_weather = {
                 "async": true,
                 "crossDomain": true,
@@ -88,21 +74,35 @@
             };
 
             $.ajax(home_weather).done(function (response_home_weather) {
-                $("#content-right").append(response_home_weather);
+                $("#content-left").append(response_home_weather);
 
-                var home_menu = {
+                var home_welcome = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "home_menu.html",
+                    "url": "home_welcome.html",
                     "method": "GET",
                     "headers": {
                         "cache-control": "no-cache"
                     }
                 };
 
-                $.ajax(home_menu).done(function (response_home_menu) {
-                    $("#content-right").append(response_home_menu);
+                $.ajax(home_welcome).done(function (response_home_welcome) {
+                    $("#content-left").append(response_home_welcome);
                 });
+            });
+
+            var home_menu = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_menu).done(function (response_home_menu) {
+                $("#content-right").append(response_home_menu);
             });
         </script>
     </body>

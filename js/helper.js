@@ -32,7 +32,7 @@ function loginCheck() {
             }
 
             $.ajax(user_login).done(function (response) {
-                if (response.length == 0) {
+                if (response.Data == '0') {
                     $(location).attr('href', 'home_login.html');
                 }
             });

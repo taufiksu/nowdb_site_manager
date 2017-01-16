@@ -62,22 +62,52 @@
 </div>
 <script>
     $('#setting-portal').click(function () {
+        $('#content-left').empty();
         $('#content-right').empty();
+
         $('#title-setting').html('Loading...');
 
-        var portal_form = {
+        var home_weather = {
             "async": true,
             "crossDomain": true,
-            "url": "portal_form.html",
+            "url": "home_weather.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(portal_form).done(function (response_portal_form) {
-            $("#content-right").append(response_portal_form);
-            $('#title-setting').html('Portal');
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+        });
+
+        var setting_menu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "setting_menu.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(setting_menu).done(function (response_setting_menu) {
+            $("#content-left").append(response_setting_menu);
+
+            var portal_form = {
+                "async": true,
+                "crossDomain": true,
+                "url": "portal_form.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(portal_form).done(function (response_portal_form) {
+                $("#content-right").append(response_portal_form);
+                $('#title-setting').html('Portal');
+            });
         });
 
         return false;
@@ -401,8 +431,12 @@
         }
 
         $.ajax(total_category).done(function (response_total_category) {
-            var total = response_total_category.length;
-            $('#total-category').html(total);
+            if (response_total_category.Data == '0') {
+                $('#total-category').html('0');
+            } else {
+                var total = response_total_category.length;
+                $('#total-category').html(total);
+            }
         });
     }
 
@@ -422,11 +456,103 @@
         }
 
         $.ajax(total_link).done(function (response_total_link) {
-            var total = response_total_link.length;
-            $('#total-link').html(total);
+            if (response_total_link.Data == '0') {
+                $('#total-link').html('0');
+            } else {
+                var total = response_total_link.length;
+                $('#total-link').html(total);
+            }
+        });
+    }
+
+    function total_slideshow() {
+        var total_slideshow = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/slideshow" +
+            "/appid/" + appid +
+            "/where_field/user_id" +
+            "/where_value/" + getUserInfo().user_id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_slideshow).done(function (response_total_slideshow) {
+            if (response_total_slideshow.Data == '0') {
+                $('#total-slideshow').html('0');
+            } else {
+                var total = response_total_slideshow.length;
+                $('#total-slideshow').html(total);
+            }
+        });
+    }
+
+    function total_service() {
+        var total_service = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/service" +
+            "/appid/" + appid +
+            "/where_field/user_id" +
+            "/where_value/" + getUserInfo().user_id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_service).done(function (response_total_service) {
+            if (response_total_service.Data == '0') {
+                $('#total-service').html('0');
+            } else {
+                var total = response_total_service.length;
+                $('#total-service').html(total);
+            }
+        });
+    }
+
+    function total_partner() {
+        var total_partner = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/partner" +
+            "/appid/" + appid +
+            "/where_field/user_id" +
+            "/where_value/" + getUserInfo().user_id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_partner).done(function (response_total_partner) {
+            if (response_total_partner.Data == '0') {
+                $('#total-partner').html('0');
+            } else {
+                var total = response_total_partner.length;
+                $('#total-partner').html(total);
+            }
         });
     }
 
     total_category();
+
     total_link();
+
+    total_slideshow();
+
+    total_service();
+
+    total_partner();
 </script>

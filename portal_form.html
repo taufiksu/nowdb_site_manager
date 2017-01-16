@@ -1,8 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Pengaturan Situs</h3>
+        <h3 class="panel-title pull-left">Atur Situs</h3>
         <div class="btn-group pull-right">
-            <a class="btn btn-success" href="javascript:void(0)" id="doUpdatePortal">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitBasic">
                 <i class="fa fa-upload"></i>
                 <span>Simpan</span>
             </a>
@@ -12,13 +12,13 @@
         <div class="list-group-item">
             <label class="list-group-item-text">Judul Situs</label>
             <div class="list-group-item-heading">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="title" id="title" class="form-control">
             </div>
         </div>
         <div class="list-group-item">
             <label class="list-group-item-text">Deskripsi Situs</label>
             <div class="list-group-item-heading">
-                <textarea name="" id="" class="form-control" style="resize: vertical;"></textarea>
+                <textarea name="description" id="description" class="form-control" style="resize: vertical;"></textarea>
             </div>
         </div>
     </div>
@@ -26,9 +26,9 @@
 
 <div class="panel panel-default" style="margin-top: 10px;">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Logo</h3>
+        <h3 class="panel-title pull-left" id="title-info-logo">Ganti Logo</h3>
         <div class="btn-group pull-right">
-            <a class="btn btn-success" href="javascript:void(0)" id="doUpdatePortal">
+            <a class="btn btn-success" href="javascript:void(0)" id="doUploadLogo">
                 <i class="fa fa-upload"></i>
                 <span>Simpan</span>
             </a>
@@ -36,9 +36,9 @@
     </div>
     <div class="list-group">
         <div class="list-group-item">
-            <label class="list-group-item-text">Facebook</label>
+            <label class="list-group-item-text">Logo</label>
             <div class="list-group-item-heading">
-                <input type="file" name="" id="" class="form-control">
+                <input type="file" name="file_logo" id="file_logo" class="form-control">
             </div>
         </div>
     </div>
@@ -46,9 +46,9 @@
 
 <div class="panel panel-default" style="margin-top: 10px;">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Favicon</h3>
+        <h3 class="panel-title pull-left" id="title-info-favicon">Ganti Favicon</h3>
         <div class="btn-group pull-right">
-            <a class="btn btn-success" href="javascript:void(0)" id="doUpdatePortal">
+            <a class="btn btn-success" href="javascript:void(0)" id="doUploadFavicon">
                 <i class="fa fa-upload"></i>
                 <span>Simpan</span>
             </a>
@@ -56,9 +56,9 @@
     </div>
     <div class="list-group">
         <div class="list-group-item">
-            <label class="list-group-item-text">Facebook</label>
+            <label class="list-group-item-text">Favicon</label>
             <div class="list-group-item-heading">
-                <input type="file" name="" id="" class="form-control">
+                <input type="file" name="file_favicon" id="file_favicon" class="form-control">
             </div>
         </div>
     </div>
@@ -66,9 +66,9 @@
 
 <div class="panel panel-default" style="margin-top: 10px;">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Kontak</h3>
+        <h3 class="panel-title pull-left">Atur Kontak</h3>
         <div class="btn-group pull-right">
-            <a class="btn btn-success" href="javascript:void(0)" id="doUpdatePortal">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitContact">
                 <i class="fa fa-upload"></i>
                 <span>Simpan</span>
             </a>
@@ -78,31 +78,31 @@
         <div class="list-group-item">
             <label class="list-group-item-text">Alamat</label>
             <div class="list-group-item-heading">
-                <textarea name="" id="" class="form-control" style="resize: vertical;"></textarea>
+                <textarea name="address" id="address" class="form-control" style="resize: vertical;"></textarea>
             </div>
         </div>
         <div class="list-group-item">
             <label class="list-group-item-text">E-Mail</label>
             <div class="list-group-item-heading">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="email" id="email" class="form-control">
             </div>
         </div>
         <div class="list-group-item">
             <label class="list-group-item-text">Telepon</label>
             <div class="list-group-item-heading">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="phone_1" id="phone_1" class="form-control">
             </div>
         </div>
         <div class="list-group-item">
             <label class="list-group-item-text">Mobile</label>
             <div class="list-group-item-heading">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="mobile" id="mobile" class="form-control">
             </div>
         </div>
         <div class="list-group-item">
             <label class="list-group-item-text">Fax</label>
             <div class="list-group-item-heading">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="phone_2" id="phone_2" class="form-control">
             </div>
         </div>
     </div>
@@ -110,9 +110,9 @@
 
 <div class="panel panel-default" style="margin-top: 10px;">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Media Sosial</h3>
+        <h3 class="panel-title pull-left">Atur Media Sosial</h3>
         <div class="btn-group pull-right">
-            <a class="btn btn-success" href="javascript:void(0)" id="doUpdatePortal">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitSocial">
                 <i class="fa fa-upload"></i>
                 <span>Simpan</span>
             </a>
@@ -122,14 +122,413 @@
         <div class="list-group-item">
             <label class="list-group-item-text">Facebook</label>
             <div class="list-group-item-heading">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="facebook" id="facebook" class="form-control">
             </div>
         </div>
         <div class="list-group-item">
             <label class="list-group-item-text">Twitter</label>
             <div class="list-group-item-heading">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="twitter" id="twitter" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Youtube</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="youtube" id="youtube" class="form-control">
             </div>
         </div>
     </div>
 </div>
+<input type="hidden" id="id" name="id" value=""/>
+
+<script>
+    function portal() {
+        var setting_portal = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/portal" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+        $.ajax(setting_portal).done(function (response_setting_portal) {
+            if (response_setting_portal.Data == '0') {
+                portal_null();
+            } else {
+                $('#id').val(response_setting_portal[0].id);
+                $('#title').val(response_setting_portal[0].title);
+                $('#description').html(response_setting_portal[0].description);
+
+                $('#address').html(response_setting_portal[0].address);
+                $('#email').val(response_setting_portal[0].email);
+                $('#phone_1').val(response_setting_portal[0].phone_1);
+                $('#phone_2').val(response_setting_portal[0].phone_2);
+                $('#mobile').val(response_setting_portal[0].mobile);
+
+                $('#facebook').val(response_setting_portal[0].facebook);
+                $('#twitter').val(response_setting_portal[0].twitter);
+                $('#youtube').val(response_setting_portal[0].youtube);
+            }
+        });
+    }
+
+    portal();
+
+    function portal_null() {
+        var form_portal_null = new FormData();
+        form_portal_null.append("token", token);
+        form_portal_null.append("project", project);
+        form_portal_null.append("collection", "portal");
+        form_portal_null.append("appid", appid);
+        form_portal_null.append("title", '');
+        form_portal_null.append("description", '');
+        form_portal_null.append("logo", '');
+        form_portal_null.append("favicon", '');
+        form_portal_null.append("about", '');
+        form_portal_null.append("address", '');
+        form_portal_null.append("phone_1", '');
+        form_portal_null.append("phone_2", '');
+        form_portal_null.append("mobile", '');
+        form_portal_null.append("email", '');
+        form_portal_null.append("facebook", '');
+        form_portal_null.append("twitter", '');
+        form_portal_null.append("youtube", '');
+        form_portal_null.append("lat", '');
+        form_portal_null.append("lng", '');
+
+        var settings_portal_null = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/insert",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_portal_null
+        }
+
+        $.ajax(settings_portal_null).done(function (response_portal_null) {
+        });
+    }
+
+    $(document).off('click', '#doSubmitBasic').on('click', '#doSubmitBasic', function () {
+        var id = $('#id').val();
+        var form_basic_update = new FormData();
+        form_basic_update.append("token", token);
+        form_basic_update.append("project", project);
+        form_basic_update.append("collection", "portal");
+        form_basic_update.append("appid", appid);
+        form_basic_update.append("id", id);
+        form_basic_update.append("title", $('#title').val());
+        form_basic_update.append("description", $('#description').val());
+
+        var settings_basic_update = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/update_id",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_basic_update
+        }
+
+        $.ajax(settings_basic_update).done(function (response_basic_update) {
+            portal();
+        });
+        return false;
+    });
+
+    $(document).off('click', '#doSubmitContact').on('click', '#doSubmitContact', function () {
+        var id = $('#id').val();
+        var form_contact_update = new FormData();
+        form_contact_update.append("token", token);
+        form_contact_update.append("project", project);
+        form_contact_update.append("collection", "portal");
+        form_contact_update.append("appid", appid);
+        form_contact_update.append("id", id);
+        form_contact_update.append("address", $('#address').val());
+        form_contact_update.append("email", $('#email').val());
+        form_contact_update.append("phone_1", $('#phone_1').val());
+        form_contact_update.append("phone_2", $('#phone_2').val());
+        form_contact_update.append("mobile", $('#mobile').val());
+
+        var settings_contact_update = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/update_id",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_contact_update
+        }
+
+        $.ajax(settings_contact_update).done(function (response_contact_update) {
+            portal();
+        });
+        return false;
+    });
+
+    $(document).off('click', '#doSubmitSocial').on('click', '#doSubmitSocial', function () {
+        var id = $('#id').val();
+        var form_social_update = new FormData();
+        form_social_update.append("token", token);
+        form_social_update.append("project", project);
+        form_social_update.append("collection", "portal");
+        form_social_update.append("appid", appid);
+        form_social_update.append("id", id);
+        form_social_update.append("facebook", $('#facebook').val());
+        form_social_update.append("twitter", $('#twitter').val());
+        form_social_update.append("youtube", $('#youtube').val());
+
+        var settings_social_update = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/update_id",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_social_update
+        }
+
+        $.ajax(settings_social_update).done(function (response_social_update) {
+            portal();
+        });
+        return false;
+    });
+
+    $('#doUploadLogo').attr('disabled');
+
+    function LGsupportAjaxUploadWithProgress() {
+        return LGsupportFileAPI() && LGsupportAjaxUploadProgressEvents() && LGsupportFormData();
+        // Is the File API supported?
+        function LGsupportFileAPI() {
+            var fi = document.createElement('INPUT');
+            fi.type = 'file';
+            return 'files' in fi;
+        }
+
+        // Are progress events supported?
+        function LGsupportAjaxUploadProgressEvents() {
+            var xhr = new XMLHttpRequest();
+            return !!(xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+        }
+
+        // Is FormData supported?
+        function LGsupportFormData() {
+            return !!window.FormData;
+        }
+    }
+
+    if (LGsupportAjaxUploadWithProgress()) {
+        $('#doUploadLogo').removeAttr('disabled');
+        LGinitFullFormAjaxUpload();
+    }
+
+    function LGinitFullFormAjaxUpload() {
+        $('#doUploadLogo').click(function () {
+            $('#title-info-logo').html('Loading...');
+            var formData = new (FormData);
+            formData.append("token", token);
+            formData.append("project", project);
+            formData.append("fileToUpload", $('#file_logo')[0].files[0]);
+
+            var action = 'http://io.nowdb.net/files/uploader';
+
+            LGsendXHRequest(formData, action);
+            return false;
+        });
+    }
+
+    function LGsendXHRequest(formData, uri) {
+        $('#doUploadLogo').hide();
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('loadstart', LGonloadstartHandler, false);
+        xhr.upload.addEventListener('progress', LGonprogressHandler, false);
+        xhr.upload.addEventListener('load', LGonloadHandler, false);
+        xhr.addEventListener('readystatechange', LGonreadystatechangeHandler, false);// Set up request
+        xhr.open('POST', uri, true);
+        xhr.send(formData);
+    }
+
+    function LGonloadstartHandler() {
+        var spaninfo = document.getElementById('title-info-logo');
+        spaninfo.innerHTML = "Starting Process";
+    }
+
+    function LGonloadHandler() {
+        var spaninfo = document.getElementById('title-info-logo');
+        spaninfo.innerHTML = "Finishing Process";
+    }
+
+    function LGonprogressHandler(callback) {
+        var spaninfo = document.getElementById('title-info-logo');
+        var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
+        spaninfo.innerHTML = percent + " % Process";
+    }
+
+    function LGonreadystatechangeHandler(callback) {
+        $('#doUploadLogo').show();
+        if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
+            var spaninfo = document.getElementById('title-info-logo');
+            spaninfo.innerHTML = "Processing Database";
+
+            var obj = $.parseJSON(callback.target.responseText);
+            var logo = obj['filename'];
+
+            var form_logo = new FormData();
+            form_logo.append("token", token);
+            form_logo.append("project", project);
+            form_logo.append("collection", "portal");
+            form_logo.append("appid", appid);
+            form_logo.append("logo", logo);
+            form_logo.append("id", $("#id").val());
+
+            var settings_logo = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://io.nowdb.net/v2/update_id",
+                "method": "POST",
+                "headers": {
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": form_logo
+            }
+
+            $.ajax(settings_logo).done(function (response_logo) {
+                $('#title-info-logo').html('Ganti Logo');
+                $('#file_logo').val('');
+            });
+        }
+    }
+
+    $('#doUploadFavicon').attr('disabled');
+
+    function FsupportAjaxUploadWithProgress() {
+        return FsupportFileAPI() && FsupportAjaxUploadProgressEvents() && FsupportFormData();
+        // Is the File API supported?
+        function FsupportFileAPI() {
+            var fi = document.createElement('INPUT');
+            fi.type = 'file';
+            return 'files' in fi;
+        }
+
+        // Are progress events supported?
+        function FsupportAjaxUploadProgressEvents() {
+            var xhr = new XMLHttpRequest();
+            return !!(xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+        }
+
+        // Is FormData supported?
+        function FsupportFormData() {
+            return !!window.FormData;
+        }
+    }
+
+    if (FsupportAjaxUploadWithProgress()) {
+        $('#doUploadFavicon').removeAttr('disabled');
+        FinitFullFormAjaxUpload();
+    }
+
+    function FinitFullFormAjaxUpload() {
+        $('#doUploadFavicon').click(function () {
+            $('#title-info-favicon').html('Loading...');
+            var formData = new (FormData);
+            formData.append("token", token);
+            formData.append("project", project);
+            formData.append("fileToUpload", $('#file_favicon')[0].files[0]);
+
+            var action = 'http://io.nowdb.net/files/uploader';
+
+            FsendXHRequest(formData, action);
+            return false;
+        });
+    }
+
+    function FsendXHRequest(formData, uri) {
+        $('#doUploadFavicon').hide();
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('loadstart', FonloadstartHandler, false);
+        xhr.upload.addEventListener('progress', FonprogressHandler, false);
+        xhr.upload.addEventListener('load', FonloadHandler, false);
+        xhr.addEventListener('readystatechange', FonreadystatechangeHandler, false);// Set up request
+        xhr.open('POST', uri, true);
+        xhr.send(formData);
+    }
+
+    function FonloadstartHandler() {
+        var spaninfo = document.getElementById('title-info-favicon');
+        spaninfo.innerHTML = "Starting Process";
+    }
+
+    function FonloadHandler() {
+        var spaninfo = document.getElementById('title-info-favicon');
+        spaninfo.innerHTML = "Finishing Process";
+    }
+
+    function FonprogressHandler(callback) {
+        var spaninfo = document.getElementById('title-info-favicon');
+        var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
+        spaninfo.innerHTML = percent + " % Process";
+    }
+
+    function FonreadystatechangeHandler(callback) {
+        $('#doUploadFavicon').show();
+        if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
+            var spaninfo = document.getElementById('title-info-favicon');
+            spaninfo.innerHTML = "Processing Database";
+
+            var obj = $.parseJSON(callback.target.responseText);
+            var favicon = obj['filename'];
+
+            var form_logo = new FormData();
+            form_logo.append("token", token);
+            form_logo.append("project", project);
+            form_logo.append("collection", "portal");
+            form_logo.append("appid", appid);
+            form_logo.append("favicon", favicon);
+            form_logo.append("id", $("#id").val());
+
+            var settings_favicon = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://io.nowdb.net/v2/update_id",
+                "method": "POST",
+                "headers": {
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": form_logo
+            }
+
+            $.ajax(settings_favicon).done(function (response_favicon) {
+                $('#title-info-favicon').html('Ganti Favicon');
+                $('#file_favicon').val('');
+            });
+        }
+    }
+</script>
