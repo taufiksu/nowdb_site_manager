@@ -36,6 +36,7 @@
         <div class="container bootcards-container push-right">
             <div class="row">
                 <div class="col-sm-8 bootcards-cards" id="content-left">
+                    <!--Article-->
                     <div class="panel panel-default" style="margin-top: 10px;">
                         <div class="panel-heading clearfix">
                             <h3 class="panel-title pull-left" id="progress-info-article">Edit Artikel</h3>
@@ -61,6 +62,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--Image List-->
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h3 class="panel-title pull-left">Daftar Gambar</h3>
@@ -110,6 +113,11 @@
                                     </tr>
                                 </table>
                             </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-danger btn-block" id="doRemoveArticle">
+                                <i class="fa fa-trash-o"></i>Hapus Artikel
+                            </button>
                         </div>
                     </div>
 
@@ -437,6 +445,104 @@
                 $.ajax(settings_article_update).done(function (cb) {
                     $(location).attr('href', 'article_editor_index.html?id=' + getParamValue('id'));
                 });
+                return false;
+            });
+
+            $('#doRemoveArticle').click(function () {
+                var id = $(this).attr('data-id');
+                var status = confirm("Yakin akan menghapus data ini?");
+                if (status == true) {
+                    var article_category_remove = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/remove_where" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/article_category" +
+                        "/appid/" + appid +
+                        "/where_field/article_id" +
+                        "/where_value/" + getParamValue('id'),
+                        "method": "DELETE",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    }
+
+                    $.ajax(article_category_remove).done();
+
+                    var article_label_remove = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/remove_where" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/article_label" +
+                        "/appid/" + appid +
+                        "/where_field/article_id" +
+                        "/where_value/" + getParamValue('id'),
+                        "method": "DELETE",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    }
+
+                    $.ajax(article_label_remove).done();
+
+                    var article_image_remove = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/remove_where" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/article_image" +
+                        "/appid/" + appid +
+                        "/where_field/article_id" +
+                        "/where_value/" + getParamValue('id'),
+                        "method": "DELETE",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    }
+
+                    $.ajax(article_image_remove).done();
+
+                    var article_menu_remove = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/remove_where" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/menu_page" +
+                        "/appid/" + appid +
+                        "/where_field/content_id" +
+                        "/where_value/" + getParamValue('id'),
+                        "method": "DELETE",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    }
+
+                    $.ajax(article_menu_remove).done(function () {
+                        var article_remove = {
+                            "async": true,
+                            "crossDomain": true,
+                            "url": "http://io.nowdb.net/v2/remove_id" +
+                            "/token/" + token +
+                            "/project/" + project +
+                            "/collection/article" +
+                            "/appid/" + appid +
+                            "/id/" + getParamValue('id'),
+                            "method": "DELETE",
+                            "headers": {
+                                "cache-control": "no-cache"
+                            }
+                        }
+
+                        $.ajax(article_remove).done(function () {
+                            window.close();
+                        });
+                    });
+                }
                 return false;
             });
 
