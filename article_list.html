@@ -24,34 +24,38 @@
     }
 
     $.ajax(settings_article).done(function (response_article) {
-        $.each(response_article, function (key, value) {
-            if (value.status == 0) {
-                $("#article-list").append('<a class="list-group-item" href="article_editor_index.html?id=' + value.id + '" target="_blank">' +
-                    '<div class="row">' +
-                    '<div class="col-sm-6">' +
-                    '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
-                    '<p class="list-group-item-text">Konsep</p>' +
-                    '</div>' +
-                    '<div class="col-sm-6">' +
-                    '<p class="list-group-item-text">' + value.date + '</p>' +
-                    '<p class="list-group-item-text">' + value.user_name + '</p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</a>');
-            } else {
-                $("#article-list").append('<a class="list-group-item" href="article_editor_index.html?id=' + value.id + '" target="_blank">' +
-                    '<div class="row">' +
-                    '<div class="col-sm-6">' +
-                    '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
-                    '<p class="list-group-item-text">Terpublikasi</p>' +
-                    '</div>' +
-                    '<div class="col-sm-6">' +
-                    '<p class="list-group-item-text">Type</p>' +
-                    '<p class="list-group-item-text">Revenue</p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</a>');
-            }
-        })
+        if (response_article.Data == 0) {
+            $('#article-list').empty();
+        } else {
+            $.each(response_article, function (key, value) {
+                if (value.status == 0) {
+                    $("#article-list").append('<a class="list-group-item" href="article_editor_index.html?id=' + value.id + '" target="_blank">' +
+                        '<div class="row">' +
+                        '<div class="col-sm-6">' +
+                        '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
+                        '<p class="list-group-item-text">Konsep</p>' +
+                        '</div>' +
+                        '<div class="col-sm-6">' +
+                        '<p class="list-group-item-text">' + value.date + '</p>' +
+                        '<p class="list-group-item-text">' + value.user_name + '</p>' +
+                        '</div>' +
+                        '</div>' +
+                        '</a>');
+                } else {
+                    $("#article-list").append('<a class="list-group-item" href="article_editor_index.html?id=' + value.id + '" target="_blank">' +
+                        '<div class="row">' +
+                        '<div class="col-sm-6">' +
+                        '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
+                        '<p class="list-group-item-text">Terpublikasi</p>' +
+                        '</div>' +
+                        '<div class="col-sm-6">' +
+                        '<p class="list-group-item-text">Type</p>' +
+                        '<p class="list-group-item-text">Revenue</p>' +
+                        '</div>' +
+                        '</div>' +
+                        '</a>');
+                }
+            });
+        }
     });
 </script>

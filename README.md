@@ -60,6 +60,7 @@ article_label
     - label
 article_category
     - article_id
+    - category_id
     - category_title
 link
     - user_id

@@ -28,7 +28,7 @@
             <div class="container">
                 <!--Title(Desktop)-->
                 <img src="img/favicon.ico" style="height: 45px;width: 41px; float: left;padding: 10px 5px 5px 5px;">
-                <a class="navbar-brand" title="Electrionic Lettter">Site Manager</a>
+                <a class="navbar-brand" title="Electrionic Lettter">N-Portal</a>
             </div>
         </div>
 
@@ -38,7 +38,7 @@
                 <div class="col-sm-8 bootcards-cards" id="content-left">
                     <div class="panel panel-default" style="margin-top: 10px;">
                         <div class="panel-heading clearfix">
-                            <h3 class="panel-title pull-left">Edit Artikel</h3>
+                            <h3 class="panel-title pull-left" id="progress-info-article">Edit Artikel</h3>
                             <div class="btn-group pull-right">
                                 <a class="btn btn-success" href="javascript:void(0)" id="doUpdateArticle">
                                     <i class="fa fa-floppy-o"></i>
@@ -71,32 +71,52 @@
                 </div>
 
                 <div class="col-sm-4 bootcards-cards" id="content-right">
-                    <!--Label-->
+                    <!--Info-->
                     <div class="panel panel-default" style="margin-top: 10px;">
                         <div class="panel-heading clearfix">
-                            <h3 class="panel-title pull-left">Input Label</h3>
-                            <div class="btn-group pull-right">
-                                <a class="btn btn-success" href="javascript:void(0)" id="doSubmitArticleLabel">
+                            <h3 class="panel-title pull-left" id="progress-info-basic">Informasi Artikel</h3>
+                            <div class="pull-right">
+                                <a class="btn btn-primary" href="javascript:void(0)" id="doPublish" style="display: none;">
                                     <i class="fa fa-floppy-o"></i>
-                                    <span>Simpan</span>
+                                    <span>Publikasikan</span>
+                                </a>
+                                <a class="btn btn-warning" href="javascript:void(0)" id="doUnpublish" style="display: none;">
+                                    <i class="fa fa-floppy-o"></i>
+                                    <span>Konsepkan</span>
                                 </a>
                             </div>
                         </div>
                         <div class="list-group">
                             <div class="list-group-item">
-                                <label class="list-group-item-text">Label</label>
-                                <div class="list-group-item-heading">
-                                    <input type="text" name="label" id="label" class="form-control">
-                                </div>
+                                <table style="border:0px;">
+                                    <tr>
+                                        <td><label class="list-group-item-text">Status</label></td>
+                                        <td><label>&nbsp;&colon;&nbsp;</label></td>
+                                        <td><label class="list-group-item-text" id="article-info-status"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="list-group-item-text">Tanggal Dibuat</label></td>
+                                        <td><label>&nbsp;&colon;&nbsp;</label></td>
+                                        <td><label class="list-group-item-text" id="article-info-date"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="list-group-item-text">Tanggal Diperbarui</label></td>
+                                        <td><label>&nbsp;&colon;&nbsp;</label></td>
+                                        <td><label class="list-group-item-text" id="article-info-date-update"></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" id="article-info-cover"></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
-                        <div id="article-label-list" style="margin: 0px 15px 15px 15px;"></div>
                     </div>
 
                     <!--Menu-->
                     <div class="panel panel-default" style="margin-top: 10px;">
                         <div class="panel-heading clearfix">
-                            <h3 class="panel-title pull-left">Input Menu</h3>
+                            <h3 class="panel-title pull-left" id="progress-info-menu">Input Menu</h3>
                             <div class="btn-group pull-right">
                                 <a class="btn btn-success" href="javascript:void(0)" id="doSubmitArticleMenu">
                                     <i class="fa fa-floppy-o"></i>
@@ -128,10 +148,55 @@
                         <div id="article-menu-list" style="margin: 0px 15px 15px 15px;"></div>
                     </div>
 
+                    <!--Category-->
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left" id="progress-info-category">Input Kategori</h3>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-success" href="javascript:void(0)" id="doSubmitArticleCategory">
+                                    <i class="fa fa-floppy-o"></i>
+                                    <span>Simpan</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            <div class="list-group-item" style="border: 0px;">
+                                <label class="list-group-item-text">Kategori</label>
+                                <div class="list-group-item-heading">
+                                    <select class="form-control" id="category-list" name="category-list"></select>
+                                </div>
+                            </div>
+                            <input type="hidden" id="category-title" name="category-title"/>
+                        </div>
+                        <div id="article-category-list" style="margin: 0px 15px 15px 15px;"></div>
+                    </div>
+
+                    <!--Label-->
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left" id="progress-info-label">Input Label</h3>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-success" href="javascript:void(0)" id="doSubmitArticleLabel">
+                                    <i class="fa fa-floppy-o"></i>
+                                    <span>Simpan</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <label class="list-group-item-text">Label</label>
+                                <div class="list-group-item-heading">
+                                    <input type="text" name="label" id="label" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="article-label-list" style="margin: 0px 15px 15px 15px;"></div>
+                    </div>
+
                     <!--Upload Picture-->
                     <div class="panel panel-default" style="margin-top: 10px;">
                         <div class="panel-heading clearfix">
-                            <h3 class="panel-title pull-left">Unggah Gambar</h3>
+                            <h3 class="panel-title pull-left" id="progress-info-picture">Unggah Gambar</h3>
                             <div class="btn-group pull-right">
                                 <a class="btn btn-success" href="javascript:void(0)" id="doUploadPicture">
                                     <i class="fa fa-upload"></i>
@@ -163,7 +228,7 @@
         <div class="navbar navbar-default navbar-fixed-bottom" id="menu-bottom">
             <div class="container">
                 <div class="bootcards-desktop-footer clearfix">
-                    <p class="pull-left">2016 &copy; Site Manager Powered by NowDB</p>
+                    <p class="pull-left">2016 &copy; N-Portal Powered by NowDB</p>
                 </div>
                 <div class="btn-group">
                     <a href="javascript:void(0)" class="btn btn-default">
@@ -204,7 +269,7 @@
             }, false);
 
             /*
-             * Label
+             * Article
              */
 
             CKEDITOR.replace('description', {
@@ -242,15 +307,34 @@
                 $.ajax(settings_article).done(function (article) {
                     $('#title').val(article[0].title);
                     CKEDITOR.instances.description.setData(article[0].description);
+                    if (article[0].status == '1') {
+                        $('#doPublish').hide();
+                        $('#doUnpublish').show();
+                        $('#article-info-status').html("Terpublikasi");
+                    } else {
+                        $('#doPublish').show();
+                        $('#doUnpublish').hide();
+                        $('#article-info-status').html("Konsep");
+                    }
+                    $('#article-info-date').html(article[0].date);
+                    $('#article-info-date-update').html(article[0].date_update);
+                    if (article[0].cover != 0) {
+                        $('#article-info-cover').html('<img src="http://file.nowdb.net/' + article[0].cover + '" style="width: 100%;min-height: 150px;"/>');
+                    }
                 });
             }
 
             article_detail();
 
             $('#doUpdateArticle').click(function () {
+                $('#progress-info-article').html('Loading..');
+
                 for (instance in CKEDITOR.instances) {
                     CKEDITOR.instances[instance].updateElement();
                 }
+
+                var date = new Date();
+                var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
                 var form_article_update = new FormData();
                 form_article_update.append("token", token);
@@ -259,6 +343,7 @@
                 form_article_update.append("appid", appid);
                 form_article_update.append("title", $('#title').val());
                 form_article_update.append("description", $('#description').val());
+                form_article_update.append("date_update", today);
                 form_article_update.append("id", getParamValue('id'));
 
                 var settings_article_update = {
@@ -275,13 +360,127 @@
                     "data": form_article_update
                 }
 
-                $.ajax(settings_article_update).done(function (article_update) {
-
+                $.ajax(settings_article_update).done(function (cb) {
+                    $(location).attr('href', 'article_editor_index.html?id=' + getParamValue('id'));
                 });
                 return false;
             });
 
+            $('#doPublish').click(function () {
+                $('#progress-info-basic').html('Loading..');
+
+                var id = getParamValue('id');
+
+                var date = new Date();
+                var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+                var form_article_update = new FormData();
+                form_article_update.append("token", token);
+                form_article_update.append("project", project);
+                form_article_update.append("collection", "article");
+                form_article_update.append("appid", appid);
+                form_article_update.append("status", 1);
+                form_article_update.append("date_update", today);
+                form_article_update.append("id", getParamValue('id'));
+
+                var settings_article_update = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/update_id",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form_article_update
+                }
+
+                $.ajax(settings_article_update).done(function (cb) {
+                    $(location).attr('href', 'article_editor_index.html?id=' + getParamValue('id'));
+                });
+                return false;
+            });
+
+            $('#doUnpublish').click(function () {
+                $('#progress-info-basic').html('Loading..');
+
+                var id = getParamValue('id');
+
+                var date = new Date();
+                var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+                var form_article_update = new FormData();
+                form_article_update.append("token", token);
+                form_article_update.append("project", project);
+                form_article_update.append("collection", "article");
+                form_article_update.append("appid", appid);
+                form_article_update.append("status", 0);
+                form_article_update.append("date_update", today);
+                form_article_update.append("id", getParamValue('id'));
+
+                var settings_article_update = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/update_id",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form_article_update
+                }
+
+                $.ajax(settings_article_update).done(function (cb) {
+                    $(location).attr('href', 'article_editor_index.html?id=' + getParamValue('id'));
+                });
+                return false;
+            });
+
+            /*
+             * Label
+             */
+
+            function article_label_list() {
+                var settings_article_label = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_where" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/article_label" +
+                    "/appid/" + appid +
+                    "/where_field/article_id" +
+                    "/where_value/" + getParamValue('id'),
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_article_label).done(function (response_article_label) {
+                    if (response_article_label.Data == '0') {
+                        $('#article-label-list').empty();
+                    } else {
+                        $('#article-label-list').empty();
+                        $.each(response_article_label, function (key, value) {
+                            $('#article-label-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                '<a class="btn btn-primary btn-xs"><i class="fa fa-tag"></i>' + value.label + '</a>' +
+                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-label" data-id="' + value.id + '">X</a>' +
+                                '</div>');
+                        });
+                    }
+                });
+            }
+
+            article_label_list();
+
             $('#doSubmitArticleLabel').click(function () {
+                $('#progress-info-label').html('Loading..');
+
                 var form_article_label = new FormData();
                 form_article_label.append("token", token);
                 form_article_label.append("project", project);
@@ -306,41 +505,14 @@
 
                 $.ajax(settings_article_label).done(function (article_label) {
                     article_label_list();
+                    $('#progress-info-label').html('Input Label');
                 });
                 return false;
             });
 
-            function article_label_list() {
-                var settings_article_label = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "http://io.nowdb.net/v2/select_where" +
-                    "/token/" + token +
-                    "/project/" + project +
-                    "/collection/article_label" +
-                    "/appid/" + appid +
-                    "/where_field/article_id" +
-                    "/where_value/" + getParamValue('id'),
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                }
-
-                $.ajax(settings_article_label).done(function (response_article_label) {
-                    $('#article-label-list').empty();
-                    $.each(response_article_label, function (key, value) {
-                        $('#article-label-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
-                            '<a class="btn btn-primary btn-xs"><i class="fa fa-tag"></i>' + value.label + '</a>' +
-                            '<a class="btn btn-danger btn-xs" id="btn-remove-article-label" data-id="' + value.id + '">X</a>' +
-                            '</div>');
-                    });
-                });
-            }
-
-            article_label_list();
-
             $(document).off('click', '#btn-remove-article-label').on('click', '#btn-remove-article-label', function () {
+                $('#progress-info-label').html('Loading..');
+
                 var id = $(this).attr('data-id');
 
                 var settings_article_label_remove = {
@@ -359,6 +531,7 @@
                 }
                 $.ajax(settings_article_label_remove).done(function (response_article_label_remove) {
                     article_label_list();
+                    $('#progress-info-label').html('Input Label');
                 });
 
                 return false;
@@ -369,6 +542,8 @@
              */
 
             $('#position').change(function () {
+                $('#progress-info-menu').html('Loading..');
+
                 var position = $(this).val();
 
                 var settings_menu = {
@@ -388,11 +563,18 @@
                 }
 
                 $.ajax(settings_menu).done(function (response_menu) {
-                    $('#menu-id').empty();
-                    $('#menu-id').append('<option value="0">-- Pilih Menu --</option>');
-                    $.each(response_menu, function (key, value) {
-                        $('#menu-id').append('<option value="' + value.id + '" data-name="' + value.title + '">' + value.title + '</option>');
-                    })
+                    $('#progress-info-menu').html('Input Menu');
+
+                    if (response_menu.Data == 0) {
+                        $('#menu-id').empty();
+                        $('#menu-id').append('<option value="0">-- Pilih Menu --</option>');
+                    } else {
+                        $('#menu-id').empty();
+                        $('#menu-id').append('<option value="0">-- Pilih Menu --</option>');
+                        $.each(response_menu, function (key, value) {
+                            $('#menu-id').append('<option value="' + value.id + '" data-name="' + value.title + '">' + value.title + '</option>');
+                        })
+                    }
                 });
                 return false;
             });
@@ -404,6 +586,8 @@
             });
 
             $('#doSubmitArticleMenu').click(function () {
+                $('#progress-info-menu').html('Loading..');
+
                 var date = new Date();
                 var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
@@ -438,6 +622,7 @@
 
                 $.ajax(settings_article_menu).done(function (response_article_menu) {
                     article_menu_list();
+                    $('#progress-info-menu').html('Input Menu');
                 });
                 return false;
             });
@@ -460,36 +645,42 @@
                 }
 
                 $.ajax(settings_article_menu).done(function (response_article_menu) {
-                    $('#article-menu-list').empty();
-                    $.each(response_article_menu, function (key, value) {
-                        if (value.menu_position == 1) {
-                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
-                                '<a class="btn btn-primary btn-xs">Atas : ' + value.menu_name + '</a>' +
-                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
-                                '</div>');
-                        } else if (value.menu_position == 2) {
-                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
-                                '<a class="btn btn-primary btn-xs">Bawah : ' + value.menu_name + '</a>' +
-                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
-                                '</div>');
-                        } else if (value.menu_position == 3) {
-                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
-                                '<a class="btn btn-primary btn-xs">Kanan : ' + value.menu_name + '</a>' +
-                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
-                                '</div>');
-                        } else if (value.menu_position == 4) {
-                            $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
-                                '<a class="btn btn-primary btn-xs">Kiri : ' + value.menu_name + '</a>' +
-                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
-                                '</div>');
-                        }
-                    });
+                    if (response_article_menu.Data == '0') {
+                        $('#article-menu-list').empty();
+                    } else {
+                        $('#article-menu-list').empty();
+                        $.each(response_article_menu, function (key, value) {
+                            if (value.menu_position == 1) {
+                                $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                    '<a class="btn btn-primary btn-xs">Atas : ' + value.menu_name + '</a>' +
+                                    '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                    '</div>');
+                            } else if (value.menu_position == 2) {
+                                $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                    '<a class="btn btn-primary btn-xs">Bawah : ' + value.menu_name + '</a>' +
+                                    '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                    '</div>');
+                            } else if (value.menu_position == 3) {
+                                $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                    '<a class="btn btn-primary btn-xs">Kanan : ' + value.menu_name + '</a>' +
+                                    '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                    '</div>');
+                            } else if (value.menu_position == 4) {
+                                $('#article-menu-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                    '<a class="btn btn-primary btn-xs">Kiri : ' + value.menu_name + '</a>' +
+                                    '<a class="btn btn-danger btn-xs" id="btn-remove-article-menu" data-id="' + value.id + '">X</a>' +
+                                    '</div>');
+                            }
+                        });
+                    }
                 });
             }
 
             article_menu_list();
 
             $(document).off('click', '#btn-remove-article-menu').on('click', '#btn-remove-article-menu', function () {
+                $('#progress-info-menu').html('Loading..');
+
                 var id = $(this).attr('data-id');
 
                 var settings_article_menu_remove = {
@@ -508,6 +699,142 @@
                 }
                 $.ajax(settings_article_menu_remove).done(function (response_article_menu_remove) {
                     article_menu_list();
+                    $('#progress-info-menu').html('Input Menu');
+                });
+
+                return false;
+            });
+
+            /*
+             * Category
+             */
+
+            function category_list() {
+                var settings_category = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_all" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/category" +
+                    "/appid/" + appid,
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_category).done(function (response_category) {
+                    if (response_category.Data == '0') {
+                        $('#category-list').empty();
+                        $('#category-list').append('<option value="0">-- Pilih Kategori --</option>');
+                    } else {
+                        $('#category-list').empty();
+                        $('#category-list').append('<option value="0">-- Pilih Kategori --</option>');
+                        $.each(response_category, function (key, value) {
+                            $('#category-list').append('<option value="' + value.id + '" data-title="' + value.title + '">' + value.title + '</option>');
+                        });
+                    }
+                });
+            }
+
+            category_list();
+
+            $(document).off('change', '#category-list').on('change', '#category-list', function () {
+                var category_title = $(this).find(':selected').attr('data-title');
+                $('#category-title').val(category_title);
+                return false;
+            });
+
+            $('#doSubmitArticleCategory').click(function () {
+                $('#progress-info-category').html('Loading..');
+
+                var form_article_category = new FormData();
+                form_article_category.append("token", token);
+                form_article_category.append("project", project);
+                form_article_category.append("collection", "article_category");
+                form_article_category.append("appid", appid);
+                form_article_category.append("article_id", getParamValue('id'));
+                form_article_category.append("category_id", $('#category-list').val());
+                form_article_category.append("category_title", $('#category-title').val());
+
+                var settings_article_category = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/insert",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form_article_category
+                }
+
+                $.ajax(settings_article_category).done(function (response_article_menu) {
+                    article_category_list();
+                    $('#progress-info-category').html('Input Kategori');
+                });
+                return false;
+            });
+
+            function article_category_list() {
+                var settings_article_category = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/select_where" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/article_category" +
+                    "/appid/" + appid +
+                    "/where_field/article_id" +
+                    "/where_value/" + getParamValue('id'),
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+
+                $.ajax(settings_article_category).done(function (response_article_category) {
+                    if (response_article_category.Data == '0') {
+                        $('#article-category-list').empty();
+                    } else {
+                        $('#article-category-list').empty();
+                        $.each(response_article_category, function (key, value) {
+                            $('#article-category-list').append('<div class="btn-group" style="margin: 0px 10px 10px 0px;">' +
+                                '<a class="btn btn-primary btn-xs">' + value.category_title + '</a>' +
+                                '<a class="btn btn-danger btn-xs" id="btn-remove-article-category" data-id="' + value.id + '">X</a>' +
+                                '</div>');
+                        });
+                    }
+                });
+            }
+
+            article_category_list();
+
+            $(document).off('click', '#btn-remove-article-category').on('click', '#btn-remove-article-category', function () {
+                $('#progress-info-category').html('Loading..');
+
+                var id = $(this).attr('data-id');
+
+                var settings_article_category_remove = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://io.nowdb.net/v2/remove_id" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/article_category" +
+                    "/appid/" + appid +
+                    "/id/" + id,
+                    "method": "DELETE",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+                $.ajax(settings_article_category_remove).done(function (response_article_category_remove) {
+                    article_category_list();
+                    $('#progress-info-category').html('Input Kategori');
                 });
 
                 return false;
@@ -562,7 +889,6 @@
 
             function sendXHRequest(formData, uri) {
                 $('#doUploadPicture').hide();
-                $('#span-info').show();
                 var xhr = new XMLHttpRequest();
                 xhr.upload.addEventListener('loadstart', onloadstartHandler, false);
                 xhr.upload.addEventListener('progress', onprogressHandler, false);
@@ -573,17 +899,17 @@
             }
 
             function onloadstartHandler() {
-                var spaninfo = document.getElementById('span-info');
+                var spaninfo = document.getElementById('progress-info-picture');
                 spaninfo.innerHTML = "Starting Process";
             }
 
             function onloadHandler() {
-                var spaninfo = document.getElementById('span-info');
+                var spaninfo = document.getElementById('progress-info-picture');
                 spaninfo.innerHTML = "Finishing Process";
             }
 
             function onprogressHandler(callback) {
-                var spaninfo = document.getElementById('span-info');
+                var spaninfo = document.getElementById('progress-info-picture');
                 var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
                 spaninfo.innerHTML = percent + " % Process";
             }
@@ -591,7 +917,7 @@
             function onreadystatechangeHandler(callback) {
                 $('#doUploadPicture').show();
                 if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
-                    var spaninfo = document.getElementById('span-info');
+                    var spaninfo = document.getElementById('progress-info-picture');
                     spaninfo.innerHTML = "Processing Database";
 
                     var obj = $.parseJSON(callback.target.responseText);
@@ -626,8 +952,8 @@
                     }
 
                     $.ajax(settings_article_image).done(function (response_article_image) {
-                        $('#span-info').html('');
                         article_image_list();
+                        $('#progress-info-picture').html('Unggah Gambar');
                     });
                 }
             }
@@ -650,29 +976,33 @@
                 }
 
                 $.ajax(settings_article_image).done(function (response_article_image) {
-                    $('#article-image-list').empty();
-                    $.each(response_article_image, function (key, value) {
-                        $('#article-image-list').append('<div class="col-sm-6 col-md-4">' +
-                            '<div class="thumbnail" style="height: 385px;">' +
-                            '<div class="caption" style="padding-bottom: 0px;">' +
-                            '<input id="url' + value.id + '" type="text" value="http://file.nowdb.net/' + value.file + '" class="form-control">' +
-                            '<span id="msg' + value.id + '"></span>' +
-                            '<p>' +
-                            '<a id="copyBtn' + value.id + '" class="btn btn-warning btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-link"></i> Link Copy</a>' +
-                            '<a id="doSetCover" data-url="' + value.file + '" class="btn btn-primary btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-image"></i> Set Cover</a>' +
-                            '<a id="doRemovePicture" data-id="' + value.id + '" class="btn btn-danger btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-trash"></i> Hapus</a>' +
-                            '</p>' +
-                            '<p>' + value.title + '</p>' +
-                            '</div>' +
-                            '<img src="http://file.nowdb.net/' + value.file + '" style="padding: 0px 10px 10px 10px;width: 100%;">' +
-                            '</div>' +
-                            '</div>');
+                    if (response_article_image.Data == '0') {
+                        $('#article-image-list').empty();
+                    } else {
+                        $('#article-image-list').empty();
+                        $.each(response_article_image, function (key, value) {
+                            $('#article-image-list').append('<div class="col-sm-6 col-md-4">' +
+                                '<div class="thumbnail" style="height: 385px;">' +
+                                '<div class="caption" style="padding-bottom: 0px;">' +
+                                '<input id="url' + value.id + '" type="text" value="http://file.nowdb.net/' + value.file + '" class="form-control">' +
+                                '<span id="msg' + value.id + '"></span>' +
+                                '<p>' +
+                                '<a id="copyBtn' + value.id + '" class="btn btn-warning btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-link"></i> Link Copy</a>' +
+                                '<a id="doSetCover" data-url="' + value.file + '" class="btn btn-primary btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-image"></i> Set Cover</a>' +
+                                '<a id="doRemovePicture" data-id="' + value.id + '" class="btn btn-danger btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-trash"></i> Hapus</a>' +
+                                '</p>' +
+                                '<p>' + value.title + '</p>' +
+                                '</div>' +
+                                '<img src="http://file.nowdb.net/' + value.file + '" style="padding: 0px 10px 10px 10px;width: 100%;">' +
+                                '</div>' +
+                                '</div>');
 
-                        $('#copyBtn' + value.id).click(function () {
-                            copyToClipboardMsg(document.getElementById("url" + value.id), "msg" + value.id);
-                            return false;
+                            $('#copyBtn' + value.id).click(function () {
+                                copyToClipboardMsg(document.getElementById("url" + value.id), "msg" + value.id);
+                                return false;
+                            });
                         });
-                    });
+                    }
                 });
             }
 
@@ -797,18 +1127,12 @@
                         "data": form_cover_update
                     }
 
-                    $.ajax(settings_cover_update).done(function (response_article_image_cover) {
-                        alert('Cover artikel berhasil di perbarui');
+                    $.ajax(settings_cover_update).done(function () {
+                        $(location).attr('href', 'article_editor_index.html?id=' + getParamValue('id'));
                     });
                 }
                 return false;
             });
-
-            /*
-             * Category
-             */
-
-
         </script>
     </body>
 </html>
