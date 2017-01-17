@@ -233,6 +233,8 @@
         var id = $('#id').val();
         var status = confirm("Yakin akan menghapus data ini?");
         if (status == true) {
+            remove_submenu(id);
+
             var menu_page_remove = {
                 "async": true,
                 "crossDomain": true,
@@ -371,4 +373,62 @@
         }
         return false;
     });
+
+    function remove_submenu(id) {
+        var get_submenu = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://io.nowdb.net/v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/menu" +
+            "/appid/" + appid +
+            "/where_field/parent_id" +
+            "/where_value/" + id,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(get_submenu).done(function (response_get_submenu) {
+            if (response_get_submenu.Data == '0') {
+            } else {
+                $.each(response_get_submenu, function (key, value) {
+                    var menu_remove = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/remove_id" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/menu" +
+                        "/appid/" + appid +
+                        "/id/" + value.id,
+                        "method": "DELETE",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    }
+                    $.ajax(menu_remove).done();
+
+                    var menu_page_remove = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://io.nowdb.net/v2/remove_where" +
+                        "/token/" + token +
+                        "/project/" + project +
+                        "/collection/menu_page" +
+                        "/appid/" + appid +
+                        "/where_field/menu_id" +
+                        "/where_value/" + value.id,
+                        "method": "DELETE",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    }
+                    $.ajax(menu_page_remove).done();
+                });
+            }
+        });
+    }
 </script>
