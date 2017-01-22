@@ -1,43 +1,6 @@
 <div class="panel panel-default bootcards-summary">
     <div class="panel-heading">
-        <h3 class="panel-title">Atur Konten</h3>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-xs-6 col-sm-4">
-                <a id="btn-menu" class="bootcards-summary-item" href="javascript:void(0)" data-title="Menu" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-sitemap"></i>
-                    <h4>
-                        Menu
-                        <span class="label label-info" id="total-menu">0</span>
-                    </h4>
-                </a>
-            </div>
-            <div id="btn-article" class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="javascript:void(0)" data-title="Artikel" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-newspaper-o"></i>
-                    <h4>
-                        Artikel
-                        <span class="label label-info" id="total-article">0</span>
-                    </h4>
-                </a>
-            </div>
-            <div id="btn-agenda" class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="javascript:void(0)" data-title="Agenda" style="padding-top:35px;">
-                    <i class="fa fa-3x fa-clock-o"></i>
-                    <h4>
-                        Agenda
-                        <span class="label label-info" id="total-agenda">0</span>
-                    </h4>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="panel panel-default bootcards-summary">
-    <div class="panel-heading">
-        <h3 class="panel-title" id="title-setting">Atur Website</h3>
+        <h3 class="panel-title" id="title-setting">Website</h3>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -98,237 +61,10 @@
     </div>
 </div>
 <script>
-    $('#btn-menu').click(function () {
-        $(".menu-top").css("color", "#777777");
-        $("#menu-top-content").css("color", "#337AB7");
-
-        $("#content-right").empty();
-        $("#content-left").empty();
-
-        var home_weather = {
-            "async": true,
-            "crossDomain": true,
-            "url": "home_weather.html",
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        };
-
-        $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-left").append(response_home_weather);
-
-            var setting_content = {
-                "async": true,
-                "crossDomain": true,
-                "url": "content_menu.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(setting_content).done(function (response_setting_content) {
-                $("#content-left").append(response_setting_content);
-
-                var menu_top_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_top_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_top_list).done(function (response_menu_top_list) {
-                    $("#content-left").append(response_menu_top_list);
-                });
-
-                var menu_bottom_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_bottom_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_bottom_list).done(function (response_menu_bottom_list) {
-                    $("#content-left").append(response_menu_bottom_list);
-                });
-
-                var menu_right_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_right_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_right_list).done(function (response_menu_right_list) {
-                    $("#content-left").append(response_menu_right_list);
-                });
-
-                var menu_left_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "menu_left_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(menu_left_list).done(function (response_menu_left_list) {
-                    $("#content-left").append(response_menu_left_list);
-                });
-            });
-        });
-
-        var menu_top_form_add = {
-            "async": true,
-            "crossDomain": true,
-            "url": "menu_top_form_add.html",
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        };
-
-        $.ajax(menu_top_form_add).done(function (response_menu_top_form_add) {
-            $("#content-right").append(response_menu_top_form_add);
-        });
-
-        return false;
-    });
-
-    $('#btn-article').click(function () {
-        $(".menu-top").css('color', '#777777');
-        $("#menu-top-content").css('color', '#337AB7');
-
-        $("#content-right").empty();
-        $("#content-left").empty();
-
-        var home_weather = {
-            "async": true,
-            "crossDomain": true,
-            "url": "home_weather.html",
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        };
-
-        $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-left").append(response_home_weather);
-
-            var setting_content = {
-                "async": true,
-                "crossDomain": true,
-                "url": "content_menu.html",
-                "method": "GET",
-                "headers": {
-                    "cache-control": "no-cache"
-                }
-            };
-
-            $.ajax(setting_content).done(function (response_setting_content) {
-                $("#content-left").append(response_setting_content);
-
-                var article_list = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "article_list.html",
-                    "method": "GET",
-                    "headers": {
-                        "cache-control": "no-cache"
-                    }
-                };
-
-                $.ajax(article_list).done(function (response_article_list) {
-                    $("#content-left").append(response_article_list);
-                });
-            });
-        });
-
-        var article_form_add = {
-            "async": true,
-            "crossDomain": true,
-            "url": "article_form_add.html",
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        };
-
-        $.ajax(article_form_add).done(function (response_article_form_add) {
-            $("#content-right").append(response_article_form_add);
-        });
-
-        return false;
-    });
-
-    function total_menu() {
-        var total_menu = {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_all" +
-            "/token/" + token +
-            "/project/" + project +
-            "/collection/menu" +
-            "/appid/" + appid,
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        }
-
-        $.ajax(total_menu).done(function (response_total_menu) {
-            if (response_total_menu.Data == '0') {
-                $('#total-menu').html('0');
-            } else {
-                var total = response_total_menu.length;
-                $('#total-menu').html(total);
-            }
-        });
-    }
-
-    function total_article() {
-        var total_article = {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_all" +
-            "/token/" + token +
-            "/project/" + project +
-            "/collection/article" +
-            "/appid/" + appid,
-            "method": "GET",
-            "headers": {
-                "cache-control": "no-cache"
-            }
-        }
-
-        $.ajax(total_article).done(function (response_total_article) {
-            if (response_total_article.Data == '0') {
-                $('#total-article').html('0');
-            } else {
-                var total = response_total_article.length;
-                $('#total-article').html(total);
-            }
-        });
-    }
-
-    total_menu();
-
-    total_article();
-
     /*
      * Atur Website
      */
+
     $('#setting-portal').click(function () {
         $('#content-left').empty();
         $('#content-right').empty();
@@ -687,7 +423,7 @@
         var total_category = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_all" +
+            "url": io + "v2/select_all" +
             "/token/" + token +
             "/project/" + project +
             "/collection/category" +
@@ -712,7 +448,7 @@
         var total_link = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_all" +
+            "url": io + "v2/select_all" +
             "/token/" + token +
             "/project/" + project +
             "/collection/link" +
@@ -737,7 +473,7 @@
         var total_slideshow = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_where" +
+            "url": io + "v2/select_where" +
             "/token/" + token +
             "/project/" + project +
             "/collection/slideshow" +
@@ -764,7 +500,7 @@
         var total_service = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_where" +
+            "url": io + "v2/select_where" +
             "/token/" + token +
             "/project/" + project +
             "/collection/service" +
@@ -791,7 +527,7 @@
         var total_partner = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_where" +
+            "url": io + "v2/select_where" +
             "/token/" + token +
             "/project/" + project +
             "/collection/partner" +

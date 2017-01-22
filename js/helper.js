@@ -18,7 +18,7 @@ function loginCheck() {
             var user_login = {
                 "async": true,
                 "crossDomain": true,
-                "url": "http://io.nowdb.net/v2/select_where" +
+                "url": io + "v2/select_where" +
                 "/token/" + token +
                 "/project/" + project +
                 "/collection/user_login" +
@@ -50,7 +50,7 @@ function getUserInfo() {
             var user_info = {
                 "async": false,
                 "crossDomain": true,
-                "url": "http://io.nowdb.net/v2/select_where" +
+                "url": io + "v2/select_where" +
                 "/token/" + token +
                 "/project/" + project +
                 "/collection/user_login" +

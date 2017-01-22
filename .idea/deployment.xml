@@ -9,6 +9,20 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="server_bplhd">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www/html/balaikliringkehati/admin" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="server_klhk">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www/html/admin" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>

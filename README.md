@@ -3,6 +3,11 @@ Site Manager Based on NowDB
 
 ## Prerequisite
 
+### API
+```groovy
+Please enable all NowDB API V2
+```
+
 ### Database
 ```groovy
 Collection & Field
@@ -92,10 +97,24 @@ partner
     - link
     - file
     - date
+album
+    - title
+    - description
+    - status
+    - date
+album_image
+    - album_id
+    - title
+    - file
+    - date
+folder
+    - title
+    - status
+    - date
+folder_file
+    - title
+    - file
+    - type
+    - size
+    - date
 ```
-
-### API
-```groovy
-Please enable all NowDB API V2
-```
-

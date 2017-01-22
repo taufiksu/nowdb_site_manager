@@ -10,6 +10,22 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="12f0ebb1-322b-4fa0-8a45-0afc85512533" name="server_bplhd" url="http://124.81.123.101">
+        <fileTransfer host="124.81.123.101" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="24c150b3-13ed-40a1-8ae1-22aeb39bb76f" name="server_klhk" url="http://124.81.123.100">
+        <fileTransfer host="124.81.123.100" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

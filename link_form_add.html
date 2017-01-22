@@ -53,7 +53,7 @@
         var settings_link = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/insert",
+            "url": io + "v2/insert",
             "method": "POST",
             "headers": {
                 "cache-control": "no-cache",
@@ -76,7 +76,7 @@
         var settings_link = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/select_all" +
+            "url": io + "v2/select_all" +
             "/token/" + token +
             "/project/" + project +
             "/collection/link" +
@@ -109,7 +109,7 @@
         var settings_link = {
             "async": true,
             "crossDomain": true,
-            "url": "http://io.nowdb.net/v2/remove_id" +
+            "url": io + "v2/remove_id" +
             "/token/" + token +
             "/project/" + project +
             "/collection/link" +
