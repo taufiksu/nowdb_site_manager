@@ -1,21 +1,18 @@
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Artikel</h3>
+        <h3 class="panel-title pull-left">Album</h3>
         <div class="btn-group pull-right"></div>
     </div>
-    <div class="list-group" id="article-list"></div>
-    <div class="panel-footer">
-        <small class="pull-left">Klik artikel untuk melakukan edit</small>
-    </div>
+    <div class="list-group" id="album-list"></div>
 </div>
 <script>
-    var settings_article = {
+    var album_list = {
         "async": true,
         "crossDomain": true,
         "url": io + "v2/select_all" +
         "/token/" + token +
         "/project/" + project +
-        "/collection/article" +
+        "/collection/album" +
         "/appid/" + appid,
         "method": "GET",
         "headers": {
@@ -23,34 +20,34 @@
         }
     }
 
-    $.ajax(settings_article).done(function (response_article) {
-        if (response_article.Data == 0) {
-            $('#article-list').empty();
+    $.ajax(album_list).done(function (response_album_list) {
+        if (response_album_list.Data == 0) {
+            $('#album-list').empty();
         } else {
-            $.each(response_article, function (key, value) {
+            $.each(response_album_list, function (key, value) {
                 if (value.status == 0) {
-                    $("#article-list").append('<a class="list-group-item" href="article_editor_index.html?id=' + value.id + '" target="_blank">' +
+                    $("#album-list").append('<a class="list-group-item">' +
                         '<div class="row">' +
                         '<div class="col-sm-6">' +
                         '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
-                        '<p class="list-group-item-text">' + value.user_name + '</p>' +
+                        '<p class="list-group-item-text">' + value.description + '</p>' +
                         '</div>' +
                         '<div class="col-sm-6">' +
                         '<p class="list-group-item-text">' + value.date + '</p>' +
-                        '<p class="list-group-item-text">Konsep</p>' +
+                        '<p class="list-group-item-text">Koleksi Pribadi</p>' +
                         '</div>' +
                         '</div>' +
                         '</a>');
                 } else {
-                    $("#article-list").append('<a class="list-group-item" href="article_editor_index.html?id=' + value.id + '" target="_blank">' +
+                    $("#album-list").append('<a class="list-group-item">' +
                         '<div class="row">' +
                         '<div class="col-sm-6">' +
                         '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
-                        '<p class="list-group-item-text">' + value.user_name + '</p>' +
+                        '<p class="list-group-item-text">' + value.description + '</p>' +
                         '</div>' +
                         '<div class="col-sm-6">' +
                         '<p class="list-group-item-text">' + value.date + '</p>' +
-                        '<p class="list-group-item-text">Terpublikasi</p>' +
+                        '<p class="list-group-item-text">Koleksi Umum</p>' +
                         '</div>' +
                         '</div>' +
                         '</a>');

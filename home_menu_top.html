@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-document" class="menu-top">
+                <a href="javascript:void(0)" style="padding-right: 0px;padding-left: 25px;" id="menu-top-file" class="menu-top">
                     <i class="fa fa-files-o"></i> Berkas
                 </a>
             </li>
@@ -46,14 +46,15 @@
 </div>
 <script>
     /*
-     * Access Gallery Page Manager
+     * Access File Manager
      */
 
-    $('#menu-top-gallery').click(function () {
-        $(".menu-top").css("color", "#777777");
-        $("#menu-top-gallery").css("color", "#337AB7");
+    $('#menu-top-file').click(function () {
+        $(".menu-top").css('color', '#777777');
+        $("#menu-top-file").css('color', '#337AB7');
 
         $("#content-right").empty();
+        $("#content-left").empty();
 
         var home_weather = {
             "async": true,
@@ -66,21 +67,49 @@
         };
 
         $.ajax(home_weather).done(function (response_home_weather) {
-            $("#content-right").append(response_home_weather);
+            $("#content-left").append(response_home_weather);
 
-            var gallery_form_add = {
+            var file_menu = {
                 "async": true,
                 "crossDomain": true,
-                "url": "gallery_form_add.html",
+                "url": "file_menu.html",
                 "method": "GET",
                 "headers": {
                     "cache-control": "no-cache"
                 }
             };
 
-            $.ajax(gallery_form_add).done(function (response_gallery_form_add) {
-                $("#content-right").append(response_gallery_form_add);
+            $.ajax(file_menu).done(function (response_file_menu) {
+                $("#content-left").append(response_file_menu);
+
+                var album_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "album_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(album_list).done(function (response_album_list) {
+                    $("#content-left").append(response_album_list);
+                });
             });
+        });
+
+        var album_form_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": "album_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(album_form_add).done(function (response_album_form_add) {
+            $("#content-right").append(response_album_form_add);
         });
 
         return false;

@@ -1,10 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+<div class="panel panel-default bootcards-summary" style="margin-top: 10px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">Berkas</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" style="padding-top:35px;cursor: pointer;" id="btn-album">
+                    <i class="fa fa-3x fa-picture-o"></i>
+                    <h4>
+                        Galeri
+                        <span class="label label-info" id="total-image">0</span>
+                    </h4>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <a class="bootcards-summary-item" style="padding-top:35px;cursor: pointer;" id="btn-folder">
+                    <i class="fa fa-3x fa-files-o"></i>
+                    <h4>
+                        Dokumen
+                        <span class="label label-info" id="total-file">0</span>
+                    </h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#btn-album').click(function () {
+        $(".menu-top").css('color', '#777777');
+        $("#menu-top-file").css('color', '#337AB7');
+
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+
+            var file_menu = {
+                "async": true,
+                "crossDomain": true,
+                "url": "file_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(file_menu).done(function (response_file_menu) {
+                $("#content-left").append(response_file_menu);
+
+                var album_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "album_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(album_list).done(function (response_album_list) {
+                    $("#content-left").append(response_album_list);
+                });
+            });
+        });
+
+        var album_form_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": "album_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(album_form_add).done(function (response_album_form_add) {
+            $("#content-right").append(response_album_form_add);
+        });
+
+        return false;
+    });
+</script>

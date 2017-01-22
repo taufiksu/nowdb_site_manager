@@ -1,0 +1,130 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Input Album</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitAlbum">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title" id="title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Deskripsi</label>
+            <div class="list-group-item-heading">
+                <textarea name="description" id="description" class="form-control" style="resize: vertical;"></textarea>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Status</label>
+            <div class="list-group-item-heading">
+                <select name="status" id="status" class="form-control">
+                    <option value="0">Pribadi</option>
+                    <option value="1">Umum</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#doSubmitAlbum').click(function () {
+        var d = new Date();
+        var today = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+
+        var form_album = new FormData();
+        form_album.append("token", token);
+        form_album.append("project", project);
+        form_album.append("collection", "album");
+        form_album.append("appid", appid);
+        form_album.append("title", $('#title').val());
+        form_album.append("description", $('#description').val());
+        form_album.append("status", $('#status').val());
+        form_album.append("date", today);
+
+        var album_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/insert",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_album
+        }
+
+        $.ajax(album_add).done(function (response_album) {
+            $(".menu-top").css('color', '#777777');
+            $("#menu-top-file").css('color', '#337AB7');
+
+            $("#content-right").empty();
+            $("#content-left").empty();
+
+            var home_weather = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_weather.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_weather).done(function (response_home_weather) {
+                $("#content-left").append(response_home_weather);
+
+                var file_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "file_menu.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(file_menu).done(function (response_file_menu) {
+                    $("#content-left").append(response_file_menu);
+
+                    var album_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "album_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(album_list).done(function (response_album_list) {
+                        $("#content-left").append(response_album_list);
+                    });
+                });
+            });
+
+            var album_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "album_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(album_form_add).done(function (response_album_form_add) {
+                $("#content-right").append(response_album_form_add);
+            });
+        });
+
+        return false;
+    });
+</script>
