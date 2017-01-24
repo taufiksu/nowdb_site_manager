@@ -164,6 +164,7 @@
 
                     $.ajax(album_image_list).done(function (response_album_image_list) {
                         $("#content-right").append(response_album_image_list);
+                        total_image();
                     });
                 });
             });

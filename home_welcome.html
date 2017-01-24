@@ -426,4 +426,58 @@
 
         return false;
     });
+
+    function total_image() {
+        var total_image = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/album_image" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_image).done(function (response_total_image) {
+            if (response_total_image.Data == '0') {
+                $('#total-image').html('0');
+            } else {
+                var total = response_total_image.length;
+                $('#total-image').html(total);
+            }
+        });
+    }
+
+    function total_file() {
+        var total_file = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/folder_file" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_file).done(function (response_total_file) {
+            if (response_total_file.Data == '0') {
+                $('#total-file').html('0');
+            } else {
+                var total = response_total_file.length;
+                $('#total-file').html(total);
+            }
+        });
+    }
+
+    total_image();
+
+    total_file();
 </script>

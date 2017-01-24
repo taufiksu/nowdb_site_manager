@@ -164,6 +164,7 @@
 
                     $.ajax(folder_file_list).done(function (response_folder_file_list) {
                         $("#content-right").append(response_folder_file_list);
+                        total_file();
                     });
                 });
             });
