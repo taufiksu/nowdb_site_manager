@@ -1,0 +1,229 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" id="title-info-folder-edit">Edit Folder</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-danger" href="javascript:void(0)" id="doRemoveFolder">
+                <i class="fa fa-trash-o"></i>
+                <span>Hapus</span>
+            </a>
+            <a class="btn btn-success" href="javascript:void(0)" id="doUpdateFolder">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Nama Folder</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title_edit" id="title_edit" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Status</label>
+            <div class="list-group-item-heading">
+                <select name="status_edit" id="status_edit" class="form-control">
+                    <option value="0">Pribadi</option>
+                    <option value="1">Umum</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="folder_id_edit" id="folder_id_edit" value="">
+    </div>
+</div>
+<script>
+    $('#doUpdateFolder').click(function () {
+        $('#title-info-folder-edit').html('Loading..');
+
+        var form_folder_update = new FormData();
+        form_folder_update.append("token", token);
+        form_folder_update.append("project", project);
+        form_folder_update.append("collection", "folder");
+        form_folder_update.append("appid", appid);
+        form_folder_update.append("title", $('#title_edit').val());
+        form_folder_update.append("status", $('#status_edit').val());
+        form_folder_update.append("id", $('#folder_id_edit').val());
+
+        var settings_folder_update = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/update_id",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_folder_update
+        }
+
+        $.ajax(settings_folder_update).done(function (cb) {
+            $(".menu-top").css('color', '#777777');
+            $("#menu-top-file").css('color', '#337AB7');
+
+            $("#content-right").empty();
+            $("#content-left").empty();
+
+            var home_weather = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_weather.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_weather).done(function (response_home_weather) {
+                $("#content-left").append(response_home_weather);
+
+                var file_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "file_menu.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(file_menu).done(function (response_file_menu) {
+                    $("#content-left").append(response_file_menu);
+
+                    var folder_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "folder_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(folder_list).done(function (response_folder_list) {
+                        $("#content-left").append(response_folder_list);
+                    });
+                });
+            });
+
+            var folder_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "folder_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(folder_form_add).done(function (response_folder_form_add) {
+                $("#content-right").append(response_folder_form_add);
+            });
+        });
+        return false;
+    });
+
+    $('#doRemoveFolder').click(function () {
+        var id = $('#folder_id_edit').val();
+        var status = confirm("Yakin akan menghapus data ini?");
+        if (status == true) {
+            var folder_file_remove = {
+                "async": true,
+                "crossDomain": true,
+                "url": io + "v2/remove_where" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/folder_file" +
+                "/appid/" + appid +
+                "/where_field/folder_id" +
+                "/where_value/" + id,
+                "method": "DELETE",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+
+            $.ajax(folder_file_remove).done(function (cb) {
+                var folder_remove = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": io + "v2/remove_id" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/folder" +
+                    "/appid/" + appid +
+                    "/id/" + id,
+                    "method": "DELETE",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                }
+                $.ajax(folder_remove).done(function (cb) {
+                    $(".menu-top").css('color', '#777777');
+                    $("#menu-top-file").css('color', '#337AB7');
+
+                    $("#content-right").empty();
+                    $("#content-left").empty();
+
+                    var home_weather = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "home_weather.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(home_weather).done(function (response_home_weather) {
+                        $("#content-left").append(response_home_weather);
+
+                        var file_menu = {
+                            "async": true,
+                            "crossDomain": true,
+                            "url": "file_menu.html",
+                            "method": "GET",
+                            "headers": {
+                                "cache-control": "no-cache"
+                            }
+                        };
+
+                        $.ajax(file_menu).done(function (response_file_menu) {
+                            $("#content-left").append(response_file_menu);
+
+                            var folder_list = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "folder_list.html",
+                                "method": "GET",
+                                "headers": {
+                                    "cache-control": "no-cache"
+                                }
+                            };
+
+                            $.ajax(folder_list).done(function (response_folder_list) {
+                                $("#content-left").append(response_folder_list);
+                            });
+                        });
+                    });
+
+                    var folder_form_add = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "folder_form_add.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(folder_form_add).done(function (response_folder_form_add) {
+                        $("#content-right").append(response_folder_form_add);
+                    });
+                });
+            });
+        }
+        return false;
+    });
+</script>

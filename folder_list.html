@@ -63,32 +63,71 @@
 
         $('#content-right').empty();
 
-        var folder_form_upload = {
+        var folder_form_edit = {
             "async": true,
             "crossDomain": true,
-            "url": "folder_form_upload.html",
+            "url": "folder_form_edit.html",
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
             }
         };
 
-        $.ajax(folder_form_upload).done(function (response_folder_form_upload) {
-            $("#content-right").append(response_folder_form_upload);
-            $('#folder_id').val(id);
+        $.ajax(folder_form_edit).done(function (response_folder_form_edit) {
+            $("#content-right").append(response_folder_form_edit);
+            $('#folder_id_edit').val(id);
 
-            var folder_file_list = {
+            var folder_detail = {
                 "async": true,
                 "crossDomain": true,
-                "url": "folder_file_list.html",
+                "url": io + "v2/select_id" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/folder" +
+                "/appid/" + appid +
+                "/id/" + id,
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+
+            $.ajax(folder_detail).done(function (response_folder_detail) {
+                $('#title_edit').val(response_folder_detail[0].title);
+                if (response_folder_detail[0].status == '0') {
+                    $('#status_edit').append('<option value="0">Pribadi</option>');
+                } else {
+                    $('#status_edit').append('<option value="1">Umum</option>');
+                }
+            });
+
+            var folder_form_upload = {
+                "async": true,
+                "crossDomain": true,
+                "url": "folder_form_upload.html",
                 "method": "GET",
                 "headers": {
                     "cache-control": "no-cache"
                 }
             };
 
-            $.ajax(folder_file_list).done(function (response_folder_file_list) {
-                $("#content-right").append(response_folder_file_list);
+            $.ajax(folder_form_upload).done(function (response_folder_form_upload) {
+                $("#content-right").append(response_folder_form_upload);
+                $('#folder_id').val(id);
+
+                var folder_file_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "folder_file_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(folder_file_list).done(function (response_folder_file_list) {
+                    $("#content-right").append(response_folder_file_list);
+                });
             });
         });
         return false;
