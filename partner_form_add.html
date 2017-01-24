@@ -66,7 +66,7 @@
             formData.append("project", project);
             formData.append("fileToUpload", $('#partner_file')[0].files[0]);
 
-            var action = 'http://io.nowdb.net/files/uploader';
+            var action = io + 'files/uploader';
 
             PsendXHRequest(formData, action);
             return false;

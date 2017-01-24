@@ -81,7 +81,7 @@
             formData.append("project", project);
             formData.append("fileToUpload", $('#slideshow_file')[0].files[0]);
 
-            var action = 'http://io.nowdb.net/files/uploader';
+            var action = io + 'files/uploader';
 
             SLsendXHRequest(formData, action);
             return false;

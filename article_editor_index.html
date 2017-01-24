@@ -327,7 +327,7 @@
                     $('#article-info-date').html(article[0].date);
                     $('#article-info-date-update').html(article[0].date_update);
                     if (article[0].cover != 0) {
-                        $('#article-info-cover').html('<img src="http://file.nowdb.net/' + article[0].cover + '" style="width: 100%;min-height: 150px;"/>');
+                        $('#article-info-cover').html('<img src="' + io_file + article[0].cover + '" style="width: 100%;min-height: 150px;"/>');
                     }
                 });
             }
