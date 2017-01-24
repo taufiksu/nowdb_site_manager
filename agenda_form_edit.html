@@ -1,0 +1,241 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" id="title-info-agenda-edit">Edit Agenda</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-danger" href="javascript:void(0)" id="doRemoveAgenda">
+                <i class="fa fa-trash-o"></i>
+                <span>Hapus</span>
+            </a>
+            <a class="btn btn-success" href="javascript:void(0)" id="doUpdateAgenda">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title_edit" id="title_edit" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Deskripsi</label>
+            <div class="list-group-item-heading">
+                <textarea name="description_edit" id="description_edit" class="form-control" style="resize: vertical;"></textarea>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Tanggal Mulai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="date_start_edit" id="date_start_edit" class="form-control" style="width: 30%">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Waktu Mulai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="time_start_edit" id="time_start_edit" class="form-control" placeholder="HH:MM" style="width: 14%">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Tanggal Selesai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="date_end_edit" id="date_end_edit" class="form-control" style="width: 30%">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Waktu Selesai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="time_end_edit" id="time_end_edit" class="form-control" placeholder="HH:MM" style="width: 14%">
+            </div>
+        </div>
+        <input type="hidden" name="agenda_id_edit" id="agenda_id_edit" value="">
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#date_start_edit").datepicker();
+        $("#date_end_edit").datepicker();
+    });
+
+    $('#doUpdateAgenda').click(function () {
+        $('#title-info-agenda-edit').html('Loading..');
+
+        var form_agenda_update = new FormData();
+        form_agenda_update.append("token", token);
+        form_agenda_update.append("project", project);
+        form_agenda_update.append("collection", "agenda");
+        form_agenda_update.append("appid", appid);
+        form_agenda_update.append("title", $('#title_edit').val());
+        form_agenda_update.append("description", $('#description_edit').val());
+        form_agenda_update.append("date_start", $('#date_start_edit').val());
+        form_agenda_update.append("time_start", $('#time_start_edit').val());
+        form_agenda_update.append("date_end", $('#date_end_edit').val());
+        form_agenda_update.append("time_end", $('#time_end_edit').val());
+        form_agenda_update.append("id", $('#agenda_id_edit').val());
+
+        var settings_agenda_update = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/update_id",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_agenda_update
+        }
+
+        $.ajax(settings_agenda_update).done(function (cb) {
+            $(".menu-top").css('color', '#777777');
+            $("#menu-top-file").css('color', '#337AB7');
+
+            $("#content-right").empty();
+            $("#content-left").empty();
+
+            var home_weather = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_weather.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_weather).done(function (response_home_weather) {
+                $("#content-left").append(response_home_weather);
+
+                var content_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "content_menu.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(content_menu).done(function (response_content_menu) {
+                    $("#content-left").append(response_content_menu);
+
+                    var agenda_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "agenda_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(agenda_list).done(function (response_agenda_list) {
+                        $("#content-left").append(response_agenda_list);
+                    });
+                });
+            });
+
+            var agenda_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "agenda_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(agenda_form_add).done(function (response_agenda_form_add) {
+                $("#content-right").append(response_agenda_form_add);
+            });
+        });
+        return false;
+    });
+
+    $('#doRemoveAgenda').click(function () {
+        var id = $('#agenda_id_edit').val();
+        var status = confirm("Yakin akan menghapus data ini?");
+        if (status == true) {
+            var agenda_remove = {
+                "async": true,
+                "crossDomain": true,
+                "url": io + "v2/remove_id" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/agenda" +
+                "/appid/" + appid +
+                "/id/" + id,
+                "method": "DELETE",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+            $.ajax(agenda_remove).done(function (cb) {
+                $(".menu-top").css('color', '#777777');
+                $("#menu-top-file").css('color', '#337AB7');
+
+                $("#content-right").empty();
+                $("#content-left").empty();
+
+                var home_weather = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "home_weather.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(home_weather).done(function (response_home_weather) {
+                    $("#content-left").append(response_home_weather);
+
+                    var content_menu = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "content_menu.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(content_menu).done(function (response_content_menu) {
+                        $("#content-left").append(response_content_menu);
+
+                        var agenda_list = {
+                            "async": true,
+                            "crossDomain": true,
+                            "url": "agenda_list.html",
+                            "method": "GET",
+                            "headers": {
+                                "cache-control": "no-cache"
+                            }
+                        };
+
+                        $.ajax(agenda_list).done(function (response_agenda_list) {
+                            $("#content-left").append(response_agenda_list);
+                        });
+                    });
+                });
+
+                var agenda_form_add = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "agenda_form_add.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(agenda_form_add).done(function (response_agenda_form_add) {
+                    $("#content-right").append(response_agenda_form_add);
+                });
+            });
+        }
+        return false;
+    });
+</script>

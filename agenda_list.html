@@ -28,7 +28,7 @@
             $('#agenda-list').empty();
         } else {
             $.each(response_agenda_list, function (key, value) {
-                    $("#agenda-list").append('<a class="list-group-item" data-id="' + value.id + '">' +
+                    $("#agenda-list").append('<a class="list-group-item" id="btn-agenda-edit" data-id="' + value.id + '">' +
                         '<div class="row">' +
                         '<div class="col-sm-6">' +
                         '<h4 class="list-group-item-heading">' + value.title + '</h4>' +
@@ -43,6 +43,51 @@
                 }
             );
         }
-    })
-    ;
+    });
+
+    $(document).off('click', '#btn-agenda-edit').on('click', '#btn-agenda-edit', function () {
+        var id = $(this).attr('data-id');
+
+        $('#content-right').empty();
+
+        var agenda_form_edit = {
+            "async": true,
+            "crossDomain": true,
+            "url": "agenda_form_edit.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(agenda_form_edit).done(function (response_agenda_form_edit) {
+            $("#content-right").append(response_agenda_form_edit);
+            $('#agenda_id_edit').val(id);
+
+            var agenda_detail = {
+                "async": true,
+                "crossDomain": true,
+                "url": io + "v2/select_id" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/agenda" +
+                "/appid/" + appid +
+                "/id/" + id,
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+
+            $.ajax(agenda_detail).done(function (response_agenda_detail) {
+                $('#title_edit').val(response_agenda_detail[0].title);
+                $('#description_edit').html(response_agenda_detail[0].description);
+                $('#date_start_edit').val(response_agenda_detail[0].date_start);
+                $('#time_start_edit').val(response_agenda_detail[0].time_start);
+                $('#date_end_edit').val(response_agenda_detail[0].date_end);
+                $('#time_end_edit').val(response_agenda_detail[0].time_end);
+            });
+        });
+        return false;
+    });
 </script>
