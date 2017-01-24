@@ -1,10 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" id="info-upload-image">Unggah Gambar</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doUploadAlbumImage">
+                <i class="fa fa-floppy-o"></i>
+                <span>Unggah</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title" id="title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Gambar JPEG/PNG</label>
+            <div class="list-group-item-heading">
+                <input type="file" name="image_file" id="image_file" class="form-control">
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="album_id" id="album_id" value="">
+</div>
+<script>
+    $('#doUploadAlbumImage').attr('disabled');
+
+    function supportAjaxUploadWithProgress() {
+        return supportFileAPI() && supportAjaxUploadProgressEvents() && supportFormData();
+        // Is the File API supported?
+        function supportFileAPI() {
+            var fi = document.createElement('INPUT');
+            fi.type = 'file';
+            return 'files' in fi;
+        }
+
+        // Are progress events supported?
+        function supportAjaxUploadProgressEvents() {
+            var xhr = new XMLHttpRequest();
+            return !!(xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+        }
+
+        // Is FormData supported?
+        function supportFormData() {
+            return !!window.FormData;
+        }
+    }
+
+    if (supportAjaxUploadWithProgress()) {
+        $('#doUploadAlbumImage').removeAttr('disabled');
+        initFullFormAjaxUpload();
+    }
+
+    function initFullFormAjaxUpload() {
+        $('#doUploadAlbumImage').click(function () {
+            $('#info-upload-image').html('Loading...');
+            var formData = new (FormData);
+            formData.append("token", token);
+            formData.append("project", project);
+            formData.append("fileToUpload", $('#image_file')[0].files[0]);
+
+            var action = io + 'files/uploader';
+
+            sendXHRequest(formData, action);
+            return false;
+        });
+    }
+
+    function sendXHRequest(formData, uri) {
+        $('#doUploadAlbumImage').hide();
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('loadstart', onloadstartHandler, false);
+        xhr.upload.addEventListener('progress', onprogressHandler, false);
+        xhr.upload.addEventListener('load', onloadHandler, false);
+        xhr.addEventListener('readystatechange', onreadystatechangeHandler, false);// Set up request
+        xhr.open('POST', uri, true);
+        xhr.send(formData);
+    }
+
+    function onloadstartHandler() {
+        var spaninfo = document.getElementById('info-upload-image');
+        spaninfo.innerHTML = "Starting Process";
+    }
+
+    function onloadHandler() {
+        var spaninfo = document.getElementById('info-upload-image');
+        spaninfo.innerHTML = "Finishing Process";
+    }
+
+    function onprogressHandler(callback) {
+        var spaninfo = document.getElementById('info-upload-image');
+        var percent = Math.round(callback.loaded / callback.total * 100).toFixed(0);
+        spaninfo.innerHTML = percent + " % Process";
+    }
+
+    function onreadystatechangeHandler(callback) {
+        $('#doUploadAlbumImage').show();
+        if (callback.target.readyState == 4 && callback.target.status == '200' && callback.target.responseText) {
+            var spaninfo = document.getElementById('info-upload-image');
+            spaninfo.innerHTML = "Processing Database";
+
+            var obj = $.parseJSON(callback.target.responseText);
+            var file = obj['filename'];
+
+            var date = new Date();
+            var today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+            var form_image = new FormData();
+            form_image.append("token", token);
+            form_image.append("project", project);
+            form_image.append("collection", "album_image");
+            form_image.append("appid", appid);
+            form_image.append("album_id", $("#album_id").val());
+            form_image.append("title", $("#title").val());
+            form_image.append("file", file);
+            form_image.append("date", today);
+
+            var image_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": io + "v2/insert",
+                "method": "POST",
+                "headers": {
+                    "cache-control": "no-cache",
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": form_image
+            }
+
+            $.ajax(image_add).done(function (response_image_add) {
+                $('#info-upload-image').html('Unggah Gambar');
+
+                var id = $("#album_id").val();
+
+                $('#content-right').empty();
+
+                var album_form_upload = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "album_form_upload.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(album_form_upload).done(function (response_album_form_upload) {
+                    $("#content-right").append(response_album_form_upload);
+                    $('#album_id').val(id);
+
+                    var album_image_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "album_image_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(album_image_list).done(function (response_album_image_list) {
+                        $("#content-right").append(response_album_image_list);
+                    });
+                });
+            });
+        }
+    }
+</script>

@@ -1,10 +1,166 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Gambar</h3>
+        <div class="btn-group pull-right"></div>
+    </div>
+    <div class="row" style="padding: 10px;" id="album-image-list"></div>
+</div>
+<script>
+    function album_image_list() {
+        $('#album-image-list').empty();
+
+        var album_image_list = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/select_where" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/album_image" +
+            "/appid/" + appid +
+            "/where_field/album_id" +
+            "/where_value/" + $('#album_id').val(),
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(album_image_list).done(function (response_album_image_list) {
+            if (response_album_image_list.Data == '0') {
+                $('#album-image-list').html('');
+            } else {
+                $.each(response_album_image_list, function (key, value) {
+                    $('#album-image-list').append('<div class="col-sm-6 col-md-6">' +
+                        '<div class="thumbnail" style="height: 280px;">' +
+                        '<div class="caption" style="padding-bottom: 0px;">' +
+                        '<input id="url' + value.id + '" type="text" value="' + io_file + value.file + '" class="form-control">' +
+                        '<span id="msg' + value.id + '"></span>' +
+                        '<p>' +
+                        '<a id="copyBtn' + value.id + '" class="btn btn-warning btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-link"></i> Link Copy</a>' +
+                        '<a id="doRemoveAlbumImage" data-id="' + value.id + '" class="btn btn-danger btn-xs" role="button" style="width: 100%;margin-top: 5px;"><i class="fa fa-trash"></i> Hapus</a>' +
+                        '</p>' +
+                        '<p>' + value.title + '</p>' +
+                        '</div>' +
+                        '<img src="' + io_file + value.file + '" style="padding: 0px 10px 10px 10px;width: 100%;max-height: 260px;">' +
+                        '</div>' +
+                        '</div>');
+
+                    $('#copyBtn' + value.id).click(function () {
+                        copyToClipboardMsg(document.getElementById("url" + value.id), "msg" + value.id);
+                        return false;
+                    });
+                });
+            }
+        });
+    }
+
+    album_image_list();
+
+    $(document).off('click', '#doRemoveAlbumImage').on('click', '#doRemoveAlbumImage', function () {
+        var id = $(this).attr('data-id');
+        var status = confirm("Yakin akan menghapus data ini?");
+        if (status == true) {
+            var album_image_remove = {
+                "async": true,
+                "crossDomain": true,
+                "url": io + "v2/remove_id" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/album_image" +
+                "/appid/" + appid +
+                "/id/" + id,
+                "method": "DELETE",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            }
+
+            $.ajax(album_image_remove).done(function (response_album_image_remove) {
+                $('#content-right').empty();
+
+                var album_form_add = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "album_form_add.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(album_form_add).done(function (response_album_form_add) {
+                    $("#content-right").append(response_album_form_add);
+                    album_image_list();
+                });
+            });
+        }
+        return false;
+    });
+
+    function copyToClipboardMsg(elem, msgElem) {
+        var succeed = copyToClipboard(elem);
+        var msg;
+        if (!succeed) {
+            msg = "Copy not supported or blocked.  Press Ctrl+c to copy."
+        } else {
+            msg = "URL Copied"
+        }
+        if (typeof msgElem === "string") {
+            msgElem = document.getElementById(msgElem);
+        }
+        msgElem.innerHTML = msg;
+        setTimeout(function () {
+            msgElem.innerHTML = "";
+        }, 1000);
+    }
+
+    function copyToClipboard(elem) {
+        // create hidden text element, if it doesn't already exist
+        var targetId = "_hiddenCopyText_";
+        var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+        var origSelectionStart, origSelectionEnd;
+        if (isInput) {
+            // can just use the original source element for the selection and copy
+            target = elem;
+            origSelectionStart = elem.selectionStart;
+            origSelectionEnd = elem.selectionEnd;
+        } else {
+            // must use a temporary form element for the selection and copy
+            target = document.getElementById(targetId);
+            if (!target) {
+                var target = document.createElement("textarea");
+                target.style.position = "absolute";
+                target.style.left = "-9999px";
+                target.style.top = "0";
+                target.id = targetId;
+                document.body.appendChild(target);
+            }
+            target.textContent = elem.textContent;
+        }
+        // select the content
+        var currentFocus = document.activeElement;
+        target.focus();
+        target.setSelectionRange(0, target.value.length);
+
+        // copy the selection
+        var succeed;
+        try {
+            succeed = document.execCommand("copy");
+        } catch (e) {
+            succeed = false;
+        }
+        // restore original focus
+        if (currentFocus && typeof currentFocus.focus === "function") {
+            currentFocus.focus();
+        }
+
+        if (isInput) {
+            // restore prior selection
+            elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+        } else {
+            // clear temporary content
+            target.textContent = "";
+        }
+        return succeed;
+    }
+</script>
