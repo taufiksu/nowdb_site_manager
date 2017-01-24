@@ -91,4 +91,70 @@
 
         return false;
     });
+
+    $('#btn-folder').click(function () {
+        $(".menu-top").css('color', '#777777');
+        $("#menu-top-file").css('color', '#337AB7');
+
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+
+            var file_menu = {
+                "async": true,
+                "crossDomain": true,
+                "url": "file_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(file_menu).done(function (response_file_menu) {
+                $("#content-left").append(response_file_menu);
+
+                var folder_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "folder_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(folder_list).done(function (response_folder_list) {
+                    $("#content-left").append(response_folder_list);
+                });
+            });
+        });
+
+        var folder_form_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": "folder_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(folder_form_add).done(function (response_folder_form_add) {
+            $("#content-right").append(response_folder_form_add);
+        });
+
+        return false;
+    });
 </script>

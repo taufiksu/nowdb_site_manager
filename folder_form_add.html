@@ -1,10 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Input Folder</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitFolder">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Nama Folder</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title" id="title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Status</label>
+            <div class="list-group-item-heading">
+                <select name="status" id="status" class="form-control">
+                    <option value="0">Pribadi</option>
+                    <option value="1">Umum</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#doSubmitFolder').click(function () {
+        var d = new Date();
+        var today = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+
+        var form_folder = new FormData();
+        form_folder.append("token", token);
+        form_folder.append("project", project);
+        form_folder.append("collection", "folder");
+        form_folder.append("appid", appid);
+        form_folder.append("title", $('#title').val());
+        form_folder.append("status", $('#status').val());
+        form_folder.append("date", today);
+
+        var folder_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/insert",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_folder
+        }
+
+        $.ajax(folder_add).done(function (response_folder) {
+            $(".menu-top").css('color', '#777777');
+            $("#menu-top-file").css('color', '#337AB7');
+
+            $("#content-right").empty();
+            $("#content-left").empty();
+
+            var home_weather = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_weather.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_weather).done(function (response_home_weather) {
+                $("#content-left").append(response_home_weather);
+
+                var file_menu = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "file_menu.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(file_menu).done(function (response_file_menu) {
+                    $("#content-left").append(response_file_menu);
+
+                    var folder_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "folder_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(folder_list).done(function (response_folder_list) {
+                        $("#content-left").append(response_folder_list);
+                    });
+                });
+            });
+
+            var folder_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "folder_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(folder_form_add).done(function (response_folder_form_add) {
+                $("#content-right").append(response_folder_form_add);
+            });
+        });
+
+        return false;
+    });
+</script>
