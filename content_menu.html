@@ -13,8 +13,8 @@
                     </h4>
                 </a>
             </div>
-            <div id="btn-article" class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="javascript:void(0)" data-title="Artikel" style="padding-top:35px;">
+            <div class="col-xs-6 col-sm-4">
+                <a id="btn-article" class="bootcards-summary-item" href="javascript:void(0)" data-title="Artikel" style="padding-top:35px;">
                     <i class="fa fa-3x fa-newspaper-o"></i>
                     <h4>
                         Artikel
@@ -22,8 +22,8 @@
                     </h4>
                 </a>
             </div>
-            <div id="btn-agenda" class="col-xs-6 col-sm-4">
-                <a class="bootcards-summary-item" href="javascript:void(0)" data-title="Agenda" style="padding-top:35px;">
+            <div class="col-xs-6 col-sm-4">
+                <a id="btn-agenda" class="bootcards-summary-item" href="javascript:void(0)" data-title="Agenda" style="padding-top:35px;">
                     <i class="fa fa-3x fa-clock-o"></i>
                     <h4>
                         Agenda
@@ -209,6 +209,72 @@
         return false;
     });
 
+    $('#btn-agenda').click(function () {
+        $(".menu-top").css('color', '#777777');
+        $("#menu-top-content").css('color', '#337AB7');
+
+        $("#content-right").empty();
+        $("#content-left").empty();
+
+        var home_weather = {
+            "async": true,
+            "crossDomain": true,
+            "url": "home_weather.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(home_weather).done(function (response_home_weather) {
+            $("#content-left").append(response_home_weather);
+
+            var setting_content = {
+                "async": true,
+                "crossDomain": true,
+                "url": "content_menu.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(setting_content).done(function (response_setting_content) {
+                $("#content-left").append(response_setting_content);
+
+                var agenda_list = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "agenda_list.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(agenda_list).done(function (response_agenda_list) {
+                    $("#content-left").append(response_agenda_list);
+                });
+            });
+        });
+
+        var agenda_form_add = {
+            "async": true,
+            "crossDomain": true,
+            "url": "agenda_form_add.html",
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        };
+
+        $.ajax(agenda_form_add).done(function (response_agenda_form_add) {
+            $("#content-right").append(response_agenda_form_add);
+        });
+
+        return false;
+    });
+
     function total_menu() {
         var total_menu = {
             "async": true,
@@ -259,7 +325,34 @@
         });
     }
 
+    function total_agenda() {
+        var total_agenda = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/select_all" +
+            "/token/" + token +
+            "/project/" + project +
+            "/collection/agenda" +
+            "/appid/" + appid,
+            "method": "GET",
+            "headers": {
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(total_agenda).done(function (response_total_agenda) {
+            if (response_total_agenda.Data == '0') {
+                $('#total-agenda').html('0');
+            } else {
+                var total = response_total_agenda.length;
+                $('#total-agenda').html(total);
+            }
+        });
+    }
+
     total_menu();
 
     total_article();
+
+    total_agenda();
 </script>

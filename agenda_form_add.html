@@ -1,0 +1,149 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" id="title-form-info-agenda">Input Agenda</h3>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success" href="javascript:void(0)" id="doSubmitAgenda">
+                <i class="fa fa-floppy-o"></i>
+                <span>Simpan</span>
+            </a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="list-group-item-text">Judul</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="title" id="title" class="form-control">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Deskripsi</label>
+            <div class="list-group-item-heading">
+                <textarea name="description" id="description" class="form-control" style="resize: vertical;"></textarea>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Tanggal Mulai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="date_start" id="date_start" class="form-control" style="width: 30%">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Waktu Mulai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="time_start" id="time_start" class="form-control" placeholder="HH:MM" style="width: 14%">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Tanggal Selesai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="date_end" id="date_end" class="form-control" style="width: 30%">
+            </div>
+        </div>
+        <div class="list-group-item">
+            <label class="list-group-item-text">Waktu Selesai</label>
+            <div class="list-group-item-heading">
+                <input type="text" name="time_end" id="time_end" class="form-control" placeholder="HH:MM" style="width: 14%">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#date_start").datepicker();
+        $("#date_end").datepicker();
+    });
+
+    $('#doSubmitAgenda').click(function () {
+        $('#title-form-info-agenda').html('Loading..');
+
+        var form_agenda = new FormData();
+        form_agenda.append("token", token);
+        form_agenda.append("project", project);
+        form_agenda.append("collection", "agenda");
+        form_agenda.append("appid", appid);
+        form_agenda.append("user_id", getUserInfo().user_id);
+        form_agenda.append("title", $('#title').val());
+        form_agenda.append("description", $('#description').val());
+        form_agenda.append("date_start", $('#date_start').val());
+        form_agenda.append("time_start", $('#time_start').val());
+        form_agenda.append("date_end", $('#date_end').val());
+        form_agenda.append("time_end", $('#time_end').val());
+
+        var settings_agenda = {
+            "async": true,
+            "crossDomain": true,
+            "url": io + "v2/insert",
+            "method": "POST",
+            "headers": {
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            "contentType": false,
+            "mimeType": "multipart/form-data",
+            "data": form_agenda
+        }
+
+        $.ajax(settings_agenda).done(function (response_agenda) {
+            $("#content-right").empty();
+            $("#content-left").empty();
+
+            var home_weather = {
+                "async": true,
+                "crossDomain": true,
+                "url": "home_weather.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(home_weather).done(function (response_home_weather) {
+                $("#content-left").append(response_home_weather);
+
+                var setting_content = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "content_menu.html",
+                    "method": "GET",
+                    "headers": {
+                        "cache-control": "no-cache"
+                    }
+                };
+
+                $.ajax(setting_content).done(function (response_setting_content) {
+                    $("#content-left").append(response_setting_content);
+
+                    var agenda_list = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "agenda_list.html",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache"
+                        }
+                    };
+
+                    $.ajax(agenda_list).done(function (response_agenda_list) {
+                        $("#content-left").append(response_agenda_list);
+                        $('#title-form-info-agenda').html('Input Agenda');
+                    });
+                });
+            });
+
+            var agenda_form_add = {
+                "async": true,
+                "crossDomain": true,
+                "url": "agenda_form_add.html",
+                "method": "GET",
+                "headers": {
+                    "cache-control": "no-cache"
+                }
+            };
+
+            $.ajax(agenda_form_add).done(function (response_agenda_form_add) {
+                $("#content-right").append(response_agenda_form_add);
+            });
+        });
+        return false;
+    });
+</script>
