@@ -95,9 +95,9 @@
             $.ajax(folder_detail).done(function (response_folder_detail) {
                 $('#title_edit').val(response_folder_detail[0].title);
                 if (response_folder_detail[0].status == '0') {
-                    $('#status_edit').append('<option value="0">Pribadi</option>');
+                    $('#status_edit').prepend('<option value="0">Pribadi</option>');
                 } else {
-                    $('#status_edit').append('<option value="1">Umum</option>');
+                    $('#status_edit').prepend('<option value="1">Umum</option>');
                 }
             });
 
