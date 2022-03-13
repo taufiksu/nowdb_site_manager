@@ -12,13 +12,13 @@
         var setting_slideshow_list = {
             "async": true,
             "crossDomain": true,
-            "url": io + "v2/select_where" +
-            "/token/" + token +
-            "/project/" + project +
-            "/collection/slideshow" +
-            "/appid/" + appid +
-            "/where_field/user_id" +
-            "/where_value/" + getUserInfo().user_id,
+            "url": io + "v4/select_where" +
+                "/token/" + token +
+                "/project/" + project +
+                "/collection/slideshow" +
+                "/appid/" + appid +
+                "/where_field/user_id" +
+                "/where_value/" + getUserInfo().user_id,
             "method": "GET",
             "headers": {
                 "cache-control": "no-cache"
@@ -71,12 +71,12 @@
             var slideshow_remove = {
                 "async": true,
                 "crossDomain": true,
-                "url": io + "v2/remove_id" +
-                "/token/" + token +
-                "/project/" + project +
-                "/collection/slideshow" +
-                "/appid/" + appid +
-                "/id/" + id,
+                "url": io + "v4/remove_id" +
+                    "/token/" + token +
+                    "/project/" + project +
+                    "/collection/slideshow" +
+                    "/appid/" + appid +
+                    "/id/" + id,
                 "method": "DELETE",
                 "headers": {
                     "cache-control": "no-cache"
@@ -99,12 +99,13 @@
         form_slideshow_update.append("collection", "slideshow");
         form_slideshow_update.append("appid", appid);
         form_slideshow_update.append("id", id);
-        form_slideshow_update.append("status", 0);
+        form_slideshow_update.append("update_field", 'status');
+        form_slideshow_update.append("update_value", 0);
 
         var settings_slideshow_update = {
             "async": true,
             "crossDomain": true,
-            "url": io + "v2/update_id",
+            "url": io + "v4/update_id",
             "method": "POST",
             "headers": {
                 "cache-control": "no-cache",
@@ -129,12 +130,13 @@
         form_slideshow_update.append("collection", "slideshow");
         form_slideshow_update.append("appid", appid);
         form_slideshow_update.append("id", id);
-        form_slideshow_update.append("status", 1);
+        form_slideshow_update.append("update_field", 'status');
+        form_slideshow_update.append("update_value", 1);
 
         var settings_slideshow_update = {
             "async": true,
             "crossDomain": true,
-            "url": io + "v2/update_id",
+            "url": io + "v4/update_id",
             "method": "POST",
             "headers": {
                 "cache-control": "no-cache",

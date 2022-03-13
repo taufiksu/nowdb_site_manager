@@ -77,7 +77,7 @@
         var settings_agenda_update = {
             "async": true,
             "crossDomain": true,
-            "url": io + "v2/update_id",
+            "url": io + "v4/update_id",
             "method": "POST",
             "headers": {
                 "cache-control": "no-cache",
@@ -161,7 +161,7 @@
             var agenda_remove = {
                 "async": true,
                 "crossDomain": true,
-                "url": io + "v2/remove_id" +
+                "url": io + "v4/remove_id" +
                 "/token/" + token +
                 "/project/" + project +
                 "/collection/agenda" +

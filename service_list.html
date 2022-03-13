@@ -12,7 +12,7 @@
         var setting_service_list = {
             "async": true,
             "crossDomain": true,
-            "url": io + "v2/select_where" +
+            "url": io + "v4/select_where" +
             "/token/" + token +
             "/project/" + project +
             "/collection/service" +
@@ -71,7 +71,7 @@
             var service_remove = {
                 "async": true,
                 "crossDomain": true,
-                "url": io + "v2/remove_id" +
+                "url": io + "v4/remove_id" +
                 "/token/" + token +
                 "/project/" + project +
                 "/collection/service" +
@@ -104,7 +104,7 @@
         var settings_service_update = {
             "async": true,
             "crossDomain": true,
-            "url": io + "v2/update_id",
+            "url": io + "v4/update_id",
             "method": "POST",
             "headers": {
                 "cache-control": "no-cache",
@@ -134,7 +134,7 @@
         var settings_service_update = {
             "async": true,
             "crossDomain": true,
-            "url": io + "v2/update_id",
+            "url": io + "v4/update_id",
             "method": "POST",
             "headers": {
                 "cache-control": "no-cache",
